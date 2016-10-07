@@ -1,0 +1,13 @@
+node_modules
+npm-debug.log
+.DS_Store
+.idea/
+build/
+dev/
+www/*
+www/**.*
+!www/.gitkeep
+plugins/
+platforms/
+
+/src/app/config.dev.js

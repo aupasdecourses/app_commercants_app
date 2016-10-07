@@ -1,0 +1,61 @@
+import {
+  LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT, NOTIFY_SEND, NOTIFY_RECEIVE
+} from '../constants/ActionTypes';
+
+const initialState = {
+  credentials: {},
+  token: null,
+  isAuthenticating: false,
+  isAuthenticated: false,
+  hasError: false
+};
+
+export default function auth(state = initialState, action) {
+  if (
+    typeof window === 'object' && window.bgBadge &&
+    (action.type === NOTIFY_SEND || action.type === NOTIFY_RECEIVE)
+  ) {
+    window.bgBadge(state.count); return state;
+  }
+
+  switch (action.type) {
+    case LOGIN_REQUEST: {
+      const credentials = {
+        username: action.payload.request.data._username,
+        password: action.payload.request.data._password
+      };
+
+      return {
+        ...state,
+        credentials,
+        isAuthenticating: true,
+      };
+    }
+    case LOGIN_SUCCESS:
+      localStorage.setItem('token', action.payload.data.token);
+
+      return {
+        ...state,
+        token: action.payload.data.token,
+        isAuthenticating: false,
+        isAuthenticated: true,
+        hasError: false
+      };
+    case LOGIN_FAIL:
+      return {
+        ...state,
+        token: null,
+        isAuthenticating: false,
+        isAuthenticated: false,
+        hasError: true
+      };
+    case LOGOUT:
+      return {
+        ...state,
+        token: null,
+        isAuthenticated: false
+      };
+    default:
+      return state;
+  }
+}

@@ -1,0 +1,26 @@
+body {
+	padding-top: 64px !important;
+}
+
+a, a:hover {
+	text-decoration: none;
+}
+
+.floatButton {
+	position: fixed;
+	z-index: 2;
+	bottom: 20px;
+	left: 20px;
+}
+
+.row-nomargin {
+	margin: 0;
+}
+
+[class^="col-xs-"],
+[class^="col-sm-"],
+[class^="col-md-"],
+[class^="col-lg-"] {
+	padding-top: 0.5rem;
+	padding-bottom: 0.5rem;
+}

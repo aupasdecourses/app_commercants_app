@@ -1,0 +1,16 @@
+.login-box {
+	position: absolute;
+	top: 0; bottom: 0; left: 0; right: 0;
+	background-color: #26a546;
+}
+
+.login-title {
+	border-bottom: 5px solid #606060;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+	transition: background-color 5000s ease-in-out 0s, color 5000s ease-in-out 0s;
+}
