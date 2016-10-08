@@ -5,7 +5,7 @@ export function login(credential) {
     type: LOGIN_REQUEST,
     payload: {
       request: {
-        url: '/login_check',
+        url: '/login',
         method: 'POST',
         data: credential
       }

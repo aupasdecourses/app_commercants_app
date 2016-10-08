@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { FormattedMessage } from 'react-intl';
 
-import { CircularProgress, FlatButton, TextField } from 'material-ui';
+import { CircularProgress, FlatButton, TextField, Snackbar } from 'material-ui';
 import { Card, CardActions, CardTitle, CardText } from 'material-ui/Card';
 import { Row, Col } from 'react-flexbox-grid/lib';
 
@@ -25,7 +25,7 @@ class Login extends Component {
   }
 
   render() {
-    const { isAuthenticating } = this.props;
+    const { isAuthenticating, hasError } = this.props;
 
     return (
       <Row center="xs" middle="xs" className="login-box">
@@ -71,6 +71,11 @@ class Login extends Component {
             </CardActions>
           </Card>
         </Col>
+        <Snackbar
+          open={hasError}
+          message={<FormattedMessage id="Username or password incorrect" />}
+          autoHideDuration={4000}
+        />
       </Row>
     );
   }

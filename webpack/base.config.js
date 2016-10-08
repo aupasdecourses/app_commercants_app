@@ -37,7 +37,13 @@ const baseConfig = ({ input, output = {}, globals = {}, plugins, loaders }) => (
       }]),
       {
         test: /\.css?$/,
-        loaders: ['style', 'raw']
+        loaders: ['style', 'raw'],
+        exclude: /flexboxgrid/
+      },
+      {
+        test: /\.css$/,
+        loader: 'style!css?modules&importLoaders=1&localIdentName=[local]',
+        include: /flexboxgrid/
       }
     ]
   }
