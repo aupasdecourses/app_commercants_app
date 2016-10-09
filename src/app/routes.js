@@ -2,11 +2,11 @@ import React from 'react';
 import { Route, IndexRoute } from 'react-router';
 
 import App from './containers/App';
-import CounterPage from './containers/CounterPage';
+import DashboardPage from './containers/DashboardPage';
 
 export default (
   <Route path="/" component={App}>
-    <IndexRoute component={CounterPage} />
-    <Route path="/counter" component={CounterPage} />
+    <IndexRoute component={DashboardPage} />
+    <Route path="/dashboard" component={DashboardPage} />
   </Route>
 );
