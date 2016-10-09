@@ -18,9 +18,9 @@ const appConfig = {
       name: 'Dashboard',
       linkTo: '/'
     }, {
-      name: 'Counter',
-      linkTo: '/counter'
-    },
+      name: 'Products',
+      linkTo: '/products'
+    }
   ]
 };
 
@@ -52,21 +52,21 @@ class App extends Component {
 
     return (
       <div>
-        {isAuthenticated ?
+        {!isAuthenticated ?
           <Header title={appConfig.title} toggleMenu={this.toggleMenu} /> : ''}
-        {isAuthenticated ?
+        {!isAuthenticated ?
           <Menu
             items={appConfig.menuItems}
             open={this.state.openMenu}
             requestChange={(open) => this.setState({ openMenu: open })}
           /> : ''}
-        {isAuthenticated ?
+        {!isAuthenticated ?
           <div>
             {loader}
             {children}
           </div> :
           <LoginPage />}
-        {isAuthenticated ?
+        {!isAuthenticated ?
           <Footer /> : ''}
       </div>
     );
