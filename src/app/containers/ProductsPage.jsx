@@ -1,4 +1,5 @@
 import React from 'react';
+import './ProductsPage.css';
 
 class ProductsPage extends React.Component {
   constructor(props) {
@@ -61,26 +62,26 @@ class ProductsPage extends React.Component {
     ];
 
     return (
-      <div>
+      <div className="product-container">
         <table>
           <tr>
             {this.state.columns.status === 1 ?
-                <td onClick={() => this.onClick('status')}>Dispo chez APDC</td> : ''
+              <th onClick={() => this.onClick('status')}>Dispo chez APDC</th> : ''
             }
             {this.state.columns.name === 1 ?
-              <td onClick={() => this.onClick('name')}>Nom du produit</td> : ''
+              <th onClick={() => this.onClick('name')}>Nom du produit</th> : ''
             }
             {this.state.columns.type === 1 ?
-              <td onClick={() => this.onClick('type')}>Unité prix</td> : ''
+              <th onClick={() => this.onClick('type')}>Unité prix</th> : ''
             }
             {this.state.columns.price === 1 ?
-              <td onClick={() => this.onClick('price')}>Prix TTC public</td> : ''
+              <th onClick={() => this.onClick('price')}>Prix TTC public</th> : ''
             }
             {this.state.columns.description === 1 ?
-              <td onClick={() => this.onClick('description')}>Description portion</td> : ''
+              <th onClick={() => this.onClick('description')}>Description portion</th> : ''
             }
             {this.state.columns.origin === 1 ?
-              <td onClick={() => this.onClick('origin')}>Origine</td> : ''
+              <th onClick={() => this.onClick('origin')}>Origine</th> : ''
             }
           </tr>
           {fakeData.map(data => (
