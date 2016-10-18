@@ -12,15 +12,21 @@ import LoginPage from 'app/containers/LoginPage';
 import './App.css';
 
 const appConfig = {
-  title: 'Counter',
+  title: 'Au Pas De Courses',
   menuItems: [
     {
       name: 'Dashboard',
       linkTo: '/'
     }, {
-      name: 'Products',
+      name: 'Produits',
       linkTo: '/products'
-    }
+    }, {
+      name: 'Nouvel utilisateur',
+      linkTo: '/users/new'
+    }, {
+      name: 'Profil',
+      linkTo: '/profile'
+    },
   ]
 };
 
@@ -33,6 +39,14 @@ class App extends Component {
     };
 
     this.toggleMenu = this.toggleMenu.bind(this);
+  }
+
+  componentWillMount() {
+    const auth = this.props.auth;
+
+    if (!auth || auth.expire < Date.now()) {
+      this.props.logout();
+    }
   }
 
   toggleMenu() {
@@ -52,21 +66,21 @@ class App extends Component {
 
     return (
       <div>
-        {!isAuthenticated ?
+        {isAuthenticated ?
           <Header title={appConfig.title} toggleMenu={this.toggleMenu} /> : ''}
-        {!isAuthenticated ?
+        {isAuthenticated ?
           <Menu
             items={appConfig.menuItems}
             open={this.state.openMenu}
             requestChange={(open) => this.setState({ openMenu: open })}
           /> : ''}
-        {!isAuthenticated ?
+        {isAuthenticated ?
           <div>
             {loader}
             {children}
           </div> :
           <LoginPage />}
-        {!isAuthenticated ?
+        {isAuthenticated ?
           <Footer /> : ''}
       </div>
     );
@@ -74,6 +88,7 @@ class App extends Component {
 }
 
 App.propTypes = {
+  auth: PropTypes.object,
   children: PropTypes.element.isRequired,
   isFetching: PropTypes.bool,
   isAuthenticated: PropTypes.bool,
@@ -81,7 +96,9 @@ App.propTypes = {
 
 function mapStateToProps(state) {
   return {
-    isFetching: state.profile.isFetching,
+    auth: state.auth,
+    // TODO: use a fetching reducer
+    isFetching: state.profile.isFetching || state.products.isFetching,
     isAuthenticated: state.auth.isAuthenticated,
   };
 }

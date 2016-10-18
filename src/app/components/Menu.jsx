@@ -8,7 +8,7 @@ const Menu = ({ items, open, requestChange }) => (
     open={open}
     onRequestChange={(o) => requestChange(o)}
   >
-    <AppBar title="Title" showMenuIconButton={false} />
+    <AppBar title="APDC" showMenuIconButton={false} />
     {items.map((item) => (
       <Link key={item.name} to={item.linkTo} onClick={() => requestChange(false)}>
         <MenuItem>{item.name}</MenuItem>

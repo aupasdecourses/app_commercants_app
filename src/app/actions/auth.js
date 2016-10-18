@@ -1,6 +1,28 @@
 import { LOGIN_REQUEST, LOGOUT } from '../constants/ActionTypes';
 
-export function login(credential) {
+import globalConfig from '../config';
+
+function loginOAuth(credential, type) {
+  const data = {
+    ...credential,
+    grant_type: type,
+    client_id: globalConfig.auth.clientId,
+    client_secret: globalConfig.auth.clientSecret,
+  };
+
+  return {
+    type: LOGIN_REQUEST,
+    payload: {
+      request: {
+        url: '/oauth/v2/token',
+        method: 'POST',
+        data
+      }
+    }
+  };
+}
+
+function loginJwt(credential) {
   return {
     type: LOGIN_REQUEST,
     payload: {
@@ -13,8 +35,15 @@ export function login(credential) {
   };
 }
 
+export function login(credential, type = 'password') {
+  if (globalConfig.auth.type === 'oauth') {
+    return loginOAuth(credential, type);
+  }
+
+  return loginJwt(credential);
+}
+
 export function logout() {
-  localStorage.removeItem('token');
   return {
     type: LOGOUT
   };

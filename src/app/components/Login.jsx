@@ -18,7 +18,6 @@ class Login extends Component {
     const credential = {
       username: this.username.input.value,
       password: this.password.input.value,
-      remember: true
     };
 
     this.props.login(credential);
