@@ -3,10 +3,14 @@ import { Route, IndexRoute } from 'react-router';
 
 import App from './containers/App';
 import Dashboard from './containers/DashboardPage';
-import CreateUser from './containers/CreateUserPage';
 import Profile from './containers/ProfilePage';
 import Products from './containers/Product/ListPage';
 import ProductCreate from './containers/Product/CreatePage';
+import ProductEdit from './containers/Product/EditPage';
+import ProductsSettings from './containers/Product/SettingsPage';
+import Users from './containers/User/ListPage';
+import UserCreate from './containers/User/CreatePage';
+import UserEdit from './containers/User/EditPage';
 
 export default (
   <Route path="/" component={App}>
@@ -14,9 +18,14 @@ export default (
     <Route path="products">
       <IndexRoute component={Products} />
       <Route path="new" component={ProductCreate} />
-      <Route path=":id/edit" component={ProductCreate} />
+      <Route path=":id/edit" component={ProductEdit} />
+      <Route path="settings" component={ProductsSettings} />
     </Route>
-    <Route path="users/new" component={CreateUser} />
+    <Route path="users">
+      <IndexRoute component={Users} />
+      <Route path="new" component={UserCreate} />
+      <Route path=":id/edit" component={UserEdit} />
+    </Route>
     <Route path="profile" component={Profile} />
   </Route>
 );

@@ -105,6 +105,7 @@
     "chrome-storage-local": "^0.1.5",
     "crossmessaging": "^0.2.0",
     "fastclick": "^1.0.6",
+    "formsy-material-ui": "^0.5.1",
     "formsy-react": "^0.18.1",
     "intl": "^1.2.4",
     "material-ui": "^0.15.4",

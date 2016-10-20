@@ -1,4 +1,12 @@
+@font-face {
+	font-family: 'Roboto';
+	font-style: normal;
+	font-weight: 400;
+	src: local('Roboto'), local('Roboto-Regular'), url('fonts/roboto.woff2') format('woff2');
+}
+
 body {
+	font-family: 'Roboto', sans-serif;
 	padding-top: 64px !important;
 }
 
@@ -10,7 +18,17 @@ a, a:hover {
 	position: fixed;
 	z-index: 2;
 	bottom: 20px;
-	left: 20px;
+	right: 20px;
+}
+
+.fullLoader {
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background: rgba(255,255,255,0.6);
+	z-index: 1;
 }
 
 .row-nomargin {

@@ -1,4 +1,4 @@
-import { PROFILE_REQUEST } from '../constants/ActionTypes';
+import { PROFILE_REQUEST, PROFILE_SAVE_REQUEST } from '../constants/ActionTypes';
 
 export function fetchProfile() {
   return {
@@ -9,5 +9,18 @@ export function fetchProfile() {
         method: 'GET'
       }
     }
+  };
+}
+
+export function saveProfile(data) {
+  return {
+    type: PROFILE_SAVE_REQUEST,
+    payload: {
+      request: {
+        url: '/profile',
+        method: 'PUT',
+        data,
+      },
+    },
   };
 }

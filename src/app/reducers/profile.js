@@ -25,7 +25,7 @@ export default function profile(state = initialState, action) {
     case PROFILE_SUCCESS:
       return {
         ...state,
-        item: action.payload.data.user,
+        item: action.payload.data,
         isFetching: false,
         hasError: false
       };

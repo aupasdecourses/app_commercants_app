@@ -1,9 +1,6 @@
 export const NOTIFY_SEND = 'notify/SEND';
 export const NOTIFY_RECEIVE = 'notify/RECEIVE';
 
-export const INCREMENT_COUNTER = 'INCREMENT_COUNTER';
-export const DECREMENT_COUNTER = 'DECREMENT_COUNTER';
-
 export const LOGIN_REQUEST = 'LOGIN';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_FAIL = 'LOGIN_FAIL';
@@ -12,6 +9,10 @@ export const LOGOUT = 'LOGOUT';
 export const PROFILE_REQUEST = 'PROFILE';
 export const PROFILE_SUCCESS = 'PROFILE_SUCCESS';
 export const PROFILE_FAIL = 'PROFILE_FAIL';
+
+export const PROFILE_SAVE_REQUEST = 'PROFILE_SAVE';
+export const PROFILE_SAVE_SUCCESS = 'PROFILE_SAVE_SUCCESS';
+export const PROFILE_SAVE_FAIL = 'PROFILE_SAVE_FAIL';
 
 export const PRODUCTS_REQUEST = 'PRODUCTS';
 export const PRODUCTS_SUCCESS = 'PRODUCTS_SUCCESS';
@@ -24,3 +25,15 @@ export const PRODUCT_FAIL = 'PRODUCT_FAIL';
 export const PRODUCT_SAVE_REQUEST = 'PRODUCT_SAVE';
 export const PRODUCT_SAVE_SUCCESS = 'PRODUCT_SAVE_SUCCESS';
 export const PRODUCT_SAVE_FAIL = 'PRODUCT_SAVE_FAIL';
+
+export const USERS_REQUEST = 'USERS';
+export const USERS_SUCCESS = 'USERS_SUCCESS';
+export const USERS_FAIL = 'USERS_FAIL';
+
+export const USER_REQUEST = 'USER';
+export const USER_SUCCESS = 'USER_SUCCESS';
+export const USER_FAIL = 'USER_FAIL';
+
+export const USER_SAVE_REQUEST = 'USER_SAVE';
+export const USER_SAVE_SUCCESS = 'USER_SAVE_SUCCESS';
+export const USER_SAVE_FAIL = 'USER_SAVE_FAIL';

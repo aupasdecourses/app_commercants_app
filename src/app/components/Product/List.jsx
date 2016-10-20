@@ -17,23 +17,21 @@ const List = ({ items, columns }) => {
     >
       <TableHeader adjustForCheckbox={false} displaySelectAll={false}>
         <TableRow>
-          {columns.name === 1 ?
-            <TableHeaderColumn onClick={() => onClick('name')}>Nom</TableHeaderColumn> : ''
-          }
+          {columns.name === 1 && <TableHeaderColumn onClick={() => onClick('name')}>Nom</TableHeaderColumn>}
           {columns.status === 1 ?
-            <TableHeaderColumn onClick={() => onClick('status')}>Disponible</TableHeaderColumn> : ''
+            <TableHeaderColumn onClick={() => onClick('status')}>Dispo.</TableHeaderColumn> : ''
           }
           {columns.price === 1 ?
-            <TableHeaderColumn onClick={() => onClick('price')}>Prix TTC</TableHeaderColumn> : ''
+            <TableHeaderColumn onClick={() => onClick('price')}>Prix</TableHeaderColumn> : ''
           }
           {columns.type === 1 ?
-            <TableHeaderColumn onClick={() => onClick('type')}>Unité prix</TableHeaderColumn> : ''
+            <TableHeaderColumn onClick={() => onClick('type')}>Unité</TableHeaderColumn> : ''
           }
           {/* columns.description === 1 ?
-           <th onClick={() => this.onClick('description')}>Description portion</th> : ''
+           <TableHeaderColumn onClick={() => this.onClick('description')}>Description portion</TableHeaderColumn> : ''
            */}
           {/* columns.origin === 1 ?
-           <th onClick={() => this.onClick('origin')}>Origine</th> : ''
+           <TableHeaderColumn onClick={() => this.onClick('origin')}>Origine</TableHeaderColumn> : ''
            */}
         </TableRow>
       </TableHeader>

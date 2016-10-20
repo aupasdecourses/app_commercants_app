@@ -6,7 +6,7 @@ if (!window.Intl) {
   require('intl');
 }
 
-import { IntlProvider } from 'react-intl';
+import { addLocaleData, IntlProvider } from 'react-intl';
 
 import ThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
@@ -21,13 +21,16 @@ const customTheme = {
 import routes from '../routes';
 import locales from '../i18n/locales';
 
-let locale = navigator.language.substr(0, 2) || 'en';
+let locale = navigator.language.substr(0, 2) || 'fr';
 
 if (locales.indexOf(locale) === -1) {
-  locale = 'en';
+  locale = 'fr';
 }
 
+const lang = require(`react-intl/locale-data/${locale}`);
 const messages = require(`../i18n/${locale}.i18n`);
+
+addLocaleData([...lang]);
 
 const Root = ({ history, store }) => (
   <ThemeProvider muiTheme={getMuiTheme(customTheme)}>

@@ -68,6 +68,7 @@ class TextInput extends Component {
       validations, setValidations, validationError, validationErrors,
       getErrorMessage, getErrorMessages, showError, showRequired,
       isFormDisabled, isFormSubmitted,
+      initialValue,
       ...otherProps } = this.props;
 
     return (
@@ -85,7 +86,7 @@ class TextInput extends Component {
 }
 
 TextInput.propTypes = {
-  initialValue: PropTypes.string,
+  initialValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 };
 
 export default HOC(TextInput);

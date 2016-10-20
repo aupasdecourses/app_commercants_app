@@ -11,13 +11,17 @@ class ProfilePage extends Component {
     this.props.fetchProfile();
   }
 
+  submit(model) {
+    this.props.saveProfile(model);
+  }
+
   render() {
     const { profile, isFetching } = this.props;
 
     return (
       <Grid fluid>
         {!isFetching ?
-          <Profile profile={profile} onSave={() => {}} /> : ''
+          <Profile profile={profile} onSubmit={(model) => this.submit(model)} /> : ''
         }
       </Grid>
     );

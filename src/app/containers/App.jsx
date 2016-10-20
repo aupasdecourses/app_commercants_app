@@ -21,8 +21,8 @@ const appConfig = {
       name: 'Produits',
       linkTo: '/products'
     }, {
-      name: 'Nouvel utilisateur',
-      linkTo: '/users/new'
+      name: 'Utilisateurs',
+      linkTo: '/users'
     }, {
       name: 'Profil',
       linkTo: '/profile'
@@ -59,10 +59,12 @@ class App extends Component {
     const { children, isFetching, isAuthenticated } = this.props;
 
     const loader = isFetching ?
-      <CircularProgress
-        style={{ position: 'fixed', left: 0, right: 0, top: '45%', margin: '0 auto' }}
-        size={2}
-      /> : '';
+      <div className="fullLoader">
+        <CircularProgress
+          style={{ position: 'fixed', left: 0, right: 0, top: '45%', margin: '0 auto' }}
+          size={2}
+        />
+      </div> : '';
 
     return (
       <div>
@@ -98,7 +100,7 @@ function mapStateToProps(state) {
   return {
     auth: state.auth,
     // TODO: use a fetching reducer
-    isFetching: state.profile.isFetching || state.products.isFetching,
+    isFetching: state.profile.isFetching || state.ui.fetching,
     isAuthenticated: state.auth.isAuthenticated,
   };
 }

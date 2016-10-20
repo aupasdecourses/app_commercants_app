@@ -5,14 +5,13 @@ import { Link } from 'react-router';
 import {
   Toolbar, ToolbarGroup, ToolbarTitle,
 } from 'material-ui/Toolbar';
+import { FloatingActionButton } from 'material-ui';
 import RaisedButton from 'material-ui/RaisedButton';
-import ContentAddIcon from 'material-ui/svg-icons/content/add-circle-outline';
-import { Grid } from 'react-flexbox-grid/lib';
+import ContentAddIcon from 'material-ui/svg-icons/content/add';
+import ActionSettingsIcon from 'material-ui/svg-icons/action/settings';
 
 import * as ProductActions from '../../actions/product';
 import List from '../../components/Product/List';
-
-import './ListPage.css';
 
 class ListPage extends Component {
   constructor(props) {
@@ -45,22 +44,28 @@ class ListPage extends Component {
 
   render() {
     return (
-      <Grid fluid className="product-container">
+      <div>
         <Toolbar>
           <ToolbarGroup >
             <ToolbarTitle text="Liste produits" />
           </ToolbarGroup>
           <ToolbarGroup>
             <RaisedButton
-              containerElement={<Link to="/products/new" />}
-              label="Nouveau"
-              icon={<ContentAddIcon />}
+              containerElement={<Link to="/products/settings" />}
+              label="Options"
+              icon={<ActionSettingsIcon />}
               secondary
             />
           </ToolbarGroup>
         </Toolbar>
+        <FloatingActionButton
+          className="floatButton"
+          containerElement={<Link to="/products/new" />}
+        >
+          <ContentAddIcon />
+        </FloatingActionButton>
         {this.props.hasFetched && <List items={this.props.items} columns={this.state.columns} />}
-      </Grid>
+      </div>
     );
   }
 }
