@@ -1,3 +1,23 @@
+# APDC Merchant
+
+This app based on a custom version of CrossBuilder boilerplate.
+
+## Before started
+You should copy config.dev.sample.js to config.dev.js and change the config inside.
+
+## Libraries
+ - [formsy-react](https://github.com/christianalfoni/formsy-react)
+    - Formsy validation form for React
+ - [material-ui](http://www.material-ui.com/)
+    - Google Material UI for React
+ - [react-flexbox-grid](https://github.com/roylee0704/react-flexbox-grid)
+    - Responsive flexbox grid for React
+ - [react-intl](https://github.com/yahoo/react-intl)
+   - Intl localisation for React
+ - [redux-axios-middleware](https://github.com/svrcekmichal/redux-axios-middleware)
+    - Redux middleware for Axios
+
+
 # CrossBuilder
 
 [![Build Status](https://travis-ci.org/zalmoxisus/crossbuilder.svg)](https://travis-ci.org/zalmoxisus/crossbuilder)  [![Build status Windows](https://ci.appveyor.com/api/projects/status/83c3h264p0li62kl?svg=true)](https://ci.appveyor.com/project/zalmoxisus/crossbuilder) [![bitHound Score](https://www.bithound.io/github/zalmoxisus/crossbuilder/badges/score.svg)](https://www.bithound.io/github/zalmoxisus/crossbuilder) [![Dependency Status](https://david-dm.org/zalmoxisus/crossbuilder.svg)](https://david-dm.org/zalmoxisus/crossbuilder) [![devDependency Status](https://david-dm.org/zalmoxisus/crossbuilder/dev-status.svg)](https://david-dm.org/zalmoxisus/crossbuilder#info=devDependencies)
