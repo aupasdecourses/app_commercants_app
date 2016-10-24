@@ -21,8 +21,8 @@ export default function auth(state = initialState, action) {
   switch (action.type) {
     case LOGIN_REQUEST: {
       const credentials = {
-        username: action.payload.request.data._username,
-        password: action.payload.request.data._password
+        username: action.payload.request.data.username,
+        password: action.payload.request.data.password
       };
 
       return {

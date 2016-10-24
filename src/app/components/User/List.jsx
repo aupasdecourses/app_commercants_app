@@ -4,6 +4,8 @@ import { Link } from 'react-router';
 import {
   Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn,
 } from 'material-ui/Table';
+import RaisedButton from 'material-ui/RaisedButton';
+import StoreIcon from 'material-ui/svg-icons/action/store';
 
 const List = ({ items }) => {
   return (
@@ -15,6 +17,7 @@ const List = ({ items }) => {
           <TableHeaderColumn>Magasin</TableHeaderColumn>
           <TableHeaderColumn>Email</TableHeaderColumn>
           <TableHeaderColumn>Mobile</TableHeaderColumn>
+          <TableHeaderColumn>Produits</TableHeaderColumn>
         </TableRow>
       </TableHeader>
       <TableBody stripedRows displayRowCheckbox={false}>
@@ -26,6 +29,13 @@ const List = ({ items }) => {
               </TableRowColumn>
               <TableRowColumn>{item.email}</TableRowColumn>
               <TableRowColumn>{item.mobile}</TableRowColumn>
+              <TableRowColumn>
+                <RaisedButton
+                  containerElement={<Link to={{ pathname: '/products', query: { user: item.id } }} />}
+                  icon={<StoreIcon />}
+                  secondary
+                />
+              </TableRowColumn>
             </TableRow>
           )) :
           <TableRow><TableRowColumn>Aucun utilisateur</TableRowColumn></TableRow>

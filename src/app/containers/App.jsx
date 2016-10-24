@@ -13,21 +13,32 @@ import './App.css';
 
 const appConfig = {
   title: 'Au Pas De Courses',
-  menuItems: [
-    {
-      name: 'Dashboard',
-      linkTo: '/'
-    }, {
-      name: 'Produits',
-      linkTo: '/products'
-    }, {
-      name: 'Utilisateurs',
-      linkTo: '/users'
-    }, {
-      name: 'Profil',
-      linkTo: '/profile'
-    },
-  ]
+  menuItems: {
+    ROLE_USER: [
+      {
+        name: 'Dashboard',
+        linkTo: '/'
+      }, {
+        name: 'Mes produits',
+        linkTo: '/products'
+      }, {
+        name: 'Mon profil',
+        linkTo: '/profile'
+      },
+    ],
+    ROLE_ADMIN: [
+      {
+        name: 'Dashboard',
+        linkTo: '/'
+      }, {
+        name: 'Produits',
+        linkTo: '/products'
+      }, {
+        name: 'Utilisateurs',
+        linkTo: '/users'
+      },
+    ]
+  }
 };
 
 class App extends Component {
@@ -39,6 +50,10 @@ class App extends Component {
     };
 
     this.toggleMenu = this.toggleMenu.bind(this);
+  }
+
+  getChildContext() {
+    return { role: this.props.role };
   }
 
   componentWillMount() {
@@ -68,29 +83,34 @@ class App extends Component {
 
     return (
       <div>
-        {isAuthenticated ?
-          <Header title={appConfig.title} toggleMenu={this.toggleMenu} /> : ''}
-        {isAuthenticated ?
+        {isAuthenticated &&
+          <Header title={appConfig.title} toggleMenu={this.toggleMenu} />}
+        {isAuthenticated &&
           <Menu
-            items={appConfig.menuItems}
+            items={appConfig.menuItems[this.props.role]}
             open={this.state.openMenu}
             requestChange={(open) => this.setState({ openMenu: open })}
-          /> : ''}
+          />}
         {isAuthenticated ?
           <div>
             {loader}
             {children}
           </div> :
           <LoginPage />}
-        {isAuthenticated ?
-          <Footer /> : ''}
+        {isAuthenticated &&
+          <Footer />}
       </div>
     );
   }
 }
 
+App.childContextTypes = {
+  role: PropTypes.string,
+};
+
 App.propTypes = {
   auth: PropTypes.object,
+  role: PropTypes.string,
   children: PropTypes.element.isRequired,
   isFetching: PropTypes.bool,
   isAuthenticated: PropTypes.bool,
@@ -99,9 +119,9 @@ App.propTypes = {
 function mapStateToProps(state) {
   return {
     auth: state.auth,
-    // TODO: use a fetching reducer
+    role: state.profile.role,
     isFetching: state.profile.isFetching || state.ui.fetching,
-    isAuthenticated: state.auth.isAuthenticated,
+    isAuthenticated: state.auth.isAuthenticated && state.profile.hasFetched,
   };
 }
 

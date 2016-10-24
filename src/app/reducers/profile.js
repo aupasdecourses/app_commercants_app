@@ -4,7 +4,9 @@ import {
 
 const initialState = {
   item: {},
+  role: null,
   isFetching: false,
+  hasFetched: false,
   hasError: false
 };
 
@@ -20,13 +22,16 @@ export default function profile(state = initialState, action) {
     case PROFILE_REQUEST:
       return {
         ...state,
-        isFetching: true
+        isFetching: true,
+        hasFetched: false,
       };
     case PROFILE_SUCCESS:
       return {
         ...state,
         item: action.payload.data,
+        role: action.payload.data.roles ? action.payload.data.roles[0] : 'ROLE_USER',
         isFetching: false,
+        hasFetched: true,
         hasError: false
       };
     case PROFILE_FAIL:

@@ -14,6 +14,13 @@ a, a:hover {
 	text-decoration: none;
 }
 
+h4 {
+	border: 1px solid #000;
+	border-width: 2px 0;
+	padding: 2px 0;
+	margin: 15px 0 2px 0;
+}
+
 .floatButton {
 	position: fixed;
 	z-index: 2;

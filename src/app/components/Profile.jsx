@@ -54,25 +54,31 @@ class Profile extends Component {
               floatingLabelText="Prénom"
               initialValue={profile.first_name}
               fullWidth
-            /><br />
+            />
             <TextInput
               name="lastName"
               floatingLabelText="Nom"
               initialValue={profile.last_name}
               fullWidth
-            /><br />
+            />
             <TextInput
               name="shopName"
               floatingLabelText="Magasin"
               initialValue={profile.shop_name}
               fullWidth
-            /><br />
+            />
             <TextInput
               name="email"
               floatingLabelText="Email"
               initialValue={profile.email}
               fullWidth
-            /><br />
+            />
+            <TextInput
+              name="phone"
+              floatingLabelText="Téléphone"
+              initialValue={profile.phone}
+              fullWidth
+            />
             <TextInput
               name="mobile"
               floatingLabelText="Mobile"
@@ -87,13 +93,13 @@ class Profile extends Component {
               initialValue={profile.address}
               multiLine
               fullWidth
-            /><br />
+            />
             <TextInput
               name="zip"
               floatingLabelText="Code postal"
               initialValue={profile.zip}
               fullWidth
-            /><br />
+            />
             <TextInput
               name="city"
               floatingLabelText="Ville"

@@ -3,14 +3,15 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 
 import {
-  Toolbar, ToolbarGroup, ToolbarTitle,
+  Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle
 } from 'material-ui/Toolbar';
-import { FloatingActionButton } from 'material-ui';
-import RaisedButton from 'material-ui/RaisedButton';
-import ContentAddIcon from 'material-ui/svg-icons/content/add';
+import { FloatingActionButton, RaisedButton } from 'material-ui';
+import AddIcon from 'material-ui/svg-icons/content/add';
+import FormatLineIcon from 'material-ui/svg-icons/editor/format-line-spacing';
 import ActionSettingsIcon from 'material-ui/svg-icons/action/settings';
 
 import * as ProductActions from '../../actions/product';
+import Filters from '../../components/Product/Filters';
 import List from '../../components/Product/List';
 
 class ListPage extends Component {
@@ -23,23 +24,24 @@ class ListPage extends Component {
         name: 1,
         type: 1,
         price: 1,
-        description: 1,
-        origin: 1,
-      }
+        portionNumber: 1,
+        description: 0,
+        origin: 0,
+      },
+      showFilters: false,
     };
-
-    this.onClick = this.onClick.bind(this);
   }
 
   componentWillMount() {
-    this.props.fetchProducts();
+    if (this.props.location.query) {
+      this.props.fetchProducts(this.props.location.query);
+    } else {
+      this.props.fetchProducts();
+    }
   }
 
-  onClick(column) {
-    const columns = this.state.columns;
-    columns[column] = 0;
-
-    this.setState({ columns });
+  onFilters(filters) {
+    this.props.fetchProducts(filters);
   }
 
   render() {
@@ -50,6 +52,14 @@ class ListPage extends Component {
             <ToolbarTitle text="Liste produits" />
           </ToolbarGroup>
           <ToolbarGroup>
+            <ToolbarTitle text="Filtres" />
+            <FormatLineIcon
+              style={{ cursor: 'pointer', paddingLeft: 24, marginTop: 16 }}
+              color={this.context.muiTheme.toolbar.iconColor}
+              hoverColor={this.context.muiTheme.toolbar.hoverColor}
+              onClick={() => this.setState({ showFilters: !this.state.showFilters })}
+            />
+            <ToolbarSeparator />
             <RaisedButton
               containerElement={<Link to="/products/settings" />}
               label="Options"
@@ -62,13 +72,21 @@ class ListPage extends Component {
           className="floatButton"
           containerElement={<Link to="/products/new" />}
         >
-          <ContentAddIcon />
+          <AddIcon />
         </FloatingActionButton>
-        {this.props.hasFetched && <List items={this.props.items} columns={this.state.columns} />}
+        {this.state.showFilters &&
+          <Filters onSubmit={(filters) => this.onFilters(filters)} />}
+        {this.props.hasFetched &&
+          <List items={this.props.items} columns={this.state.columns} />}
       </div>
     );
   }
 }
+
+ListPage.contextTypes = {
+  role: PropTypes.string,
+  muiTheme: PropTypes.object.isRequired,
+};
 
 ListPage.propTypes = {
   items: PropTypes.array,
