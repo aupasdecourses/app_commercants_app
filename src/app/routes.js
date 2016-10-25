@@ -7,7 +7,6 @@ import Profile from './containers/ProfilePage';
 import Products from './containers/Product/ListPage';
 import ProductCreate from './containers/Product/CreatePage';
 import ProductEdit from './containers/Product/EditPage';
-import ProductsSettings from './containers/Product/SettingsPage';
 import Users from './containers/User/ListPage';
 import UserCreate from './containers/User/CreatePage';
 import UserEdit from './containers/User/EditPage';
@@ -19,7 +18,6 @@ export default (
       <IndexRoute component={Products} />
       <Route path="new" component={ProductCreate} />
       <Route path=":id/edit" component={ProductEdit} />
-      <Route path="settings" component={ProductsSettings} />
     </Route>
     <Route path="users">
       <IndexRoute component={Users} />

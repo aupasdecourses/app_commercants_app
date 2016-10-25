@@ -3,16 +3,21 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 
 import {
+  AppBar, Checkbox, Divider, Drawer, FloatingActionButton, RaisedButton, Subheader
+} from 'material-ui';
+import {
+  List, ListItem
+} from 'material-ui/List';
+import {
   Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle
 } from 'material-ui/Toolbar';
-import { FloatingActionButton, RaisedButton } from 'material-ui';
 import AddIcon from 'material-ui/svg-icons/content/add';
 import FormatLineIcon from 'material-ui/svg-icons/editor/format-line-spacing';
 import ActionSettingsIcon from 'material-ui/svg-icons/action/settings';
 
 import * as ProductActions from '../../actions/product';
 import Filters from '../../components/Product/Filters';
-import List from '../../components/Product/List';
+import ProductList from '../../components/Product/List';
 
 class ListPage extends Component {
   constructor(props) {
@@ -20,15 +25,17 @@ class ListPage extends Component {
 
     this.state = {
       columns: {
-        status: 1,
-        name: 1,
-        type: 1,
-        price: 1,
-        portionNumber: 1,
-        description: 0,
-        origin: 0,
+        status: true,
+        name: true,
+        type: true,
+        price: true,
+        portionNumber: true,
+        description: false,
+        origin: false,
+        bio: false,
       },
       showFilters: false,
+      showOptions: false,
     };
   }
 
@@ -61,7 +68,7 @@ class ListPage extends Component {
             />
             <ToolbarSeparator />
             <RaisedButton
-              containerElement={<Link to="/products/settings" />}
+              onTouchTap={() => this.setState({ showOptions: !this.state.showOptions })}
               label="Options"
               icon={<ActionSettingsIcon />}
               secondary
@@ -74,10 +81,37 @@ class ListPage extends Component {
         >
           <AddIcon />
         </FloatingActionButton>
+        <Drawer
+          docked={false}
+          openSecondary
+          open={this.state.showOptions}
+          onRequestChange={(open) => this.setState({ showOptions: open })}
+        >
+          <AppBar title="Options" showMenuIconButton={false} />
+          <List>
+            <Subheader>Colonnes</Subheader>
+            <ListItem
+              primaryText="Description"
+              leftCheckbox={<Checkbox onCheck={(e, isChecked) => this.setState({ columns: { ...this.state.columns, description: isChecked } })} />}
+              defaultChecked={this.state.columns.description}
+            />
+            <ListItem
+              primaryText="Origine"
+              leftCheckbox={<Checkbox onCheck={(e, isChecked) => this.setState({ columns: { ...this.state.columns, origin: isChecked } })} />}
+              defaultChecked={this.state.columns.origin}
+            />
+            <ListItem
+              primaryText="Biologique"
+              leftCheckbox={<Checkbox onCheck={(e, isChecked) => this.setState({ columns: { ...this.state.columns, bio: isChecked } })} />}
+              defaultChecked={this.state.columns.bio}
+            />
+          </List>
+          <Divider />
+        </Drawer>
         {this.state.showFilters &&
           <Filters onSubmit={(filters) => this.onFilters(filters)} />}
         {this.props.hasFetched &&
-          <List items={this.props.items} columns={this.state.columns} />}
+          <ProductList items={this.props.items} columns={this.state.columns} />}
       </div>
     );
   }
@@ -89,6 +123,7 @@ ListPage.contextTypes = {
 };
 
 ListPage.propTypes = {
+  location: PropTypes.object,
   items: PropTypes.array,
   fetchProducts: PropTypes.func,
   hasFetched: PropTypes.bool,

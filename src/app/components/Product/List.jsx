@@ -18,55 +18,61 @@ const List = ({ items, columns }) => {
     >
       <TableHeader adjustForCheckbox={false} displaySelectAll={false}>
         <TableRow>
-          {columns.name === 1 &&
+          {columns.name &&
             <TableHeaderColumn>Nom</TableHeaderColumn>
           }
-          {columns.status === 1 &&
+          {columns.status &&
             <TableHeaderColumn>Dispo.</TableHeaderColumn>
           }
-          {columns.price === 1 &&
+          {columns.price &&
             <TableHeaderColumn>Prix</TableHeaderColumn>
           }
-          {columns.type === 1 &&
+          {columns.type &&
             <TableHeaderColumn>Unité</TableHeaderColumn>
           }
-          {columns.portionNumber === 1 &&
+          {columns.portionNumber &&
            <TableHeaderColumn>Portion</TableHeaderColumn>
           }
-          {columns.description === 1 &&
+          {columns.description &&
             <TableHeaderColumn>Description</TableHeaderColumn>
           }
-          {columns.origin === 1 &&
+          {columns.origin &&
            <TableHeaderColumn>Origine</TableHeaderColumn>
            }
+          {columns.bio &&
+          <TableHeaderColumn>Bio</TableHeaderColumn>
+          }
         </TableRow>
       </TableHeader>
       <TableBody stripedRows displayRowCheckbox={false}>
         {items ?
           items.map(item => (
             <TableRow key={item.id} rowNumber={item.id}>
-              {columns.name === 1 &&
+              {columns.name &&
                 <TableRowColumn>
                   <Link to={`/products/${item.id}/edit`}>{item.name}</Link>
                 </TableRowColumn>
               }
-              {columns.status === 1 &&
+              {columns.status &&
                 <TableRowColumn>{item.available ? 'Oui' : 'Non'}</TableRowColumn>
               }
-              {columns.price === 1 &&
+              {columns.price &&
                 <TableRowColumn>{item.price}</TableRowColumn>
               }
-              {columns.type === 1 &&
+              {columns.type &&
                 <TableRowColumn>{priceUnit[item.price_unit]}</TableRowColumn>
               }
-              {columns.portionNumber === 1 &&
+              {columns.portionNumber &&
                 <TableRowColumn>{item.portion_number}</TableRowColumn>
               }
-              {columns.description === 1 &&
+              {columns.description &&
                <TableRowColumn>{item.short_description}</TableRowColumn>
               }
-              {columns.origin === 1 &&
+              {columns.origin &&
                <TableRowColumn>{item.origin}</TableRowColumn>
+              }
+              {columns.bio &&
+              <TableRowColumn>{item.bio ? 'Oui' : 'Non'}</TableRowColumn>
               }
             </TableRow>
           )) :
