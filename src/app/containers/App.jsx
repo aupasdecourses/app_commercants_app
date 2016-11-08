@@ -89,6 +89,7 @@ class App extends Component {
           <Menu
             items={appConfig.menuItems[this.props.role]}
             open={this.state.openMenu}
+            logout={this.props.logout}
             requestChange={(open) => this.setState({ openMenu: open })}
           />}
         {isAuthenticated ?
@@ -114,6 +115,7 @@ App.propTypes = {
   children: PropTypes.element.isRequired,
   isFetching: PropTypes.bool,
   isAuthenticated: PropTypes.bool,
+  logout: PropTypes.func,
 };
 
 function mapStateToProps(state) {

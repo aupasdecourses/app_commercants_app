@@ -92,18 +92,30 @@ class ListPage extends Component {
             <Subheader>Colonnes</Subheader>
             <ListItem
               primaryText="Description"
-              leftCheckbox={<Checkbox onCheck={(e, isChecked) => this.setState({ columns: { ...this.state.columns, description: isChecked } })} />}
-              defaultChecked={this.state.columns.description}
+              leftCheckbox={
+                <Checkbox
+                  onCheck={(e, isChecked) => this.props.filterColumn({ description: isChecked })}
+                  defaultChecked={this.props.columns.description}
+                />
+              }
             />
             <ListItem
               primaryText="Origine"
-              leftCheckbox={<Checkbox onCheck={(e, isChecked) => this.setState({ columns: { ...this.state.columns, origin: isChecked } })} />}
-              defaultChecked={this.state.columns.origin}
+              leftCheckbox={
+                <Checkbox
+                  onCheck={(e, isChecked) => this.props.filterColumn({ origin: isChecked })}
+                  defaultChecked={this.props.columns.origin}
+                />
+              }
             />
             <ListItem
               primaryText="Biologique"
-              leftCheckbox={<Checkbox onCheck={(e, isChecked) => this.setState({ columns: { ...this.state.columns, bio: isChecked } })} />}
-              defaultChecked={this.state.columns.bio}
+              leftCheckbox={
+                <Checkbox
+                  onCheck={(e, isChecked) => this.props.filterColumn({ bio: isChecked })}
+                  defaultChecked={this.props.columns.bio}
+                />
+              }
             />
           </List>
           <Divider />
@@ -111,7 +123,7 @@ class ListPage extends Component {
         {this.state.showFilters &&
           <Filters onSubmit={(filters) => this.onFilters(filters)} />}
         {this.props.hasFetched &&
-          <ProductList items={this.props.items} columns={this.state.columns} />}
+          <ProductList items={this.props.items} columns={this.props.columns} />}
       </div>
     );
   }
@@ -125,13 +137,16 @@ ListPage.contextTypes = {
 ListPage.propTypes = {
   location: PropTypes.object,
   items: PropTypes.array,
+  columns: PropTypes.object,
   fetchProducts: PropTypes.func,
+  filterColumn: PropTypes.func,
   hasFetched: PropTypes.bool,
 };
 
 function mapStateToProps(state) {
   return {
     items: state.products.items,
+    columns: state.products.columns,
     hasFetched: state.products.hasFetched,
   };
 }

@@ -7,6 +7,7 @@ const messages = {
   'Enter your password': 'Entrer votre mot de passe',
   'Sign In': 'Se connecter',
   'Username or password incorrect': 'Utilisateur ou mot de passe incorrecte',
+  'Forgot password': 'Mot de passe oublié',
 
   locale: 'fr',
 };

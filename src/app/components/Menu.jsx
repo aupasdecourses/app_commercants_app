@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
 import { Drawer, MenuItem, AppBar, Divider } from 'material-ui';
 
-const Menu = ({ items, open, requestChange }) => (
+const Menu = ({ items, open, logout, requestChange }) => (
   <Drawer
     docked={false}
     open={open}
@@ -15,6 +15,9 @@ const Menu = ({ items, open, requestChange }) => (
         <Divider />
       </Link>
     ))}
+    {logout ?
+      <MenuItem onTouchTap={() => logout()}>Déconnexion</MenuItem> : ''
+    }
   </Drawer>
 );
 
@@ -28,6 +31,7 @@ Menu.defaultProps = {
 Menu.propTypes = {
   items: PropTypes.array,
   open: PropTypes.bool,
+  logout: PropTypes.func,
   requestChange: PropTypes.func,
 };
 

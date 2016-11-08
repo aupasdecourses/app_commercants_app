@@ -6,6 +6,7 @@ export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_FAIL = 'LOGIN_FAIL';
 export const LOGOUT = 'LOGOUT';
 
+// Profile
 export const PROFILE_REQUEST = 'PROFILE';
 export const PROFILE_SUCCESS = 'PROFILE_SUCCESS';
 export const PROFILE_FAIL = 'PROFILE_FAIL';
@@ -14,6 +15,7 @@ export const PROFILE_SAVE_REQUEST = 'PROFILE_SAVE';
 export const PROFILE_SAVE_SUCCESS = 'PROFILE_SAVE_SUCCESS';
 export const PROFILE_SAVE_FAIL = 'PROFILE_SAVE_FAIL';
 
+// Products
 export const PRODUCTS_REQUEST = 'PRODUCTS';
 export const PRODUCTS_SUCCESS = 'PRODUCTS_SUCCESS';
 export const PRODUCTS_FAIL = 'PRODUCTS_FAIL';
@@ -26,6 +28,9 @@ export const PRODUCT_SAVE_REQUEST = 'PRODUCT_SAVE';
 export const PRODUCT_SAVE_SUCCESS = 'PRODUCT_SAVE_SUCCESS';
 export const PRODUCT_SAVE_FAIL = 'PRODUCT_SAVE_FAIL';
 
+export const PRODUCTS_FILTER_COLUMN = 'PRODUCTS_FILTER_COLUMN';
+
+// Users
 export const USERS_REQUEST = 'USERS';
 export const USERS_SUCCESS = 'USERS_SUCCESS';
 export const USERS_FAIL = 'USERS_FAIL';

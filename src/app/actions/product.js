@@ -1,5 +1,5 @@
 import {
-  PRODUCTS_REQUEST, PRODUCT_REQUEST, PRODUCT_SAVE_REQUEST,
+  PRODUCTS_REQUEST, PRODUCT_REQUEST, PRODUCT_SAVE_REQUEST, PRODUCTS_FILTER_COLUMN,
 } from '../constants/ActionTypes';
 
 export function fetchProduct(id) {
@@ -39,5 +39,12 @@ export function saveProduct(id, data) {
         data,
       },
     },
+  };
+}
+
+export function filterColumn(column) {
+  return {
+    type: PRODUCTS_FILTER_COLUMN,
+    column,
   };
 }

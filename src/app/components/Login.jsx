@@ -66,7 +66,13 @@ class Login extends Component {
               }
             </CardText>
             <CardActions style={{ textAlign: "center" }}>
-              <FlatButton label={<FormattedMessage id="Sign In" />} primary onClick={this.onLogin} disabled={isAuthenticating} />
+              <FlatButton
+                label={<FormattedMessage id="Sign In" />} primary
+                onClick={this.onLogin} disabled={isAuthenticating}
+              />
+              <FlatButton
+                label={<FormattedMessage id="Forgot password" />} secondary
+              />
             </CardActions>
           </Card>
         </Col>

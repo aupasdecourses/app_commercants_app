@@ -1,12 +1,13 @@
 import React, { Component, PropTypes } from 'react';
 import { Form as BaseForm } from 'formsy-react';
 
-import { FloatingActionButton } from 'material-ui';
+import { FloatingActionButton, RaisedButton } from 'material-ui';
 import Save from 'material-ui/svg-icons/content/save';
 import ToggleInput from 'formsy-material-ui/lib/FormsyToggle';
 import { Row, Col } from 'react-flexbox-grid/lib';
 
 import TextInput from '../Form/TextInput';
+import FileInput from '../Form/FileInput';
 
 class Form extends Component {
   constructor(props) {
@@ -157,6 +158,12 @@ class Form extends Component {
               labelPosition="right"
               disabled={isLoading}
             />
+            <RaisedButton
+              containerElement="label"
+              label="Photo"
+            >
+              <FileInput name="photo" style={{ display: 'none' }} />
+            </RaisedButton>
           </Col>
         </Row>
       </BaseForm>
