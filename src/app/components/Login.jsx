@@ -11,7 +11,12 @@ class Login extends Component {
   constructor(props) {
     super(props);
 
+    this.state = {
+      showReset: false,
+    };
+
     this.onLogin = this.onLogin.bind(this);
+    this.onReset = this.onReset.bind(this);
   }
 
   onLogin() {
@@ -23,58 +28,105 @@ class Login extends Component {
     this.props.login(credential);
   }
 
+  onReset() {
+    this.props.resetting(this.reset.input.value);
+  }
+
   render() {
     const { isAuthenticating, hasError } = this.props;
 
     return (
       <Row center="xs" middle="xs" className="login-box">
         <Col xs={12} sm={8} md={6}>
-          <Card>
-            <CardTitle
-              title={<FormattedMessage id="Login" />}
-              subtitle={<FormattedMessage id="Please enter your login to sign in" />}
-              className="login-title"
-            />
-            <CardText>
-              {isAuthenticating ?
-                <Row center="xs">
-                  <Col xs>
-                    <CircularProgress size={1.5} />
-                  </Col>
-                </Row> :
-                <Row>
-                  <Col xs={12} sm={6}>
-                    <TextField
-                      ref={(c) => { this.username = c; }}
-                      hintText={<FormattedMessage id="Enter your username" />}
-                      floatingLabelText={<FormattedMessage id="Username" />}
-                      fullWidth
-                      disabled={isAuthenticating}
-                    />
-                  </Col>
-                  <Col xs={12} sm={6}>
-                    <TextField
-                      ref={(c) => { this.password = c; }}
-                      hintText={<FormattedMessage id="Enter your password" />}
-                      floatingLabelText={<FormattedMessage id="Password" />}
-                      type="password"
-                      fullWidth
-                      disabled={isAuthenticating}
-                    />
-                  </Col>
-                </Row>
-              }
-            </CardText>
-            <CardActions style={{ textAlign: "center" }}>
-              <FlatButton
-                label={<FormattedMessage id="Sign In" />} primary
-                onClick={this.onLogin} disabled={isAuthenticating}
+          {!this.state.showReset ?
+            <Card>
+              <CardTitle
+                title={<FormattedMessage id="Login" />}
+                subtitle={<FormattedMessage id="Please enter your login to sign in" />}
+                className="login-title"
               />
-              <FlatButton
-                label={<FormattedMessage id="Forgot password" />} secondary
+              <CardText>
+                {isAuthenticating ?
+                  <Row center="xs">
+                    <Col xs>
+                      <CircularProgress size={1.5} />
+                    </Col>
+                  </Row> :
+                  <Row>
+                    <Col xs={12} sm={6}>
+                      <TextField
+                        ref={(c) => { this.username = c; }}
+                        hintText={<FormattedMessage id="Enter your username" />}
+                        floatingLabelText={<FormattedMessage id="Username" />}
+                        fullWidth
+                        disabled={isAuthenticating}
+                      />
+                    </Col>
+                    <Col xs={12} sm={6}>
+                      <TextField
+                        ref={(c) => { this.password = c; }}
+                        hintText={<FormattedMessage id="Enter your password" />}
+                        floatingLabelText={<FormattedMessage id="Password" />}
+                        type="password"
+                        fullWidth
+                        disabled={isAuthenticating}
+                      />
+                    </Col>
+                  </Row>
+                }
+              </CardText>
+              <CardActions style={{ textAlign: "center" }}>
+                <FlatButton
+                  label={<FormattedMessage id="Sign In" />} primary
+                  onClick={this.onLogin} disabled={isAuthenticating}
+                />
+                <FlatButton
+                  label={<FormattedMessage id="Forgot password" />} secondary
+                  onTouchTap={() => this.setState({ showReset: true })}
+                  disabled={isAuthenticating}
+                />
+              </CardActions>
+            </Card> :
+            <Card>
+              <CardTitle
+                title={<FormattedMessage id="Reset password" />}
+                subtitle={<FormattedMessage id="Please enter your username or email" />}
+                className="login-title"
               />
-            </CardActions>
-          </Card>
+              <CardText>
+                {isAuthenticating ?
+                  <Row center="xs">
+                    <Col xs>
+                      <CircularProgress size={1.5} />
+                    </Col>
+                  </Row> :
+                  <Row>
+                    <Col xs={12}>
+                      <TextField
+                        ref={(c) => { this.reset = c; }}
+                        hintText={<FormattedMessage id="Enter your username or Email" />}
+                        floatingLabelText={<FormattedMessage id="Username or Email" />}
+                        fullWidth
+                        disabled={isAuthenticating}
+                      />
+                    </Col>
+                  </Row>
+                }
+              </CardText>
+              <CardActions style={{ textAlign: "center" }}>
+                <FlatButton
+                  label={<FormattedMessage id="Reset" />} primary
+                  onClick={this.onReset} disabled={isAuthenticating}
+                />
+                <FlatButton
+                  label={<FormattedMessage id="Cancel" />} secondary
+                  onTouchTap={() => this.setState({ showReset: false })}
+                  disabled={isAuthenticating}
+                />
+              </CardActions>
+            </Card>
+          }
+
         </Col>
         <Snackbar
           open={hasError}
@@ -88,6 +140,7 @@ class Login extends Component {
 
 Login.propTypes = {
   login: PropTypes.func.isRequired,
+  resetting: PropTypes.func,
   isAuthenticating: PropTypes.bool,
   hasError: PropTypes.bool,
 };

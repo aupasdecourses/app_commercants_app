@@ -6,6 +6,10 @@ export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_FAIL = 'LOGIN_FAIL';
 export const LOGOUT = 'LOGOUT';
 
+export const RESETTING_REQUEST = 'RESETTING';
+export const RESETTING_SUCCESS = 'RESETTING_SUCCESS';
+export const RESETTING_FAIL = 'RESETTING_FAIL';
+
 // Profile
 export const PROFILE_REQUEST = 'PROFILE';
 export const PROFILE_SUCCESS = 'PROFILE_SUCCESS';

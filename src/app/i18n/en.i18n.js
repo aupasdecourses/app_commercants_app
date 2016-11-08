@@ -8,6 +8,12 @@ const messages = {
   'Sign In': 'Sign In',
   'Username or password incorrect': 'Username or password incorrect',
   'Forgot password': 'Forgot password',
+  'Reset password': 'Reset password',
+  'Please enter your username or email': 'Please enter your username or email',
+  'Enter your username or Email': 'Enter your username or Email',
+  'Username or Email': 'Username or Email',
+  Reset: 'Reset',
+  Cancel: 'Cancel',
 
   locale: 'en',
 };

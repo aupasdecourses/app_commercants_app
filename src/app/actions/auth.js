@@ -1,4 +1,4 @@
-import { LOGIN_REQUEST, LOGOUT } from '../constants/ActionTypes';
+import { LOGIN_REQUEST, LOGOUT, RESETTING_REQUEST } from '../constants/ActionTypes';
 
 import globalConfig from '../config';
 
@@ -46,5 +46,17 @@ export function login(credential, type = 'password') {
 export function logout() {
   return {
     type: LOGOUT
+  };
+}
+
+export function resetting(username) {
+  return {
+    type: RESETTING_REQUEST,
+    payload: {
+      request: {
+        url: '/resetting/send-email',
+        username,
+      }
+    }
   };
 }

@@ -6,7 +6,7 @@ import Login from '../components/Login';
 import * as AuthActions from '../actions/auth';
 import * as ProfileActions from '../actions/profile';
 
-const LoginPage = ({ login, fetchProfile, isAuthenticating, hasError }) => {
+const LoginPage = ({ login, resetting, fetchProfile, isAuthenticating, hasError }) => {
   function onLogin(credential) {
     login(credential)
       .then((props) => {
@@ -19,6 +19,7 @@ const LoginPage = ({ login, fetchProfile, isAuthenticating, hasError }) => {
   return (
     <Login
       login={onLogin}
+      resetting={resetting}
       isAuthenticating={isAuthenticating} hasError={hasError}
     />
   );
