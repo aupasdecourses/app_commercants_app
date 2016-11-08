@@ -35,4 +35,30 @@
 		<allow-intent href="itms:*" />
 		<allow-intent href="itms-apps:*" />
 	</platform>
+
+	<!--
+	####
+	# Icon and Splash
+	# http://docs.phonegap.com/phonegap-build/configuring/icons-and-splash/
+	#### -->
+	<platform name="android">
+		<icon src="res/icon/android/icon-36-ldpi.png" width="36" height="36" density="ldpi" />
+		<icon src="res/icon/android/icon-48-mdpi.png" width="48" height="48" density="mdpi" />
+		<icon src="res/icon/android/icon-72-hdpi.png" width="72" height="72" density="hdpi" />
+		<icon src="res/icon/android/icon-96-xhdpi.png" width="96" height="96" density="xhdpi" />
+		<icon src="res/icon/android/icon-144-xxhdpi.png" width="144" height="144" density="xxhdpi" />
+		<icon src="res/icon/android/icon-192-xxxhdpi.png" width="192" height="192" density="xxxhdpi" />
+		<splash src="res/screen/android/screen-ldpi-landscape.png" width="320" height="240" qualifier="land-ldpi" />
+		<splash src="res/screen/android/screen-mdpi-landscape.png" width="480" height="320" qualifier="land-mdpi" />
+		<splash src="res/screen/android/screen-hdpi-landscape.png" width="800" height="480" qualifier="land-hdpi" />
+		<splash src="res/screen/android/screen-xhdpi-landscape.png" width="1280" height="720" qualifier="land-xhdpi" />
+		<splash src="res/screen/android/screen-xxhdpi-landscape.png" width="1600" height="960" qualifier="land-xxhdpi" />
+		<splash src="res/screen/android/screen-xxxhdpi-landscape.png" width="1920" height="1280" qualifier="land-xxxhdpi" />
+		<splash src="res/screen/android/screen-ldpi-portrait.png" width="240" height="320" qualifier="port-ldpi" />
+		<splash src="res/screen/android/screen-mdpi-portrait.png" width="320" height="480" qualifier="port-mdpi" />
+		<splash src="res/screen/android/screen-hdpi-portrait.png" width="480" height="800" qualifier="port-hdpi" />
+		<splash src="res/screen/android/screen-xhdpi-portrait.png" width="720" height="1280" qualifier="port-xhdpi" />
+		<splash src="res/screen/android/screen-xxhdpi-portrait.png" width="960" height="1600" qualifier="port-xxhdpi" />
+		<splash src="res/screen/android/screen-xxxhdpi-portrait.png" width="1280" height="1920" qualifier="port-xxxhdpi" />
+	</platform>
 </widget>
