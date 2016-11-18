@@ -27,8 +27,14 @@ export function fetchProducts(filters) {
   };
 }
 
-export function saveProduct(id, data) {
-  const method = id ? 'PUT' : 'POST';
+export function saveProduct(id, data, methodType = null) {
+  let method;
+
+  if (methodType) {
+    method = methodType;
+  } else {
+    method = id ? 'PUT' : 'POST';
+  }
 
   return {
     type: PRODUCT_SAVE_REQUEST,
@@ -36,6 +42,19 @@ export function saveProduct(id, data) {
       request: {
         url: `/products${id ? `/${id}` : ''}`,
         method,
+        data,
+      },
+    },
+  };
+}
+
+export function uploadToProduct(id, data) {
+  return {
+    type: PRODUCT_SAVE_REQUEST,
+    payload: {
+      request: {
+        url: `/products/${id}/uploads`,
+        method: 'POST',
         data,
       },
     },

@@ -20,6 +20,7 @@ class Form extends Component {
     this.onValid = this.onValid.bind(this);
     this.onInvalid = this.onInvalid.bind(this);
     this.submit = this.submit.bind(this);
+    this.upload = this.upload.bind(this);
   }
 
   onValid() {
@@ -28,6 +29,18 @@ class Form extends Component {
 
   onInvalid() {
     this.setState({ notValid: true });
+  }
+
+  upload(file) {
+    const formData = new FormData();
+
+    if (!file.type.match('image.*')) {
+      return;
+    }
+
+    formData.append('photoFile', file, file.name);
+
+    this.props.onUpload(formData);
   }
 
   submit(model) {
@@ -158,12 +171,17 @@ class Form extends Component {
               labelPosition="right"
               disabled={isLoading}
             />
-            <RaisedButton
-              containerElement="label"
-              label="Photo"
-            >
-              <FileInput name="photo" style={{ display: 'none' }} />
-            </RaisedButton>
+            {item.id ?
+              <RaisedButton
+                containerElement="label"
+                label="Photo"
+              >
+                <FileInput
+                  name="photo" style={{ display: 'none' }}
+                  setValue={this.upload}
+                />
+              </RaisedButton> : ''
+            }
           </Col>
         </Row>
       </BaseForm>
@@ -175,6 +193,7 @@ Form.propTypes = {
   item: PropTypes.object,
   isLoading: PropTypes.bool,
   onSubmit: PropTypes.func,
+  onUpload: PropTypes.func,
 };
 
 export default Form;

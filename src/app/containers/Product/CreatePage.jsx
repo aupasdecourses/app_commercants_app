@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import { Grid } from 'react-flexbox-grid/lib';
@@ -8,7 +9,16 @@ import Form from '../../components/Product/Form';
 
 class CreatePage extends Component {
   submit(model) {
-    this.props.saveProduct(null, model);
+    this.props.saveProduct(null, model)
+      .then(() => {
+        this.props.dispatch({
+          type: 'NOTIFICATION_OPEN',
+          data: {
+            type: 'success',
+            message: 'Produit sauvegardé avec succès',
+          }
+        });
+      });
   }
 
   render() {
@@ -26,6 +36,11 @@ function mapStateToProps(state) {
   return {};
 }
 
-const mapDispatchToProps = ProductActions;
+function mapDispatchToProps(dispatch) {
+  return Object.assign({},
+    bindActionCreators(ProductActions, dispatch),
+    { dispatch },
+  );
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(CreatePage);

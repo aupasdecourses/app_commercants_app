@@ -8,6 +8,8 @@ class FileInput extends Component {
     this.state = {
       fileList: []
     };
+
+    this.changeValue = this.changeValue.bind(this);
   }
 
   // changeValue(event) {
@@ -18,7 +20,7 @@ class FileInput extends Component {
   // }
 
   changeValue(event) {
-    const newValue = event.currentTarget.value;
+    const newValue = event.currentTarget.files[0];
 
     if (this.state.value !== newValue) {
       this.setState({ value: newValue }, () => {
@@ -30,7 +32,15 @@ class FileInput extends Component {
   }
 
   render() {
-    const { ...otherProps } = this.props;
+    const {
+      onChange,
+      hasValue, getValue, setValue, resetValue,
+      isValid, isValidValue, isPristine, isRequired,
+      validations, setValidations, validationError, validationErrors,
+      getErrorMessage, getErrorMessages, showError, showRequired,
+      isFormDisabled, isFormSubmitted,
+      initialValue,
+      ...otherProps } = this.props;
 
     return (
       <input

@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import { Grid } from 'react-flexbox-grid/lib';
@@ -12,7 +13,16 @@ class EditPage extends Component {
   }
 
   submit(model) {
-    this.props.saveUser(this.props.params.id, model);
+    this.props.saveUser(this.props.params.id, model)
+      .then(() => {
+        this.props.dispatch({
+          type: 'NOTIFICATION_OPEN',
+          data: {
+            type: 'success',
+            message: 'Utilisateur sauvegardé avec succès',
+          }
+        });
+      });
   }
 
   render() {
@@ -44,6 +54,11 @@ function mapStateToProps(state) {
   };
 }
 
-const mapDispatchToProps = UserActions;
+function mapDispatchToProps(dispatch) {
+  return Object.assign({},
+    bindActionCreators(UserActions, dispatch),
+    { dispatch },
+  );
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditPage);

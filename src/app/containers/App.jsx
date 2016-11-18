@@ -2,6 +2,8 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 
 import { CircularProgress } from 'material-ui';
+import MessageIcon from 'material-ui/svg-icons/communication/message';
+import ReactMaterialUiNotifications from 'react-materialui-notifications';
 
 import * as AuthActions from '../actions/auth';
 import Header from 'app/components/Header';
@@ -64,6 +66,18 @@ class App extends Component {
     }
   }
 
+  componentWillUpdate(nextProps) {
+    if (nextProps.notification && this.props.notification !== nextProps.notification) {
+      ReactMaterialUiNotifications.showNotification({
+        title: 'Notice',
+        additionalText: nextProps.notification.message,
+        iconBadgeColor: nextProps.notification.type === 'success' ? '#4caf50' : '#ff5722',
+        icon: <MessageIcon />,
+        autoHide: 2000,
+      });
+    }
+  }
+
   toggleMenu() {
     this.setState({
       openMenu: !this.state.openMenu,
@@ -100,6 +114,10 @@ class App extends Component {
           <LoginPage />}
         {isAuthenticated &&
           <Footer />}
+        <ReactMaterialUiNotifications
+          desktop
+          rootStyle={{ right: 25, top: 64 }}
+        />
       </div>
     );
   }
@@ -112,6 +130,7 @@ App.childContextTypes = {
 App.propTypes = {
   auth: PropTypes.object,
   role: PropTypes.string,
+  notification: PropTypes.object,
   children: PropTypes.element.isRequired,
   isFetching: PropTypes.bool,
   isAuthenticated: PropTypes.bool,
@@ -122,6 +141,7 @@ function mapStateToProps(state) {
   return {
     auth: state.auth,
     role: state.profile.role,
+    notification: state.ui.notification,
     isFetching: state.profile.isFetching || state.ui.fetching,
     isAuthenticated: state.auth.isAuthenticated && state.profile.hasFetched,
   };

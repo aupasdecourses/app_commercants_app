@@ -114,6 +114,7 @@
     "react-dom": "^15.3.0",
     "react-flexbox-grid": "^0.10.2",
     "react-intl": "^2.1.5",
+    "react-materialui-notifications": "^0.4.1",
     "react-redux": "^4.4.5",
     "react-router": "^2.6.1",
     "react-router-redux": "^4.0.5",
