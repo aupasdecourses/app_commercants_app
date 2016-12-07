@@ -1,9 +1,10 @@
 import React, { Component, PropTypes } from 'react';
 import { Form as BaseForm } from 'formsy-react';
 
-import { FloatingActionButton, RaisedButton } from 'material-ui';
+import { FloatingActionButton, RaisedButton, MenuItem } from 'material-ui';
 import Save from 'material-ui/svg-icons/content/save';
 import ToggleInput from 'formsy-material-ui/lib/FormsyToggle';
+import SelectInput from 'formsy-material-ui/lib/FormsySelect';
 import { Row, Col } from 'react-flexbox-grid/lib';
 
 import TextInput from '../Form/TextInput';
@@ -65,11 +66,25 @@ class Form extends Component {
           <Save />
         </FloatingActionButton>
         <Row>
-          <Col xs={12} sm={9}>
+          <Col xs={12}>
+            <ToggleInput
+              name="available"
+              label="Actif sur le site"
+              defaultToggled={item.available}
+              labelPosition="right"
+              disabled={isLoading}
+            />
+            <ToggleInput
+              name="selected"
+              label="Dans la sélection du moment"
+              defaultToggled={item.selected}
+              labelPosition="right"
+              disabled={isLoading}
+            />
             <TextInput
               name="name"
-              floatingLabelText="Nom"
-              hintText="Exemple : Pizza 4 fromages"
+              floatingLabelText="Nom de l’article"
+              hintText="Nom affiché sur le site, exemple : Pizza 4 fromages"
               initialValue={item.name}
               fullWidth
               required
@@ -77,19 +92,25 @@ class Form extends Component {
             />
             <TextInput
               name="ref"
-              floatingLabelText="Référence"
+              floatingLabelText="Code article"
               hintText="Exemple : REF0054"
               initialValue={item.ref}
               fullWidth
               disabled={isLoading}
             />
-            <TextInput
-              name="sku"
-              floatingLabelText="SKU"
-              initialValue={item.sku}
-              fullWidth
-              disabled={isLoading}
-            />
+            {this.context.role === 'ROLE_ADMIN' ?
+              <TextInput
+                name="sku"
+                floatingLabelText="Référence APDC (SKU)"
+                initialValue={item.sku}
+                fullWidth
+                required
+                disabled={isLoading}
+              /> :
+              <div>
+                {item.sku}
+              </div>
+            }
             <TextInput
               name="price"
               floatingLabelText="Prix"
@@ -97,15 +118,19 @@ class Form extends Component {
               initialValue={item.price}
               fullWidth
               type="number"
+              required
               disabled={isLoading}
             />
-            <TextInput
+            <SelectInput
               name="priceUnit"
               floatingLabelText="Unité de prix"
-              initialValue={item.price_unit}
+              value={item.price_unit}
               fullWidth
               disabled={isLoading}
-            />
+            >
+              <MenuItem value={1} primaryText="Kg" />
+              <MenuItem value={2} primaryText="Pièce" />
+            </SelectInput>
             <TextInput
               name="shortDescription"
               floatingLabelText="Description"
@@ -115,25 +140,33 @@ class Form extends Component {
             />
             <TextInput
               name="portionWeight"
-              floatingLabelText="Poids portion"
+              floatingLabelText="Poids portion (g)"
+              hintText="Poids en gramme"
               initialValue={item.portion_weight}
               fullWidth
+              type="number"
+              step="0.01"
               disabled={isLoading}
             />
-            <TextInput
+            {/* <TextInput
               name="portionNumber"
               floatingLabelText="Nombre portion"
               initialValue={item.portion_number}
               fullWidth
               disabled={isLoading}
-            />
-            <TextInput
+            /> */}
+            <SelectInput
               name="tax"
               floatingLabelText="TVA"
-              initialValue={item.tax}
+              hintText="TVA applicable"
+              value={item.tax}
               fullWidth
               disabled={isLoading}
-            />
+            >
+              <MenuItem value={1} primaryText="5.5%" />
+              <MenuItem value={2} primaryText="10%" />
+              <MenuItem value={3} primaryText="20%" />
+            </SelectInput>
             <TextInput
               name="origin"
               floatingLabelText="Origine"
@@ -141,36 +174,28 @@ class Form extends Component {
               fullWidth
               disabled={isLoading}
             />
-            <TextInput
+            <SelectInput
               name="bio"
               floatingLabelText="Bio"
-              initialValue={item.bio}
+              hintText="Produit biologique ?"
+              value={item.bio}
               fullWidth
               disabled={isLoading}
-            />
-            <TextInput
-              name="user"
-              floatingLabelText="Marchant"
-              initialValue={item.user && item.user.id}
-              fullWidth
-              disabled={isLoading}
-            />
+            >
+              <MenuItem value={false} primaryText="Non" />
+              <MenuItem value={true} primaryText="Oui" />
+            </SelectInput>
+            {this.context.role === 'ROLE_ADMIN' &&
+              <TextInput
+                name="user"
+                floatingLabelText="Commerçant"
+                initialValue={item.user && item.user.id}
+                fullWidth
+                disabled={isLoading}
+              />
+            }
           </Col>
-          <Col xs={12} sm={3}>
-            <ToggleInput
-              name="available"
-              label="Disponible"
-              defaultToggled={item.available}
-              labelPosition="right"
-              disabled={isLoading}
-            />
-            <ToggleInput
-              name="selected"
-              label="Sélection APDC"
-              defaultToggled={item.selected}
-              labelPosition="right"
-              disabled={isLoading}
-            />
+          <Col xs={12}>
             {item.id ?
               <RaisedButton
                 containerElement="label"
@@ -188,6 +213,10 @@ class Form extends Component {
     );
   }
 }
+
+Form.contextTypes = {
+  role: PropTypes.string,
+};
 
 Form.propTypes = {
   item: PropTypes.object,

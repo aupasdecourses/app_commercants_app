@@ -24,16 +24,6 @@ class ListPage extends Component {
     super(props);
 
     this.state = {
-      columns: {
-        status: true,
-        name: true,
-        type: true,
-        price: true,
-        portionNumber: true,
-        description: false,
-        origin: false,
-        bio: false,
-      },
       showFilters: false,
       showOptions: false,
     };
@@ -90,6 +80,42 @@ class ListPage extends Component {
           <AppBar title="Options" showMenuIconButton={false} />
           <List>
             <Subheader>Colonnes</Subheader>
+            <ListItem
+              primaryText="Dispo"
+              leftCheckbox={
+                <Checkbox
+                  onCheck={(e, isChecked) => this.props.filterColumn({ status: isChecked })}
+                  defaultChecked={this.props.columns.status}
+                />
+              }
+            />
+            <ListItem
+              primaryText="Prix"
+              leftCheckbox={
+                <Checkbox
+                  onCheck={(e, isChecked) => this.props.filterColumn({ price: isChecked })}
+                  defaultChecked={this.props.columns.price}
+                />
+              }
+            />
+            <ListItem
+              primaryText="Unité"
+              leftCheckbox={
+                <Checkbox
+                  onCheck={(e, isChecked) => this.props.filterColumn({ type: isChecked })}
+                  defaultChecked={this.props.columns.type}
+                />
+              }
+            />
+            <ListItem
+              primaryText="Portion"
+              leftCheckbox={
+                <Checkbox
+                  onCheck={(e, isChecked) => this.props.filterColumn({ portionNumber: isChecked })}
+                  defaultChecked={this.props.columns.portionNumber}
+                />
+              }
+            />
             <ListItem
               primaryText="Description"
               leftCheckbox={

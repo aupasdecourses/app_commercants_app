@@ -12,7 +12,7 @@ const initialState = {
     name: true,
     type: true,
     price: true,
-    portionNumber: true,
+    portionNumber: false,
     description: false,
     origin: false,
     bio: false,

@@ -18,11 +18,11 @@ const List = ({ items, columns }) => {
     >
       <TableHeader adjustForCheckbox={false} displaySelectAll={false}>
         <TableRow>
-          {columns.name &&
-            <TableHeaderColumn>Nom</TableHeaderColumn>
-          }
           {columns.status &&
-            <TableHeaderColumn>Dispo.</TableHeaderColumn>
+            <TableHeaderColumn style={{ width: 30 }}>Dispo.</TableHeaderColumn>
+          }
+          {columns.name &&
+            <TableHeaderColumn style={{ width: '30%' }}>Nom</TableHeaderColumn>
           }
           {columns.price &&
             <TableHeaderColumn>Prix</TableHeaderColumn>
@@ -40,7 +40,7 @@ const List = ({ items, columns }) => {
            <TableHeaderColumn>Origine</TableHeaderColumn>
            }
           {columns.bio &&
-          <TableHeaderColumn>Bio</TableHeaderColumn>
+          <TableHeaderColumn style={{ width: 30 }}>Bio</TableHeaderColumn>
           }
         </TableRow>
       </TableHeader>
@@ -48,13 +48,13 @@ const List = ({ items, columns }) => {
         {items ?
           items.map(item => (
             <TableRow key={item.id} rowNumber={item.id}>
+              {columns.status &&
+                <TableRowColumn style={{ width: 30 }}>{item.available ? 'Oui' : 'Non'}</TableRowColumn>
+              }
               {columns.name &&
-                <TableRowColumn>
+                <TableRowColumn style={{ width: '30%' }}>
                   <Link to={`/products/${item.id}/edit`}>{item.name}</Link>
                 </TableRowColumn>
-              }
-              {columns.status &&
-                <TableRowColumn>{item.available ? 'Oui' : 'Non'}</TableRowColumn>
               }
               {columns.price &&
                 <TableRowColumn>{item.price}</TableRowColumn>
@@ -72,7 +72,7 @@ const List = ({ items, columns }) => {
                <TableRowColumn>{item.origin}</TableRowColumn>
               }
               {columns.bio &&
-              <TableRowColumn>{item.bio ? 'Oui' : 'Non'}</TableRowColumn>
+              <TableRowColumn style={{ width: 30 }}>{item.bio ? 'Oui' : 'Non'}</TableRowColumn>
               }
             </TableRow>
           )) :

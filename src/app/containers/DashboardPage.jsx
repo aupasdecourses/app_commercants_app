@@ -26,16 +26,19 @@ class DashboardPage extends Component {
     return (
       <Grid fluid style={{ textAlign: 'center', marginTop: 24 }}>
         <RaisedButton
-          label="Liste products" secondary style={{ marginRight: 12, height: 50 }}
+          label="Liste products" secondary style={{ marginBottom: 12, height: 50 }}
           containerElement={<Link to="/products" />}
+          fullWidth
         />
         <RaisedButton
-          label="Nouveau product" primary style={{ marginRight: 12, marginLeft: 12, height: 50 }}
+          label="Nouveau product" primary style={{ marginBottom: 12, height: 50 }}
           containerElement={<Link to="/products/new" />}
+          fullWidth
         />
         <RaisedButton
-          label="Déconnexion" style={{ marginLeft: 12, height: 50 }}
+          label="Déconnexion" style={{ height: 50 }}
           onTouchTap={() => this.props.logout()}
+          fullWidth
         />
       </Grid>
     );
