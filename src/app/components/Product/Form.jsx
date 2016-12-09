@@ -73,6 +73,7 @@ class Form extends Component {
               defaultToggled={item.available}
               labelPosition="right"
               disabled={isLoading}
+              style={{ marginTop: 14 }}
             />
             <ToggleInput
               name="selected"
@@ -80,6 +81,7 @@ class Form extends Component {
               defaultToggled={item.selected}
               labelPosition="right"
               disabled={isLoading}
+              style={{ marginTop: 14 }}
             />
             <TextInput
               name="name"
@@ -92,7 +94,7 @@ class Form extends Component {
             />
             <TextInput
               name="ref"
-              floatingLabelText="Code article"
+              floatingLabelText="Code article commercant"
               hintText="Exemple : REF0054"
               initialValue={item.ref}
               fullWidth

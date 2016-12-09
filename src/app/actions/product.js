@@ -33,7 +33,7 @@ export function saveProduct(id, data, methodType = null) {
   if (methodType) {
     method = methodType;
   } else {
-    method = id ? 'PUT' : 'POST';
+    method = id ? 'PATCH' : 'POST';
   }
 
   return {
