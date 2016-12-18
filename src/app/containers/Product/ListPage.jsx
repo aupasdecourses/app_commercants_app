@@ -18,12 +18,14 @@ import ActionSettingsIcon from 'material-ui/svg-icons/action/settings';
 import * as ProductActions from '../../actions/product';
 import Filters from '../../components/Product/Filters';
 import ProductList from '../../components/Product/List';
+import Pagination from '../../components/Pagination';
 
 class ListPage extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
+      page: 1,
       showFilters: false,
       showOptions: false,
     };
@@ -39,6 +41,16 @@ class ListPage extends Component {
 
   onFilters(filters) {
     this.props.fetchProducts(filters);
+  }
+
+  onPaginate(toPage) {
+    const filters = {
+      offset: toPage * 20,
+    };
+
+    this.props.fetchProducts(filters).then(() => {
+      this.setState({ page: toPage });
+    });
   }
 
   render() {
@@ -149,7 +161,13 @@ class ListPage extends Component {
         {this.state.showFilters &&
           <Filters onSubmit={(filters) => this.onFilters(filters)} />}
         {this.props.hasFetched &&
-          <ProductList items={this.props.items} columns={this.props.columns} />}
+          <div>
+            <ProductList items={this.props.items} columns={this.props.columns} />
+            <Pagination
+              page={this.state.page} totalPages={Math.ceil(this.props.total / 20)}
+              onClickPaginate={(toPage) => this.onPaginate(toPage)}
+            />
+          </div>}
       </div>
     );
   }
@@ -163,6 +181,7 @@ ListPage.contextTypes = {
 ListPage.propTypes = {
   location: PropTypes.object,
   items: PropTypes.array,
+  total: PropTypes.number,
   columns: PropTypes.object,
   fetchProducts: PropTypes.func,
   filterColumn: PropTypes.func,
@@ -172,6 +191,7 @@ ListPage.propTypes = {
 function mapStateToProps(state) {
   return {
     items: state.products.items,
+    total: state.products.total,
     columns: state.products.columns,
     hasFetched: state.products.hasFetched,
   };

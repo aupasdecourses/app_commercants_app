@@ -7,6 +7,8 @@ import ToggleInput from 'formsy-material-ui/lib/FormsyToggle';
 import SelectInput from 'formsy-material-ui/lib/FormsySelect';
 import { Row, Col } from 'react-flexbox-grid/lib';
 
+import globalConfig from '../../config';
+
 import TextInput from '../Form/TextInput';
 import FileInput from '../Form/FileInput';
 
@@ -49,7 +51,7 @@ class Form extends Component {
   }
 
   render() {
-    const { item, isLoading } = this.props;
+    const { item, choicesList, isLoading } = this.props;
 
     return (
       <BaseForm
@@ -188,26 +190,33 @@ class Form extends Component {
               <MenuItem value={true} primaryText="Oui" />
             </SelectInput>
             {this.context.role === 'ROLE_ADMIN' &&
-              <TextInput
+              <SelectInput
                 name="user"
                 floatingLabelText="Commerçant"
-                initialValue={item.user && item.user.id}
+                value={item.user && item.user.id}
                 fullWidth
                 disabled={isLoading}
-              />
+              >
+                {choicesList.users.map(u => <MenuItem key={u.value} value={u.value} primaryText={u.name} />)}
+              </SelectInput>
             }
           </Col>
           <Col xs={12}>
             {item.id ?
-              <RaisedButton
-                containerElement="label"
-                label="Photo"
-              >
-                <FileInput
-                  name="photo" style={{ display: 'none' }}
-                  setValue={this.upload}
-                />
-              </RaisedButton> : ''
+              <div>
+                {item.photo &&
+                  <img src={`${globalConfig.baseUrl}/uploads/products/${item.id}/${item.photo}`} alt="" />}
+                <RaisedButton
+                  containerElement="label"
+                  label="Photo"
+                >
+                  <FileInput
+                    name="photo" style={{ display: 'none' }}
+                    setValue={this.upload}
+                  />
+                </RaisedButton>
+              </div>
+              : ''
             }
           </Col>
         </Row>
@@ -222,6 +231,7 @@ Form.contextTypes = {
 
 Form.propTypes = {
   item: PropTypes.object,
+  choicesList: PropTypes.object,
   isLoading: PropTypes.bool,
   onSubmit: PropTypes.func,
   onUpload: PropTypes.func,

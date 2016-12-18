@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 import {
   USERS_REQUEST, USERS_SUCCESS, USERS_FAIL,
 } from '../constants/ActionTypes';
@@ -33,9 +35,10 @@ export default function users(state = initialState, action) {
 
           return o;
         }, []),
-        total: action.payload.data.recordsTotal,
+        total: action.payload.data.recordsFiltered,
         isFetching: false,
         hasFetched: true,
+        fetchedDate: moment().toISOString(),
         hasError: false,
       };
     case USERS_FAIL:

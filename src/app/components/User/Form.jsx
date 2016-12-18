@@ -185,8 +185,6 @@ class UserForm extends Component {
             />
           </Col>
         </Row>
-
-
       </Form>
     );
   }

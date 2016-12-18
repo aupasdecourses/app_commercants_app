@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 import {
   USERS_REQUEST, USER_REQUEST, USER_SAVE_REQUEST,
 } from '../constants/ActionTypes';
@@ -14,7 +16,15 @@ export function fetchUser(id) {
   };
 }
 
-export function fetchUsers(filters) {
+export function fetchUsers(filters, short = false) {
+  if (short) {
+    filters = {
+      ...filters,
+      _only: ['id', 'shopName'],
+      length: 0,
+    };
+  }
+
   return {
     type: USERS_REQUEST,
     payload: {
@@ -24,6 +34,25 @@ export function fetchUsers(filters) {
         params: filters,
       },
     },
+  };
+}
+
+export function fetchUsersIfNeeded(filters, short = false) {
+  return (dispatch, getState) => {
+    const { users } = getState();
+
+    if (!users.fetchedDate) {
+      return dispatch(fetchUsers(filters, short));
+    }
+
+    const today = moment();
+    const diff = today.diff(moment(users.fetchedDate), 'minutes');
+
+    if (diff >= 0) {
+      return dispatch(fetchUsers(filters, short));
+    }
+
+    return null;
   };
 }
 

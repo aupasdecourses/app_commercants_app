@@ -68,12 +68,19 @@ class App extends Component {
 
   componentWillUpdate(nextProps) {
     if (nextProps.notification && this.props.notification !== nextProps.notification) {
+      let message = nextProps.notification.message;
+
+      if (Array.isArray(nextProps.notification.message)) {
+        message = nextProps.notification.message.map((m, i) => <span key={i}>{m}<br /></span>);
+      }
+
       ReactMaterialUiNotifications.showNotification({
         title: 'Notice',
-        additionalText: nextProps.notification.message,
+        additionalText: message,
         iconBadgeColor: nextProps.notification.type === 'success' ? '#4caf50' : '#ff5722',
         icon: <MessageIcon />,
         autoHide: 2000,
+        additionalLines: 2
       });
     }
   }
@@ -98,14 +105,14 @@ class App extends Component {
     return (
       <div>
         {isAuthenticated &&
-          <Header title={appConfig.title} toggleMenu={this.toggleMenu} />}
+        <Header title={appConfig.title} toggleMenu={this.toggleMenu} />}
         {isAuthenticated &&
-          <Menu
-            items={appConfig.menuItems[this.props.role]}
-            open={this.state.openMenu}
-            logout={this.props.logout}
-            requestChange={(open) => this.setState({ openMenu: open })}
-          />}
+        <Menu
+          items={appConfig.menuItems[this.props.role]}
+          open={this.state.openMenu}
+          logout={this.props.logout}
+          requestChange={(open) => this.setState({ openMenu: open })}
+        />}
         {isAuthenticated ?
           <div>
             {loader}
@@ -113,7 +120,7 @@ class App extends Component {
           </div> :
           <LoginPage />}
         {isAuthenticated &&
-          <Footer />}
+        <Footer />}
         <ReactMaterialUiNotifications
           desktop
           rootStyle={{ right: 25, top: 64 }}

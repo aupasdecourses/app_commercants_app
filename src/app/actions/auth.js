@@ -55,6 +55,7 @@ export function resetting(username) {
     payload: {
       request: {
         url: '/resetting/send-email',
+        method: 'POST',
         username,
       }
     }

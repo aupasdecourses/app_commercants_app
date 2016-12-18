@@ -14,14 +14,36 @@ class EditPage extends Component {
 
   submit(model) {
     this.props.saveUser(this.props.params.id, model)
-      .then(() => {
-        this.props.dispatch({
-          type: 'NOTIFICATION_OPEN',
-          data: {
-            type: 'success',
-            message: 'Utilisateur sauvegardé avec succès',
-          }
-        });
+      .then((action) => {
+        if (!action.error) {
+          this.props.dispatch({
+            type: 'NOTIFICATION_OPEN',
+            data: {
+              type: 'success',
+              message: 'Utilisateur sauvegardé avec succès',
+            }
+          });
+        } else {
+          // Note: Parse error, maybe it should be better in the reducer directly? Or creating a function or both
+          const errorsRaw = action.error.response.data.errors.children;
+          let errors = [];
+
+          Object.keys(errorsRaw).reduce((o, item) => {
+            if (!errorsRaw[item].errors) {
+              return false;
+            }
+
+            errors = errors.concat(errorsRaw[item].errors);
+          }, 0);
+
+          this.props.dispatch({
+            type: 'NOTIFICATION_OPEN',
+            data: {
+              type: 'error',
+              message: errors,
+            }
+          });
+        }
       });
   }
 

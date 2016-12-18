@@ -44,7 +44,7 @@ export default function products(state = initialState, action) {
 
           return o;
         }, []),
-        total: action.payload.data.recordsTotal,
+        total: action.payload.data.recordsFiltered,
         isFetching: false,
         hasFetched: true,
         hasError: false,
