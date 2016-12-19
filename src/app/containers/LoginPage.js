@@ -19,7 +19,6 @@ const LoginPage = ({ login, resetting, fetchProfile, isAuthenticating, hasError,
   function onReset(username) {
     resetting(username)
       .then((action) => {
-        console.log(action);
         if (!action.error) {
           dispatch({
             type: 'NOTIFICATION_OPEN',
