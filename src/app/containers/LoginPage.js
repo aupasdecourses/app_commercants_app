@@ -6,7 +6,7 @@ import Login from '../components/Login';
 import * as AuthActions from '../actions/auth';
 import * as ProfileActions from '../actions/profile';
 
-const LoginPage = ({ login, resetting, fetchProfile, isAuthenticating, hasError }) => {
+const LoginPage = ({ login, resetting, fetchProfile, isAuthenticating, hasError, dispatch }) => {
   function onLogin(credential) {
     login(credential)
       .then((props) => {
@@ -16,10 +16,34 @@ const LoginPage = ({ login, resetting, fetchProfile, isAuthenticating, hasError 
       });
   }
 
+  function onReset(username) {
+    resetting(username)
+      .then((action) => {
+        console.log(action);
+        if (!action.error) {
+          dispatch({
+            type: 'NOTIFICATION_OPEN',
+            data: {
+              type: 'success',
+              message: action.payload.data.message,
+            }
+          });
+        } else {
+          dispatch({
+            type: 'NOTIFICATION_OPEN',
+            data: {
+              type: 'error',
+              message: action.error.response.data.message,
+            }
+          });
+        }
+      });
+  }
+
   return (
     <Login
       login={onLogin}
-      resetting={resetting}
+      resetting={onReset}
       isAuthenticating={isAuthenticating} hasError={hasError}
     />
   );
@@ -27,9 +51,11 @@ const LoginPage = ({ login, resetting, fetchProfile, isAuthenticating, hasError 
 
 LoginPage.propTypes = {
   login: PropTypes.func.isRequired,
+  resetting: PropTypes.func.isRequired,
   fetchProfile: PropTypes.func.isRequired,
   isAuthenticating: PropTypes.bool,
   hasError: PropTypes.bool,
+  dispatch: PropTypes.func,
 };
 
 function mapStateToProps(state) {
@@ -43,6 +69,7 @@ function mapDispatchToProps(dispatch) {
   return Object.assign({},
     bindActionCreators(AuthActions, dispatch),
     bindActionCreators(ProfileActions, dispatch),
+    { dispatch },
   );
 }
 

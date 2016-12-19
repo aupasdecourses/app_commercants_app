@@ -46,6 +46,7 @@ class ListPage extends Component {
   onPaginate(toPage) {
     const filters = {
       offset: toPage * 20,
+      ...this.props.location.query,
     };
 
     this.props.fetchProducts(filters).then(() => {
