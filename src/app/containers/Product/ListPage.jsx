@@ -28,25 +28,24 @@ class ListPage extends Component {
       page: 1,
       showFilters: false,
       showOptions: false,
+      filters: props.location.query || null,
     };
   }
 
   componentWillMount() {
-    if (this.props.location.query) {
-      this.props.fetchProducts(this.props.location.query);
-    } else {
-      this.props.fetchProducts();
-    }
+    this.props.fetchProducts(this.state.filters);
   }
 
   onFilters(filters) {
-    this.props.fetchProducts(filters);
+    this.props.fetchProducts(filters).then(() => {
+      this.setState({ filters });
+    });
   }
 
   onPaginate(toPage) {
     const filters = {
-      offset: toPage * 20,
-      ...this.props.location.query,
+      offset: (toPage - 1) * 20,
+      ...this.state.filters,
     };
 
     this.props.fetchProducts(filters).then(() => {
