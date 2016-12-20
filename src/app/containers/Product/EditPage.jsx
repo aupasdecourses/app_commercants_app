@@ -16,14 +16,24 @@ class EditPage extends Component {
 
   upload(data) {
     this.props.uploadToProduct(this.props.params.id, data)
-      .then(() => {
-        this.props.dispatch({
-          type: 'NOTIFICATION_OPEN',
-          data: {
-            type: 'success',
-            message: 'Produit sauvegardé avec succès',
-          }
-        });
+      .then((action) => {
+        if (!action.error) {
+          this.props.dispatch({
+            type: 'NOTIFICATION_OPEN',
+            data: {
+              type: 'success',
+              message: 'Photo sauvegardé avec succès',
+            }
+          });
+        } else {
+          this.props.dispatch({
+            type: 'NOTIFICATION_OPEN',
+            data: {
+              type: 'error',
+              message: 'Une erreur c\'est produite pendant la sauvegarde',
+            }
+          });
+        }
       });
   }
 
