@@ -195,6 +195,7 @@ class Form extends Component {
                 floatingLabelText="Commerçant"
                 value={item.user && item.user.id}
                 fullWidth
+                required
                 disabled={isLoading}
               >
                 {choicesList.users.map(u => <MenuItem key={u.value} value={u.value} primaryText={u.name} />)}
