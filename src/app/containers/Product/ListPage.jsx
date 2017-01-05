@@ -28,6 +28,10 @@ class ListPage extends Component {
       page: 1,
       showFilters: false,
       showOptions: false,
+      sort: {
+        by: 'id',
+        dir: 'desc',
+      },
       filters: props.location.query || null,
     };
   }
@@ -39,6 +43,32 @@ class ListPage extends Component {
   onFilters(filters) {
     this.props.fetchProducts(filters).then(() => {
       this.setState({ filters });
+    });
+  }
+
+  onSort(sortBy) {
+    console.log(this.state.sort);
+
+    let sortDir = 'asc';
+
+    if (sortBy === this.state.sort.by && this.state.sort.dir === 'asc') {
+      sortDir = 'desc';
+    }
+
+    const filters = {
+      ...this.state.filters,
+      sortBy,
+      sortDir,
+    };
+
+    this.props.fetchProducts(filters).then(() => {
+      this.setState({
+        filters,
+        sort: {
+          by: sortBy,
+          dir: sortDir,
+        },
+      });
     });
   }
 
@@ -161,8 +191,11 @@ class ListPage extends Component {
         {this.state.showFilters &&
           <Filters onSubmit={(filters) => this.onFilters(filters)} />}
         {this.props.hasFetched &&
-          <div>
-            <ProductList items={this.props.items} columns={this.props.columns} />
+          <div style={{ paddingBottom: 48 }}>
+            <ProductList
+              items={this.props.items} columns={this.props.columns}
+              sortColumn={(sortBy) => this.onSort(sortBy)}
+            />
             <Pagination
               page={this.state.page} totalPages={Math.ceil(this.props.total / 20)}
               onClickPaginate={(toPage) => this.onPaginate(toPage)}

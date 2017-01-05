@@ -5,7 +5,7 @@ import {
   Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn,
 } from 'material-ui/Table';
 
-const List = ({ items, columns }) => {
+const List = ({ items, columns, sortColumn }) => {
 
   const priceUnit = {
     1: 'Pièce',
@@ -19,10 +19,14 @@ const List = ({ items, columns }) => {
       <TableHeader adjustForCheckbox={false} displaySelectAll={false}>
         <TableRow>
           {columns.status &&
-            <TableHeaderColumn style={{ width: 30 }}>Dispo.</TableHeaderColumn>
+            <TableHeaderColumn
+              onTouchTap={() => sortColumn('available')} style={{ width: 30 }}
+            >Dispo.</TableHeaderColumn>
           }
           {columns.name &&
-            <TableHeaderColumn style={{ width: '30%' }}>Nom</TableHeaderColumn>
+            <TableHeaderColumn
+              onTouchTap={() => sortColumn('name')} style={{ width: '30%' }}
+            >Nom</TableHeaderColumn>
           }
           {columns.price &&
             <TableHeaderColumn>Prix</TableHeaderColumn>
@@ -37,10 +41,12 @@ const List = ({ items, columns }) => {
             <TableHeaderColumn>Description</TableHeaderColumn>
           }
           {columns.origin &&
-           <TableHeaderColumn>Origine</TableHeaderColumn>
+           <TableHeaderColumn onTouchTap={() => sortColumn('origin')}>Origine</TableHeaderColumn>
            }
           {columns.bio &&
-          <TableHeaderColumn style={{ width: 30 }}>Bio</TableHeaderColumn>
+          <TableHeaderColumn
+            onTouchTap={() => sortColumn('bio')} style={{ width: 30 }}
+          >Bio</TableHeaderColumn>
           }
         </TableRow>
       </TableHeader>
@@ -86,6 +92,7 @@ const List = ({ items, columns }) => {
 List.propTypes = {
   items: PropTypes.array,
   columns: PropTypes.object,
+  sortColumn: PropTypes.func,
 };
 
 export default List;
