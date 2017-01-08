@@ -11,3 +11,4 @@ plugins/
 platforms/
 
 /src/app/config.dev.js
+/src/app/config.prod.js
