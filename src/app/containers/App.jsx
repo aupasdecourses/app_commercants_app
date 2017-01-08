@@ -14,11 +14,11 @@ import LoginPage from 'app/containers/LoginPage';
 import './App.css';
 
 const appConfig = {
-  title: 'Au Pas De Courses',
+  title: 'APDC',
   menuItems: {
     ROLE_USER: [
       {
-        name: 'Dashboard',
+        name: 'Tableau de bord',
         linkTo: '/'
       }, {
         name: 'Mes produits',
@@ -30,7 +30,7 @@ const appConfig = {
     ],
     ROLE_ADMIN: [
       {
-        name: 'Dashboard',
+        name: 'Tableau de bord',
         linkTo: '/'
       }, {
         name: 'Produits',

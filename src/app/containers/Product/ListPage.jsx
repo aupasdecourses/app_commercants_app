@@ -12,7 +12,7 @@ import {
   Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle
 } from 'material-ui/Toolbar';
 import AddIcon from 'material-ui/svg-icons/content/add';
-import FormatLineIcon from 'material-ui/svg-icons/editor/format-line-spacing';
+import SearchIcon from 'material-ui/svg-icons/action/search';
 import ActionSettingsIcon from 'material-ui/svg-icons/action/settings';
 
 import * as ProductActions from '../../actions/product';
@@ -91,8 +91,8 @@ class ListPage extends Component {
             <ToolbarTitle text="Liste produits" />
           </ToolbarGroup>
           <ToolbarGroup>
-            <ToolbarTitle text="Filtres" />
-            <FormatLineIcon
+            <ToolbarTitle text="Recherche" />
+            <SearchIcon
               style={{ cursor: 'pointer', paddingLeft: 24, marginTop: 16 }}
               color={this.context.muiTheme.toolbar.iconColor}
               hoverColor={this.context.muiTheme.toolbar.hoverColor}
@@ -101,7 +101,7 @@ class ListPage extends Component {
             <ToolbarSeparator />
             <RaisedButton
               onTouchTap={() => this.setState({ showOptions: !this.state.showOptions })}
-              label="Options"
+              label="Colonnes"
               icon={<ActionSettingsIcon />}
               secondary
             />
