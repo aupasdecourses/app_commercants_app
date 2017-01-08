@@ -9,9 +9,18 @@ import * as UserActions from '../../actions/user';
 import Form from '../../components/Product/Form';
 
 class EditPage extends Component {
+
   componentDidMount() {
+    setTimeout(
+      () => {
+        window.Tawk_API.showWidget();
+      }, 2000);
     this.props.fetchUsersIfNeeded(null, true);
     this.props.fetchProduct(this.props.params.id);
+  }
+
+  componentWillUnmount() {
+    window.Tawk_API.hideWidget();
   }
 
   upload(data) {

@@ -21,6 +21,18 @@ import ProductList from '../../components/Product/List';
 import Pagination from '../../components/Pagination';
 
 class ListPage extends Component {
+
+  componentDidMount() {
+    setTimeout(
+      () => {
+        window.Tawk_API.showWidget();
+      }, 2000);
+  }
+
+  componentWillUnmount() {
+    window.Tawk_API.hideWidget();
+  }
+
   constructor(props) {
     super(props);
 
