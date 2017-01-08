@@ -25,7 +25,7 @@ const List = ({ items, columns, sortColumn }) => {
           }
           {columns.name &&
             <TableHeaderColumn
-              onTouchTap={() => sortColumn('name')} style={{ width: '30%' }}
+              onTouchTap={() => sortColumn('name')} style={{ fontSize: '14px' }}
             >Nom</TableHeaderColumn>
           }
           {columns.price &&
@@ -58,7 +58,7 @@ const List = ({ items, columns, sortColumn }) => {
                 <TableRowColumn style={{ width: 30 }}>{item.available ? 'Oui' : 'Non'}</TableRowColumn>
               }
               {columns.name &&
-                <TableRowColumn style={{ width: '30%' }}>
+                <TableRowColumn style={{ fontSize: '14px' }}>
                   <Link to={`/products/${item.id}/edit`}>{item.name}</Link>
                 </TableRowColumn>
               }

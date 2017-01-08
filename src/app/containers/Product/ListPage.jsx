@@ -91,10 +91,6 @@ class ListPage extends Component {
             <ToolbarTitle text="Liste produits" />
           </ToolbarGroup>
           <ToolbarGroup>
-            <ToolbarTitle
-              text="Recherche"
-              onClick={() => this.setState({ showFilters: !this.state.showFilters })}
-            />
             <SearchIcon
               style={{ cursor: 'pointer', paddingLeft: 24, marginTop: 16 }}
               color={this.context.muiTheme.toolbar.iconColor}
