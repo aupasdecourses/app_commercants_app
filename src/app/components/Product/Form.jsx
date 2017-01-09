@@ -204,7 +204,7 @@ class Form extends Component {
           </Col>
           <Col xs={12}>
             {item.id ?
-              <div>
+              <div style={{ position: 'relative' }}>
                 {item.photo &&
                   <img src={`${globalConfig.baseUrl}/uploads/products/${item.id}/${item.photo}`} alt="" />}
                 <RaisedButton
@@ -212,7 +212,7 @@ class Form extends Component {
                   label="Photo"
                 >
                   <FileInput
-                    name="photo" style={{ display: 'none' }}
+                    name="photo" style={{ opacity: 0, position: 'absolute', top: 0, bottom: 0, right: 0, width: '100%' }}
                     setValue={this.upload}
                   />
                 </RaisedButton>
