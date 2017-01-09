@@ -9,7 +9,6 @@ import * as UserActions from '../../actions/user';
 import Form from '../../components/Product/Form';
 
 class EditPage extends Component {
-
   componentDidMount() {
     setTimeout(
       () => {
@@ -100,6 +99,8 @@ EditPage.propTypes = {
   item: PropTypes.object,
   choicesList: PropTypes.object,
   fetchProduct: PropTypes.func,
+  fetchUsersIfNeeded: PropTypes.func,
+  uploadToProduct: PropTypes.func,
   saveProduct: PropTypes.func,
   hasFetched: PropTypes.bool,
   isFetching: PropTypes.bool,

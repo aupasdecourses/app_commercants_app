@@ -9,7 +9,6 @@ import * as UserActions from '../../actions/user';
 import Form from '../../components/Product/Form';
 
 class CreatePage extends Component {
-
   componentWillMount() {
     this.props.fetchUsersIfNeeded(null, true);
   }
@@ -75,7 +74,12 @@ class CreatePage extends Component {
 }
 
 CreatePage.propTypes = {
+  params: PropTypes.object,
   choicesList: PropTypes.object,
+  fetchProduct: PropTypes.func,
+  fetchUsersIfNeeded: PropTypes.func,
+  saveProduct: PropTypes.func,
+  dispatch: PropTypes.func,
 };
 
 function mapStateToProps(state) {
