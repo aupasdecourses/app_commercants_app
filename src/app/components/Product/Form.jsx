@@ -206,7 +206,7 @@ class Form extends Component {
             {item.id ?
               <div style={{ position: 'relative' }}>
                 {item.photo &&
-                  <img src={`${globalConfig.baseUrl}/uploads/products/${item.id}/${item.photo}`} alt="" />}
+                  <img src={`${globalConfig.baseUrl}/uploads/products/${item.id}/${item.photo}`} alt="" accept="image/*" capture />}
                 <RaisedButton
                   containerElement="label"
                   label="Photo"

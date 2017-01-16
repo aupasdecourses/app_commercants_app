@@ -75,11 +75,10 @@ class UserForm extends Component {
               floatingLabelText="Role"
               value={item.roles && item.roles[0]}
               fullWidth
-              required
               multiple
               disabled={isLoading}
             >
-              <MenuItem value="ROLE_USER" primaryText="Commerçant" />
+              <MenuItem value={null} primaryText="&nbsp;" />
               <MenuItem value="ROLE_ADMIN" primaryText="Admin" />
             </SelectInput>
             <TextInput
