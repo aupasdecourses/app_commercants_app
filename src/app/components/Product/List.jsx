@@ -8,8 +8,8 @@ import {
 const List = ({ items, columns, sortColumn }) => {
 
   const priceUnit = {
-    1: 'Pièce',
-    2: 'Par Kg',
+    1: 'Kg',
+    2: 'Pièce',
   };
 
   return (
