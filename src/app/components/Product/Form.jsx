@@ -122,7 +122,7 @@ class Form extends Component {
               initialValue={item.price}
               fullWidth
               type="number"
-              step="0.1"
+              step="0.05"
               required
               disabled={isLoading}
             />
