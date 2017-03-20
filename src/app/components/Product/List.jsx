@@ -4,9 +4,14 @@ import { Link } from 'react-router';
 import {
   Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn,
 } from 'material-ui/Table';
+import RaisedButton from 'material-ui/RaisedButton';
+import CheckCircleIcon from 'material-ui/svg-icons/action/check-circle';
+import CancelIcon from 'material-ui/svg-icons/navigation/cancel';
+import ArrowDownwardIcon from 'material-ui/svg-icons/navigation/arrow-downward';
 
-const List = ({ items, columns, sortColumn }) => {
+import '../../components/Table/ApiTable.css';
 
+const List = ({ items, headers, columns, sortByColumn, onSubmit }) => {
   const priceUnit = {
     1: 'Kg',
     2: 'Pièce',
@@ -16,46 +21,48 @@ const List = ({ items, columns, sortColumn }) => {
     <Table
       selectable={false}
     >
-      <TableHeader adjustForCheckbox={false} displaySelectAll={false}>
+      <TableHeader
+        adjustForCheckbox={false} displaySelectAll={false}
+      >
         <TableRow>
-          {columns.status &&
+          { headers && Object.keys(headers).map((key) => (
             <TableHeaderColumn
-              onTouchTap={() => sortColumn('available')} style={{ width: 30 }}
-            >Dispo.</TableHeaderColumn>
-          }
-          {columns.name &&
-            <TableHeaderColumn
-              onTouchTap={() => sortColumn('name')} style={{ fontSize: '14px' }}
-            >Nom</TableHeaderColumn>
-          }
-          {columns.price &&
-            <TableHeaderColumn>Prix</TableHeaderColumn>
-          }
-          {columns.type &&
-            <TableHeaderColumn>Unité</TableHeaderColumn>
-          }
-          {columns.portionNumber &&
-           <TableHeaderColumn>Portion</TableHeaderColumn>
-          }
-          {columns.description &&
-            <TableHeaderColumn>Description</TableHeaderColumn>
-          }
-          {columns.origin &&
-           <TableHeaderColumn onTouchTap={() => sortColumn('origin')}>Origine</TableHeaderColumn>
-           }
-          {columns.bio &&
-          <TableHeaderColumn
-            onTouchTap={() => sortColumn('bio')} style={{ width: 30 }}
-          >Bio</TableHeaderColumn>
-          }
+              style={headers[key].style}
+              key={key}
+            >
+              {headers[key].sortable ?
+                <div
+                  onMouseUp={(e) => sortByColumn(key)}
+                  className="rowAlign sort"
+                >
+                  <ArrowDownwardIcon
+                    style={{ withd: 16, height: 16 }}
+                    className={`sortIcon${headers[key].sortBy ? ` active ${headers[key].sortBy}` : ''}`}
+                    id={key}
+                  />
+                  { headers[key].alias }
+                </div> :
+                <div className="rowAlign">
+                  { headers[key].alias }
+                </div>
+              }
+            </TableHeaderColumn>
+          )) }
         </TableRow>
       </TableHeader>
       <TableBody stripedRows displayRowCheckbox={false}>
         {items ?
           items.map(item => (
             <TableRow key={item.id} rowNumber={item.id}>
-              {columns.status &&
-                <TableRowColumn style={{ width: 30 }}>{item.available ? 'Oui' : 'Non'}</TableRowColumn>
+              {columns.available &&
+                <TableRowColumn style={{ width: 64 }}>
+                  <RaisedButton
+                    onMouseUp={(e) => onSubmit(item.id, { available: !item.available })}
+                    style={{ minWidth: 64 }}
+                    icon={item.available ? <CheckCircleIcon /> : <CancelIcon />}
+                    backgroundColor={item.available ? "#b9d466" : "#dc8585"}
+                  />
+                </TableRowColumn>
               }
               {columns.name &&
                 <TableRowColumn style={{ fontSize: '14px' }}>
@@ -78,7 +85,7 @@ const List = ({ items, columns, sortColumn }) => {
                <TableRowColumn>{item.origin}</TableRowColumn>
               }
               {columns.bio &&
-              <TableRowColumn style={{ width: 30 }}>{item.bio ? 'Oui' : 'Non'}</TableRowColumn>
+              <TableRowColumn style={{ width: 42 }}>{item.bio ? 'Oui' : 'Non'}</TableRowColumn>
               }
             </TableRow>
           )) :
@@ -91,8 +98,10 @@ const List = ({ items, columns, sortColumn }) => {
 
 List.propTypes = {
   items: PropTypes.array,
+  headers: PropTypes.object,
   columns: PropTypes.object,
-  sortColumn: PropTypes.func,
+  sortByColumn: PropTypes.func,
+  onSubmit: PropTypes.func,
 };
 
 export default List;

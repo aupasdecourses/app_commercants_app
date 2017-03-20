@@ -36,6 +36,9 @@ const appConfig = {
         name: 'Produits',
         linkTo: '/products'
       }, {
+        name: 'Commandes',
+        linkTo: '/orders'
+      }, {
         name: 'Utilisateurs',
         linkTo: '/users'
       },
@@ -98,7 +101,8 @@ class App extends Component {
       <div className="fullLoader">
         <CircularProgress
           style={{ position: 'fixed', left: 0, right: 0, top: '45%', margin: '0 auto' }}
-          size={2}
+          size={100}
+          thickness={5}
         />
       </div> : '';
 

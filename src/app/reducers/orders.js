@@ -1,6 +1,6 @@
 import {
-  PRODUCTS_REQUEST, PRODUCTS_SUCCESS, PRODUCTS_FAIL,
-  PRODUCTS_FILTER_COLUMN,
+  ORDERS_REQUEST, ORDERS_SUCCESS, ORDERS_FAIL,
+  ORDERS_FILTER_COLUMN,
 } from '../constants/ActionTypes';
 
 const initialState = {
@@ -8,14 +8,7 @@ const initialState = {
   short: [],
   total: 0,
   columns: {
-    available: true,
     name: true,
-    type: true,
-    price: true,
-    portionNumber: false,
-    description: false,
-    origin: false,
-    bio: false,
   },
   isFetching: false,
   hasFetched: false,
@@ -23,14 +16,14 @@ const initialState = {
   hasError: false,
 };
 
-export default function products(state = initialState, action) {
+export default function orders(state = initialState, action) {
   switch (action.type) {
-    case PRODUCTS_REQUEST:
+    case ORDERS_REQUEST:
       return {
         ...state,
         isFetching: true,
       };
-    case PRODUCTS_SUCCESS:
+    case ORDERS_SUCCESS:
       return {
         ...state,
         items: action.payload.data.data,
@@ -49,13 +42,13 @@ export default function products(state = initialState, action) {
         hasFetched: true,
         hasError: false,
       };
-    case PRODUCTS_FAIL:
+    case ORDERS_FAIL:
       return {
         ...state,
         isFetching: false,
         hasError: true,
       };
-    case PRODUCTS_FILTER_COLUMN:
+    case ORDERS_FILTER_COLUMN:
       return {
         ...state,
         columns: Object.assign({}, state.columns, action.column)

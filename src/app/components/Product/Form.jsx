@@ -102,6 +102,13 @@ class Form extends Component {
               fullWidth
               disabled={isLoading}
             />
+            <TextInput
+              name="comment"
+              floatingLabelText="Commentaire"
+              initialValue={item.comment}
+              fullWidth
+              disabled={isLoading}
+            />
             {this.context.role === 'ROLE_ADMIN' ?
               <TextInput
                 name="sku"
@@ -220,6 +227,14 @@ class Form extends Component {
               </div>
               : ''
             }
+          </Col>
+          <Col xs={12}>
+            <RaisedButton
+              containerElement="label"
+              label="Supprimer"
+              fullWidth
+              backgroundColor="#dc8585"
+            />
           </Col>
         </Row>
       </BaseForm>

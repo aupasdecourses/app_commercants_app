@@ -49,7 +49,7 @@ class Login extends Component {
                 {isAuthenticating ?
                   <Row center="xs">
                     <Col xs>
-                      <CircularProgress size={1.5} />
+                      <CircularProgress size={20} />
                     </Col>
                   </Row> :
                   <Row>
@@ -97,7 +97,7 @@ class Login extends Component {
                 {isAuthenticating ?
                   <Row center="xs">
                     <Col xs>
-                      <CircularProgress size={1.5} />
+                      <CircularProgress size={20} />
                     </Col>
                   </Row> :
                   <Row>

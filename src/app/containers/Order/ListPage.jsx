@@ -27,7 +27,6 @@ class ListPage extends Component {
 
     this.state = {
       page: 1,
-      goTo: false,
       showFilters: false,
       showOptions: false,
       sort: {
@@ -102,14 +101,13 @@ class ListPage extends Component {
   }
 
   onPaginate(toPage) {
-    const query = {
-      ...this.state.filters,
+    const filters = {
       offset: (toPage - 1) * 20,
+      ...this.state.filters,
     };
 
-    this.props.router.push({
-      pathname: 'products',
-      query,
+    this.props.fetchProducts(filters).then(() => {
+      this.setState({ page: toPage });
     });
   }
 

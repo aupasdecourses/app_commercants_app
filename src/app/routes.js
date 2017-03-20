@@ -3,6 +3,8 @@ import { Route, IndexRoute } from 'react-router';
 
 import App from './containers/App';
 import Dashboard from './containers/DashboardPage';
+import Orders from './containers/Order/ListPage';
+import OrderShow from './containers/Order/ShowPage';
 import Profile from './containers/ProfilePage';
 import Products from './containers/Product/ListPage';
 import ProductCreate from './containers/Product/CreatePage';
@@ -14,6 +16,10 @@ import UserEdit from './containers/User/EditPage';
 export default (
   <Route path="/" component={App}>
     <IndexRoute component={Dashboard} />
+    <Route path="orders">
+      <IndexRoute component={Orders} />
+      <Route path=":id" component={OrderShow} />
+    </Route>
     <Route path="products">
       <IndexRoute component={Products} />
       <Route path="new" component={ProductCreate} />

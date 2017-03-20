@@ -5,6 +5,7 @@
 	right: 0;
 	padding: 6px;
 	background-color: rgb(232, 232, 232);
+	z-index: 1;
 }
 
 .pagination .pager {

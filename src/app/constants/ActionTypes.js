@@ -34,6 +34,17 @@ export const PRODUCT_SAVE_FAIL = 'PRODUCT_SAVE_FAIL';
 
 export const PRODUCTS_FILTER_COLUMN = 'PRODUCTS_FILTER_COLUMN';
 
+// Products
+export const ORDERS_REQUEST = 'ORDERS';
+export const ORDERS_SUCCESS = 'ORDERS_SUCCESS';
+export const ORDERS_FAIL = 'ORDERS_FAIL';
+
+export const ORDER_REQUEST = 'ORDER';
+export const ORDER_SUCCESS = 'ORDER_SUCCESS';
+export const ORDER_FAIL = 'ORDER_FAIL';
+
+export const ORDERS_FILTER_COLUMN = 'ORDERS_FILTER_COLUMN';
+
 // Users
 export const USERS_REQUEST = 'USERS';
 export const USERS_SUCCESS = 'USERS_SUCCESS';
