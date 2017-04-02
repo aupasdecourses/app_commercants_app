@@ -58,6 +58,7 @@ class Form extends Component {
         onValidSubmit={this.submit}
         onValid={this.onValid}
         onInvalid={this.onInvalid}
+        lang="en-150"
       >
         <FloatingActionButton
           className="floatButton"
@@ -121,8 +122,9 @@ class Form extends Component {
               hintText="Prix en Euro"
               initialValue={item.price}
               fullWidth
-              type="number"
-              step="0.05"
+              type="text"
+              keyboardType="numeric"
+              step="0.01"
               required
               disabled={isLoading}
             />
