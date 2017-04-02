@@ -123,7 +123,6 @@ class Form extends Component {
               initialValue={item.price}
               fullWidth
               type="text"
-              keyboardType="numeric"
               step="0.01"
               required
               disabled={isLoading}
