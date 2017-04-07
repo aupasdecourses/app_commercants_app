@@ -8,6 +8,7 @@ import {
 const initialState = {
   fetching: false,
   notification: {},
+  pinned: 0,
 };
 
 export default function ui(state = initialState, action) {

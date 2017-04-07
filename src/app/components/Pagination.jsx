@@ -14,8 +14,6 @@ class Pagination extends Component {
     this.state = {
       goTo: false,
     };
-
-    console.log(this);
   }
 
   onPaginate(toPage) {
@@ -34,7 +32,7 @@ class Pagination extends Component {
             <RaisedButton
               className="pager leftBtn"
               disabled={page === 1}
-              onTouchTap={() => this.onPaginate(page - 1)}
+              onMouseDown={() => this.onPaginate(page - 1)}
             >
               <Left />
             </RaisedButton>
@@ -47,7 +45,7 @@ class Pagination extends Component {
             <RaisedButton
               className="pager rightBtn"
               disabled={page === totalPages}
-              onTouchTap={() => this.onPaginate(page + 1)}
+              onMouseDown={() => this.onPaginate(page + 1)}
             >
               <Right />
             </RaisedButton>
@@ -56,12 +54,12 @@ class Pagination extends Component {
             <TextField
               ref={(c) => { this.toPage = c; }}
               type="number"
-              style={{ lineHeight: '12px', height: 34, width: 50, marginLeft: 24 }}
+              style={{ lineHeight: '12px', height: 34, width: 60, marginLeft: 24 }}
               inputStyle={{ textAlign: 'center' }}
               hintText="Page ?"
             />
             <FlatButton
-              onTouchTap={() => this.onPaginate(this.toPage.input.value)}
+              onMouseDown={() => { this.onPaginate(this.toPage.input.value); this.setState({ goTo: false }); }}
               label="Go" labelPosition="before" secondary
             >
               <ArrowForward />

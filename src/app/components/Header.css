@@ -1,4 +1,4 @@
 .header-fixed {
-	position: fixed !important;
+	position: absolute !important;
 	top: 0;
 }

@@ -24,7 +24,7 @@ class DashboardPage extends Component {
 
   render() {
     return (
-      <Grid fluid style={{ textAlign: 'center', marginTop: 24 }}>
+      <Grid id="content" fluid style={{ textAlign: 'center', marginTop: 24 }}>
         <RaisedButton
           label="Liste products" secondary style={{ marginBottom: 12, height: 50 }}
           containerElement={<Link to="/products" />}

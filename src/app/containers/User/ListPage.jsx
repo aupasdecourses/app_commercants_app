@@ -35,20 +35,20 @@ class ListPage extends Component {
   render() {
     return (
       <div>
-        <FloatingActionButton
-          className="floatButton"
-          containerElement={<Link to="/users/new" />}
-        >
-          <ContentAddIcon />
-        </FloatingActionButton>
-        {this.props.hasFetched &&
-          <div>
-            <List items={this.props.items} />
-            <Pagination
-              page={this.state.page} totalPages={Math.ceil(this.props.total / 20)}
-              onClickPaginate={(toPage) => this.onPaginate(toPage)}
-            />
-          </div>}
+        <div id="content" className="paginate">
+          <FloatingActionButton
+            className="floatButton"
+            containerElement={<Link to="/users/new" />}
+          >
+            <ContentAddIcon />
+          </FloatingActionButton>
+          {this.props.hasFetched &&
+          <List items={this.props.items} />}
+        </div>
+        <Pagination
+          page={this.state.page} totalPages={Math.ceil(this.props.total / 20)}
+          onClickPaginate={(toPage) => this.onPaginate(toPage)}
+        />
       </div>
     );
   }

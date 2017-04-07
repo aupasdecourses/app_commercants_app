@@ -49,7 +49,7 @@ class EditPage extends Component {
 
   render() {
     return (
-      <Grid fluid>
+      <Grid id="content" fluid>
         {this.props.hasFetched && <Form
           item={this.props.item}
           isLoading={this.props.isFetching}

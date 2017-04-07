@@ -1,10 +1,10 @@
 .pagination {
-	position: fixed;
+	position: absolute;
 	bottom: 0;
 	left: 0;
 	right: 0;
 	padding: 6px;
-	background-color: rgb(232, 232, 232);
+	background-color: rgb(238, 238, 238);
 	z-index: 1;
 }
 

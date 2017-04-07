@@ -19,7 +19,7 @@ class ProfilePage extends Component {
     const { profile, isFetching } = this.props;
 
     return (
-      <Grid fluid>
+      <Grid id="content" fluid>
         {!isFetching ?
           <Profile profile={profile} onSubmit={(model) => this.submit(model)} /> : ''
         }

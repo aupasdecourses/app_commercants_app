@@ -207,39 +207,39 @@ class ListPage extends Component {
 
     return (
       <div>
-        <Toolbar
-          title="Liste produits"
-          onSearch={(filters) => this.onFilters(filters)}
-          toggleFilters={() => this.setState({ showFilters: !this.state.showFilters })}
-          toggleOptions={() => this.setState({ showOptions: !this.state.showOptions })}
-        />
-        <FloatingActionButton
-          className="floatButton"
-          containerElement={<Link to="/products/new" />}
-        >
-          <AddIcon />
-        </FloatingActionButton>
-        <Options
-          open={this.state.showOptions}
-          fields={fields} columns={this.props.columns}
-          toggleOptions={() => this.setState({ showOptions: !this.state.showOptions })}
-          showColumn={(column) => this.props.filterColumn(column)}
-        />
-        {this.state.showFilters &&
+        <div id="content" className="paginate">
+          <Toolbar
+            title="Liste produits"
+            onSearch={(filters) => this.onFilters(filters)}
+            toggleFilters={() => this.setState({ showFilters: !this.state.showFilters })}
+            toggleOptions={() => this.setState({ showOptions: !this.state.showOptions })}
+          />
+          <FloatingActionButton
+            className="floatButton"
+            containerElement={<Link to="/products/new" />}
+          >
+            <AddIcon />
+          </FloatingActionButton>
+          <Options
+            open={this.state.showOptions}
+            fields={fields} columns={this.props.columns}
+            toggleOptions={() => this.setState({ showOptions: !this.state.showOptions })}
+            showColumn={(column) => this.props.filterColumn(column)}
+          />
+          {this.state.showFilters &&
           <Filters onSubmit={(filters) => this.onFilters(filters)} />}
-        {this.props.hasFetched &&
-          <div style={{ paddingBottom: 48 }}>
-            <ProductList
-              fields={displayedFields}
-              items={this.props.items}
-              sortByColumn={(by) => this.onSort(by)}
-              onSubmit={(id, model) => this.submit(id, model)}
-            />
-            <Pagination
-              page={this.state.page} totalPages={Math.ceil(this.props.total / 20)}
-              onClickPaginate={(toPage) => this.onPaginate(toPage)}
-            />
-          </div>}
+          {this.props.hasFetched &&
+          <ProductList
+            fields={displayedFields}
+            items={this.props.items}
+            sortByColumn={(by) => this.onSort(by)}
+            onSubmit={(id, model) => this.submit(id, model)}
+          />}
+        </div>
+        <Pagination
+          page={this.state.page} totalPages={Math.ceil(this.props.total / 20)}
+          onClickPaginate={(toPage) => this.onPaginate(toPage)}
+        />
       </div>
     );
   }

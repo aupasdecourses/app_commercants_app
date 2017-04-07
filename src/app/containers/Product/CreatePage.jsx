@@ -63,7 +63,7 @@ class CreatePage extends Component {
 
   render() {
     return (
-      <Grid fluid>
+      <Grid id="content" fluid>
         <Form
           item={{}} choicesList={this.props.choicesList}
           onSubmit={(model) => this.submit(model)}

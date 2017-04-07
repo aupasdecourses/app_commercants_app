@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import { CircularProgress } from 'material-ui';
@@ -89,8 +90,22 @@ class App extends Component {
   }
 
   toggleMenu() {
-    this.setState({
-      openMenu: !this.state.openMenu,
+    this.setState({ openMenu: !this.state.openMenu }, () => {
+      if (this.state.pinned) {
+        this.props.dispatch({
+          type: 'PIN_CHANGE',
+          data: this.state.openMenu ? 2 : 1
+        });
+      }
+    });
+  }
+
+  togglePinned() {
+    this.setState({ pinned: !this.state.pinned }, () => {
+      this.props.dispatch({
+        type: 'PIN_CHANGE',
+        data: !this.state.pinned ? 0 : 2
+      });
     });
   }
 
@@ -106,8 +121,14 @@ class App extends Component {
         />
       </div> : '';
 
+    const mainClass = isAuthenticated ?
+      `${this.state.pinned && 'pinned'} ${this.state.openMenu ? 'open' : 'close'}` : '';
+
     return (
-      <div>
+      <div
+        id="main"
+        className={mainClass}
+      >
         {isAuthenticated &&
         <Header title={appConfig.title} toggleMenu={this.toggleMenu} />}
         {isAuthenticated &&
@@ -115,6 +136,8 @@ class App extends Component {
           items={appConfig.menuItems[this.props.role]}
           open={this.state.openMenu}
           logout={this.props.logout}
+          pinned={this.state.pinned}
+          togglePin={() => this.togglePinned()}
           requestChange={(open) => this.setState({ openMenu: open })}
         />}
         {isAuthenticated ?
@@ -127,7 +150,7 @@ class App extends Component {
         <Footer />}
         <ReactMaterialUiNotifications
           desktop
-          rootStyle={{ right: 25, top: 64 }}
+          rootStyle={{ right: 25, top: 64, zIndex: 1 }}
         />
       </div>
     );
@@ -142,9 +165,11 @@ App.propTypes = {
   auth: PropTypes.object,
   role: PropTypes.string,
   notification: PropTypes.object,
+  pinned: PropTypes.number,
   children: PropTypes.element.isRequired,
   isFetching: PropTypes.bool,
   isAuthenticated: PropTypes.bool,
+  dispatch: PropTypes.func,
   logout: PropTypes.func,
 };
 
@@ -153,11 +178,17 @@ function mapStateToProps(state) {
     auth: state.auth,
     role: state.profile.role,
     notification: state.ui.notification,
+    pinned: state.ui.pinned,
     isFetching: state.profile.isFetching || state.ui.fetching,
     isAuthenticated: state.auth.isAuthenticated && state.profile.hasFetched,
   };
 }
 
-const mapDispatchToProps = AuthActions;
+function mapDispatchToProps(dispatch) {
+  return Object.assign({},
+    bindActionCreators(AuthActions, dispatch),
+    { dispatch },
+  );
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
