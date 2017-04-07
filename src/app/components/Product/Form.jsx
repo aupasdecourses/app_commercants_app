@@ -9,6 +9,7 @@ import { Row, Col } from 'react-flexbox-grid/lib';
 
 import globalConfig from '../../config';
 
+import NumberInput from '../Form/NumberInput';
 import TextInput from '../Form/TextInput';
 import FileInput from '../Form/FileInput';
 
@@ -122,13 +123,12 @@ class Form extends Component {
                 {item.sku}
               </div>
             }
-            <TextInput
+            <NumberInput
               name="price"
               floatingLabelText="Prix"
               hintText="Prix en Euro"
               initialValue={item.price}
               fullWidth
-              type="number"
               step="0.05"
               required
               disabled={isLoading}

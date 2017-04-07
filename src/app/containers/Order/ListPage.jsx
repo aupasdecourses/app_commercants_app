@@ -18,7 +18,7 @@ import ActionSettingsIcon from 'material-ui/svg-icons/action/settings';
 
 import * as ProductActions from '../../actions/product';
 import Filters from '../../components/Product/Filters';
-import ProductList from '../../components/Product/List';
+import ProductList from '../../components/Browse/Table';
 import Pagination from '../../components/Pagination';
 
 class ListPage extends Component {

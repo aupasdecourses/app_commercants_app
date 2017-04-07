@@ -10,15 +10,17 @@ import {
   List, ListItem
 } from 'material-ui/List';
 import {
-  Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle
+  ToolbarGroup, ToolbarSeparator, ToolbarTitle
 } from 'material-ui/Toolbar';
 import AddIcon from 'material-ui/svg-icons/content/add';
 import SearchIcon from 'material-ui/svg-icons/action/search';
 import ActionSettingsIcon from 'material-ui/svg-icons/action/settings';
 
 import * as ProductActions from '../../actions/product';
+import Toolbar from '../../components/Browse/Toolbar';
 import Filters from '../../components/Product/Filters';
-import ProductList from '../../components/Product/List';
+import ProductList from '../../components/Browse/Table';
+import Options from '../../components/Browse/Options';
 import Pagination from '../../components/Pagination';
 
 class ListPage extends Component {
@@ -27,7 +29,6 @@ class ListPage extends Component {
 
     this.state = {
       page: 1,
-      goTo: false,
       showFilters: false,
       showOptions: false,
       sort: {
@@ -58,8 +59,8 @@ class ListPage extends Component {
           filters,
           page: nextProps.location.query.offset ? nextProps.location.query.offset / 20 + 1 : 1,
           sort: {
-            by: nextProps.location.query.sortBy ? nextProps.location.query.sortBy : this.state.sort.by,
-            dir: nextProps.location.query.sortDir ? nextProps.location.query.sortDir : this.state.sort.dir,
+            by: nextProps.location.query.sortBy || this.state.sort.by,
+            dir: nextProps.location.query.sortDir || this.state.sort.dir,
           },
         });
       });
@@ -150,13 +151,16 @@ class ListPage extends Component {
 
   render() {
     // TODO: Voir à tout mettre dans le reducer?
-    const headers = {
+    const fields = {
       available: {
+        type: 'publish',
         alias: 'Dispo.',
         sortable: true,
         style: { width: 64 },
       },
       name: {
+        type: 'title',
+        baseRoute: 'products',
         alias: 'Nom',
         sortable: true,
       },
@@ -185,17 +189,17 @@ class ListPage extends Component {
 
     const sortBy = this.state.sort.by;
 
-    if (headers[sortBy]) {
-      headers[sortBy].sortBy = this.state.sort.dir;
+    if (fields[sortBy]) {
+      fields[sortBy].sortBy = this.state.sort.dir;
     }
 
-    const displayedHeaders = {};
+    const displayedFields = {};
 
     // TODO: We may be able to avoid reload using state
     // TODO: Check if it is more fast to do it here, or just a if in the List better
-    Object.keys(headers).map((key) => {
+    Object.keys(fields).map((key) => {
       if (this.props.columns[key]) {
-        displayedHeaders[key] = headers[key];
+        displayedFields[key] = fields[key];
       }
 
       return null;
@@ -203,115 +207,31 @@ class ListPage extends Component {
 
     return (
       <div>
-        <Toolbar>
-          <ToolbarGroup>
-            <ToolbarTitle text="Liste produits" />
-          </ToolbarGroup>
-          <ToolbarGroup>
-            <SearchIcon
-              style={{ cursor: 'pointer', paddingLeft: 24 }}
-              color={this.context.muiTheme.toolbar.iconColor}
-              hoverColor={this.context.muiTheme.toolbar.hoverColor}
-              onClick={() => this.setState({ showFilters: !this.state.showFilters })}
-            />
-            <ToolbarSeparator />
-            <RaisedButton
-              onTouchTap={() => this.setState({ showOptions: !this.state.showOptions })}
-              label="Colonnes"
-              icon={<ActionSettingsIcon />}
-              secondary
-            />
-          </ToolbarGroup>
-        </Toolbar>
+        <Toolbar
+          title="Liste produits"
+          onSearch={(filters) => this.onFilters(filters)}
+          toggleFilters={() => this.setState({ showFilters: !this.state.showFilters })}
+          toggleOptions={() => this.setState({ showOptions: !this.state.showOptions })}
+        />
         <FloatingActionButton
           className="floatButton"
           containerElement={<Link to="/products/new" />}
         >
           <AddIcon />
         </FloatingActionButton>
-        <Drawer
-          docked={false}
-          openSecondary
+        <Options
           open={this.state.showOptions}
-          onRequestChange={(open) => this.setState({ showOptions: open })}
-        >
-          <AppBar title="Options" showMenuIconButton={false} />
-          <List>
-            <Subheader>Colonnes</Subheader>
-            <ListItem
-              primaryText="Dispo"
-              leftCheckbox={
-                <Checkbox
-                  onCheck={(e, isChecked) => this.props.filterColumn({ available: isChecked })}
-                  defaultChecked={this.props.columns.available}
-                />
-              }
-            />
-            <ListItem
-              primaryText="Prix"
-              leftCheckbox={
-                <Checkbox
-                  onCheck={(e, isChecked) => this.props.filterColumn({ price: isChecked })}
-                  defaultChecked={this.props.columns.price}
-                />
-              }
-            />
-            <ListItem
-              primaryText="Unité"
-              leftCheckbox={
-                <Checkbox
-                  onCheck={(e, isChecked) => this.props.filterColumn({ type: isChecked })}
-                  defaultChecked={this.props.columns.type}
-                />
-              }
-            />
-            <ListItem
-              primaryText="Portion"
-              leftCheckbox={
-                <Checkbox
-                  onCheck={(e, isChecked) => this.props.filterColumn({ portionNumber: isChecked })}
-                  defaultChecked={this.props.columns.portionNumber}
-                />
-              }
-            />
-            <ListItem
-              primaryText="Description"
-              leftCheckbox={
-                <Checkbox
-                  onCheck={(e, isChecked) => this.props.filterColumn({ description: isChecked })}
-                  defaultChecked={this.props.columns.description}
-                />
-              }
-            />
-            <ListItem
-              primaryText="Origine"
-              leftCheckbox={
-                <Checkbox
-                  onCheck={(e, isChecked) => this.props.filterColumn({ origin: isChecked })}
-                  defaultChecked={this.props.columns.origin}
-                />
-              }
-            />
-            <ListItem
-              primaryText="Biologique"
-              leftCheckbox={
-                <Checkbox
-                  onCheck={(e, isChecked) => this.props.filterColumn({ bio: isChecked })}
-                  defaultChecked={this.props.columns.bio}
-                />
-              }
-            />
-          </List>
-          <Divider />
-        </Drawer>
+          fields={fields} columns={this.props.columns}
+          toggleOptions={() => this.setState({ showOptions: !this.state.showOptions })}
+          showColumn={(column) => this.props.filterColumn(column)}
+        />
         {this.state.showFilters &&
           <Filters onSubmit={(filters) => this.onFilters(filters)} />}
         {this.props.hasFetched &&
           <div style={{ paddingBottom: 48 }}>
             <ProductList
-              headers={displayedHeaders}
+              fields={displayedFields}
               items={this.props.items}
-              columns={this.props.columns}
               sortByColumn={(by) => this.onSort(by)}
               onSubmit={(id, model) => this.submit(id, model)}
             />

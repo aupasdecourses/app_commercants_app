@@ -75,7 +75,6 @@ class Pagination extends Component {
 
 Pagination.propTypes = {
   page: PropTypes.number,
-  goTo: PropTypes.bool,
   totalPages: PropTypes.number,
   onClickPaginate: PropTypes.func,
 };
