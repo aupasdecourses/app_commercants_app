@@ -36,6 +36,11 @@ class DashboardPage extends Component {
           fullWidth
         />
         <RaisedButton
+          label="Liste commandes" secondary style={{ marginBottom: 12, height: 50 }}
+          containerElement={<Link to="/orders" />}
+          fullWidth
+        />
+        <RaisedButton
           label="Déconnexion" style={{ height: 50 }}
           onTouchTap={() => this.props.logout()}
           fullWidth

@@ -211,7 +211,6 @@ class ListPage extends Component {
           <Toolbar
             title="Liste produits"
             onSearch={(filters) => this.onFilters(filters)}
-            toggleFilters={() => this.setState({ showFilters: !this.state.showFilters })}
             toggleOptions={() => this.setState({ showOptions: !this.state.showOptions })}
           />
           <FloatingActionButton
