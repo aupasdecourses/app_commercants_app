@@ -29,7 +29,7 @@ export default function profile(state = initialState, action) {
       return {
         ...state,
         item: action.payload.data,
-        role: action.payload.data.roles ? action.payload.data.roles[0] : 'ROLE_USER',
+        role: action.payload.data.role || 'ROLE_USER',
         isFetching: false,
         hasFetched: true,
         hasError: false
