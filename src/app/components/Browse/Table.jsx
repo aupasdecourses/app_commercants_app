@@ -12,7 +12,7 @@ import ArrowDownwardIcon from 'material-ui/svg-icons/navigation/arrow-downward';
 
 import './Table.css';
 
-const ListTable = ({ items, fields, sortByColumn, onSubmit }) => {
+const ListTable = ({ items, fields, sortByColumn, onSubmit, primaryKey }) => {
   function renderField(field, value, id, name) {
     const type = field.type;
 
@@ -24,8 +24,8 @@ const ListTable = ({ items, fields, sortByColumn, onSubmit }) => {
       return (<RaisedButton
         onMouseUp={(e) => onSubmit(id, publish)}
         style={{ minWidth: 48 }}
-        icon={value ? <CheckCircleIcon /> : <CancelIcon />}
-        backgroundColor={value ? '#b9d466' : '#dc8585'}
+        icon={!value || value === '0' ? <CancelIcon /> : <CheckCircleIcon />}
+        backgroundColor={!value || value === '0' ? '#dc8585' : '#b9d466'}
       />);
     } else if (type === 'date') {
       return moment(value).format('LL');
@@ -82,7 +82,7 @@ const ListTable = ({ items, fields, sortByColumn, onSubmit }) => {
                   style={fields[key].style}
                   key={key}
                 >
-                  {renderField(fields[key], item[key], item.id, key)}
+                  {renderField(fields[key], item[key], item[primaryKey], key)}
                 </TableRowColumn>
               )) }
             </TableRow>
@@ -94,12 +94,17 @@ const ListTable = ({ items, fields, sortByColumn, onSubmit }) => {
   );
 };
 
+ListTable.defautProps = {
+  primaryKey: 'id',
+};
+
 ListTable.propTypes = {
   items: PropTypes.array,
   fields: PropTypes.object,
   columns: PropTypes.object,
   sortByColumn: PropTypes.func,
   onSubmit: PropTypes.func,
+  primaryKey: PropTypes.string,
 };
 
 export default ListTable;

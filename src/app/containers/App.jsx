@@ -4,6 +4,10 @@ import { connect } from 'react-redux';
 
 import { CircularProgress } from 'material-ui';
 import MessageIcon from 'material-ui/svg-icons/communication/message';
+import DashboardIcon from 'material-ui/svg-icons/action/dashboard';
+import DescriptionIcon from 'material-ui/svg-icons/action/description';
+import ShoppingBasketIcon from 'material-ui/svg-icons/action/shopping-basket';
+import FaceIcon from 'material-ui/svg-icons/action/face';
 import ReactMaterialUiNotifications from 'react-materialui-notifications';
 
 import * as AuthActions from '../actions/auth';
@@ -20,28 +24,41 @@ const appConfig = {
     ROLE_USER: [
       {
         name: 'Tableau de bord',
-        linkTo: '/'
+        linkTo: '/',
+        icon: <DashboardIcon />
       }, {
         name: 'Mes produits',
-        linkTo: '/products'
+        linkTo: '/products',
+        icon: <DescriptionIcon />
       }, {
         name: 'Mon profil',
-        linkTo: '/profile'
+        linkTo: '/profile',
+        icon: <FaceIcon />
       },
     ],
     ROLE_ADMIN: [
       {
         name: 'Tableau de bord',
-        linkTo: '/'
+        linkTo: '/',
+        icon: <DashboardIcon />
       }, {
-        name: 'Produits',
-        linkTo: '/products'
+        separator: 'Produits',
+      }, {
+        name: 'Liste produits',
+        linkTo: '/products',
+        icon: <DescriptionIcon />
+      }, {
+        name: 'Nouveau produit',
+        linkTo: '/products/new',
+        icon: <DescriptionIcon />
       }, {
         name: 'Commandes',
-        linkTo: '/orders'
+        linkTo: '/orders',
+        icon: <ShoppingBasketIcon />
       }, {
         name: 'Utilisateurs',
-        linkTo: '/users'
+        linkTo: '/users',
+        icon: <FaceIcon />
       },
     ]
   }
@@ -52,7 +69,8 @@ class App extends Component {
     super(props);
 
     this.state = {
-      openMenu: false,
+      openMenu: props.pinned === 2,
+      pinned: !!props.pinned,
     };
 
     this.toggleMenu = this.toggleMenu.bind(this);
@@ -150,6 +168,7 @@ class App extends Component {
         <Footer />}
         <ReactMaterialUiNotifications
           desktop
+          maxNotifications={8}
           rootStyle={{ right: 25, top: 64, zIndex: 1 }}
         />
       </div>

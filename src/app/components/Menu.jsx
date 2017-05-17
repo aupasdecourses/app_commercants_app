@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
 import { Drawer, MenuItem, AppBar, Divider, IconButton } from 'material-ui';
 import BookmarkBorderIcon from 'material-ui/svg-icons/action/bookmark-border';
+import ExitToAppIcon from 'material-ui/svg-icons/action/exit-to-app';
 
 const Menu = ({ items, open, pinned, logout, togglePin, requestChange }, context) => (
   <Drawer
@@ -18,20 +19,39 @@ const Menu = ({ items, open, pinned, logout, togglePin, requestChange }, context
           <BookmarkBorderIcon />
         </IconButton>}
     />
-    {items.map((item) => (
-      <Link
-        key={item.name} to={item.linkTo}
-        onClick={() => { if (!pinned) { requestChange(false); } }}
-      >
-        <MenuItem>{item.name}</MenuItem>
+    {items.map((item, iKey) => (
+      <div key={iKey}>
+        {item.separator ?
+          <MenuItem
+            style={{
+              lineHeight: '36px', minHeight: 36,
+              color: context.muiTheme.tabs.textColor,
+              backgroundColor: context.muiTheme.inkBar.backgroundColor
+            }}
+            disabled
+          >
+            {item.separator}
+          </MenuItem> :
+          <Link
+            key={item.name} to={item.linkTo}
+            onClick={() => { if (!pinned) { requestChange(false); } }}
+          >
+            <MenuItem leftIcon={item.icon}>{item.name}</MenuItem>
+            <Divider />
+          </Link>
+        }
         <Divider />
-      </Link>
+      </div>
     ))}
     {logout ?
-      <MenuItem onTouchTap={() => logout()}>Déconnexion</MenuItem> : ''
+      <MenuItem leftIcon={<ExitToAppIcon />} onTouchTap={() => logout()}>Déconnexion</MenuItem> : ''
     }
   </Drawer>
 );
+
+Menu.contextTypes = {
+  muiTheme: PropTypes.object.isRequired,
+};
 
 Menu.defaultProps = {
   items: [

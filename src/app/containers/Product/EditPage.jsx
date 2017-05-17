@@ -57,17 +57,22 @@ class EditPage extends Component {
             }
           });
         } else {
-          // Note: Parse error, maybe it should be better in the reducer directly? Or creating a function or both
-          const errorsRaw = action.error.response.data.errors.children;
           let errors = [];
 
-          Object.keys(errorsRaw).reduce((o, item) => {
-            if (!errorsRaw[item].errors) {
-              return false;
-            }
+          if (!action.error.response.data.errors.errors) {
+            // Note: Parse error, maybe it should be better in the reducer directly? Or creating a function or both
+            const errorsRaw = action.error.response.data.errors.children;
 
-            errors = errors.concat(errorsRaw[item].errors);
-          }, 0);
+            Object.keys(errorsRaw).reduce((o, item) => {
+              if (!errorsRaw[item].errors) {
+                return false;
+              }
+
+              errors = errors.concat(errorsRaw[item].errors);
+            }, 0);
+          } else {
+            errors = action.error.response.data.errors.errors;
+          }
 
           this.props.dispatch({
             type: 'NOTIFICATION_OPEN',

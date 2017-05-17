@@ -3,20 +3,10 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router';
 
-import {
-  AppBar, Checkbox, Divider, Drawer, FloatingActionButton, RaisedButton, Subheader
-} from 'material-ui';
-import {
-  List, ListItem
-} from 'material-ui/List';
-import {
-  ToolbarGroup, ToolbarSeparator, ToolbarTitle
-} from 'material-ui/Toolbar';
+import { FloatingActionButton } from 'material-ui';
 import AddIcon from 'material-ui/svg-icons/content/add';
-import SearchIcon from 'material-ui/svg-icons/action/search';
-import ActionSettingsIcon from 'material-ui/svg-icons/action/settings';
 
-import * as ProductActions from '../../actions/product';
+import * as Actions from '../../actions/product';
 import Toolbar from '../../components/Browse/Toolbar';
 import Filters from '../../components/Product/Filters';
 import ProductList from '../../components/Browse/Table';
@@ -152,7 +142,7 @@ class ListPage extends Component {
   render() {
     // TODO: Voir à tout mettre dans le reducer?
     const fields = {
-      available: {
+      status: {
         type: 'publish',
         alias: 'Dispo.',
         sortable: true,
@@ -167,20 +157,20 @@ class ListPage extends Component {
       price: {
         alias: 'Prix',
       },
-      type: {
+      unite_prix: {
         alias: 'Unité',
       },
-      portionNumber: {
+      nbre_portion: {
         alias: 'Portion',
       },
       description: {
         alias: 'Description',
       },
-      origin: {
+      origine: {
         alias: 'Origine',
         sortable: true,
       },
-      bio: {
+      produit_biologique: {
         alias: 'Bio',
         sortable: true,
         style: { width: 42 },
@@ -233,6 +223,7 @@ class ListPage extends Component {
             items={this.props.items}
             sortByColumn={(by) => this.onSort(by)}
             onSubmit={(id, model) => this.submit(id, model)}
+            primaryKey="entity_id"
           />}
         </div>
         <Pagination
@@ -243,11 +234,6 @@ class ListPage extends Component {
     );
   }
 }
-
-ListPage.contextTypes = {
-  role: PropTypes.string,
-  muiTheme: PropTypes.object.isRequired,
-};
 
 ListPage.propTypes = {
   router: PropTypes.object,
@@ -271,10 +257,9 @@ function mapStateToProps(state) {
   };
 }
 
-
 function mapDispatchToProps(dispatch) {
   return Object.assign({},
-    bindActionCreators(ProductActions, dispatch),
+    bindActionCreators(Actions, dispatch),
     { dispatch },
   );
 }

@@ -71,7 +71,7 @@ class Form extends Component {
         <Row>
           <Col xs={12}>
             <ToggleInput
-              name="available"
+              name="status"
               label="Actif sur le site"
               defaultToggled={item.available}
               labelPosition="right"
@@ -79,9 +79,9 @@ class Form extends Component {
               style={{ marginTop: 14 }}
             />
             <ToggleInput
-              name="selected"
+              name="on_selection"
               label="Dans la sélection du moment"
-              defaultToggled={item.selected}
+              defaultToggled={item.on_selection && item.on_selection !== "0"}
               labelPosition="right"
               disabled={isLoading}
               style={{ marginTop: 14 }}
@@ -124,73 +124,73 @@ class Form extends Component {
               </div>
             }
             <NumberInput
-              name="price"
+              name="prix_public"
               floatingLabelText="Prix"
               hintText="Prix en Euro"
-              initialValue={item.price}
+              initialValue={item.prix_public}
               fullWidth
               step="0.05"
               required
               disabled={isLoading}
             />
             <SelectInput
-              name="priceUnit"
+              name="unite_prix"
               floatingLabelText="Unité de prix"
-              value={item.price_unit}
+              value={item.unite_prix}
               fullWidth
               disabled={isLoading}
             >
-              <MenuItem value={1} primaryText="Kg" />
-              <MenuItem value={2} primaryText="Pièce" />
+              <MenuItem value="kg" primaryText="Kg" />
+              <MenuItem value="pièce" primaryText="Pièce" />
             </SelectInput>
             <TextInput
-              name="shortDescription"
+              name="short_description"
               floatingLabelText="Description"
               initialValue={item.short_description}
               fullWidth
               disabled={isLoading}
             />
             <TextInput
-              name="portionWeight"
+              name="poids_portion"
               floatingLabelText="Poids portion (g)"
               hintText="Poids en gramme"
-              initialValue={item.portion_weight}
+              initialValue={item.poids_portion}
               fullWidth
               type="number"
               step="0.01"
               disabled={isLoading}
             />
             {/* <TextInput
-              name="portionNumber"
+              name="nbre_portion"
               floatingLabelText="Nombre portion"
-              initialValue={item.portion_number}
+              initialValue={item.nbre_portion}
               fullWidth
               disabled={isLoading}
             /> */}
             <SelectInput
-              name="tax"
+              name="tax_class_id"
               floatingLabelText="TVA"
               hintText="TVA applicable"
-              value={item.tax}
+              value={item.tax_class_id}
               fullWidth
               disabled={isLoading}
             >
-              <MenuItem value={1} primaryText="5.5%" />
-              <MenuItem value={2} primaryText="10%" />
-              <MenuItem value={3} primaryText="20%" />
+              <MenuItem value="5" primaryText="5.5%" />
+              <MenuItem value="9" primaryText="10%" />
+              <MenuItem value="10" primaryText="20%" />
             </SelectInput>
             <TextInput
-              name="origin"
+              name="origine"
               floatingLabelText="Origine"
-              initialValue={item.origin}
+              initialValue={item.origine}
               fullWidth
               disabled={isLoading}
             />
             <SelectInput
-              name="bio"
+              name="produit_biologique"
               floatingLabelText="Bio"
               hintText="Produit biologique ?"
-              value={item.bio}
+              value={item.produit_biologique}
               fullWidth
               disabled={isLoading}
             >
@@ -228,14 +228,14 @@ class Form extends Component {
               : ''
             }
           </Col>
-          <Col xs={12}>
+          {item.id && <Col xs={12}>
             <RaisedButton
               containerElement="label"
               label="Supprimer"
               fullWidth
               backgroundColor="#dc8585"
             />
-          </Col>
+          </Col>}
         </Row>
       </BaseForm>
     );

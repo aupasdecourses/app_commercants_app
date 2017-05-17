@@ -18,7 +18,7 @@ export default (
     <IndexRoute component={Dashboard} />
     <Route path="orders">
       <IndexRoute component={Orders} />
-      <Route path=":id" component={OrderShow} />
+      <Route path=":id/edit" component={OrderShow} />
     </Route>
     <Route path="products">
       <IndexRoute component={Products} />

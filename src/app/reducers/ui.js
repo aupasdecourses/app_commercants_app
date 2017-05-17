@@ -1,8 +1,5 @@
 import {
-  PRODUCTS_REQUEST, PRODUCTS_SUCCESS, PRODUCTS_FAIL,
-  PRODUCT_SAVE_REQUEST, PRODUCT_SAVE_SUCCESS, PRODUCT_SAVE_FAIL,
-  USERS_REQUEST, USERS_SUCCESS, USERS_FAIL,
-  NOTIFICATION_OPEN, NOTIFICATION_CLOSE,
+  NOTIFICATION_OPEN, NOTIFICATION_CLOSE, PIN_CHANGE,
 } from '../constants/ActionTypes';
 
 const initialState = {
@@ -12,23 +9,36 @@ const initialState = {
 };
 
 export default function ui(state = initialState, action) {
-  switch (action.type) {
-    case PRODUCTS_REQUEST:
-    case PRODUCT_SAVE_REQUEST:
-    case USERS_REQUEST:
+  let type;
+
+  if (action.type.substr(-7) === 'REQUEST') {
+    type = 'FETCHING_START';
+  } else if (
+    action.type.substr(-7) === 'SUCCESS'
+    || action.type.substr(-4) === 'FAIL'
+  ) {
+    type = 'FETCHING_STOP';
+  }
+
+  switch (type) {
+    case 'FETCHING_START':
       return {
         ...state,
         fetching: true,
       };
-    case PRODUCTS_SUCCESS:
-    case PRODUCTS_FAIL:
-    case PRODUCT_SAVE_SUCCESS:
-    case PRODUCT_SAVE_FAIL:
-    case USERS_SUCCESS:
-    case USERS_FAIL:
+    case 'FETCHING_STOP':
       return {
         ...state,
         fetching: false,
+      };
+    default:
+  }
+
+  switch (action.type) {
+    case PIN_CHANGE:
+      return {
+        ...state,
+        pinned: action.data
       };
     case NOTIFICATION_OPEN:
       return {
