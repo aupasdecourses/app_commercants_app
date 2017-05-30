@@ -18,7 +18,7 @@ class ListPage extends Component {
     super(props);
 
     this.state = {
-      page: 1,
+      page: props.location.query.offset ? props.location.query.offset / 20 + 1 : 1,
       showFilters: false,
       showOptions: false,
       sort: {
@@ -34,10 +34,12 @@ class ListPage extends Component {
   }
 
   componentDidMount() {
-    setTimeout(
-      () => {
-        window.Tawk_API.showWidget();
-      }, 2000);
+    if (this.context.role !== 'ROLE_ADMIN') {
+      setTimeout(
+        () => {
+          window.Tawk_API.showWidget();
+        }, 2000);
+    }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -58,7 +60,9 @@ class ListPage extends Component {
   }
 
   componentWillUnmount() {
-    window.Tawk_API.hideWidget();
+    if (this.context.role !== 'ROLE_ADMIN') {
+      window.Tawk_API.hideWidget();
+    }
   }
 
   onFilters(filters) {
@@ -105,7 +109,7 @@ class ListPage extends Component {
   }
 
   submit(id, model) {
-    this.props.saveProduct(id, model)
+    return this.props.saveProduct(id, model)
       .then((action) => {
         if (!action.error) {
           this.props.dispatch({
@@ -155,6 +159,7 @@ class ListPage extends Component {
         sortable: true,
       },
       price: {
+        type: 'inEdit',
         alias: 'Prix',
       },
       unite_prix: {
@@ -234,6 +239,10 @@ class ListPage extends Component {
     );
   }
 }
+
+ListPage.contextTypes = {
+  role: PropTypes.string,
+};
 
 ListPage.propTypes = {
   router: PropTypes.object,

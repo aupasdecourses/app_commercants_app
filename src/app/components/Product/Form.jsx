@@ -25,6 +25,7 @@ class Form extends Component {
     this.onInvalid = this.onInvalid.bind(this);
     this.submit = this.submit.bind(this);
     this.upload = this.upload.bind(this);
+    this.remove = this.remove.bind(this);
   }
 
   onValid() {
@@ -49,6 +50,10 @@ class Form extends Component {
 
   submit(model) {
     this.props.onSubmit(model);
+  }
+
+  remove() {
+    this.props.onRemove();
   }
 
   render() {
@@ -124,10 +129,10 @@ class Form extends Component {
               </div>
             }
             <NumberInput
-              name="prix_public"
+              name="price"
               floatingLabelText="Prix"
               hintText="Prix en Euro"
-              initialValue={item.prix_public}
+              initialValue={item.price}
               fullWidth
               step="0.05"
               required
@@ -211,7 +216,7 @@ class Form extends Component {
             }
           </Col>
           <Col xs={12}>
-            {item.id ?
+            {item.entity_id ?
               <div style={{ position: 'relative' }}>
                 {item.photo &&
                   <img src={`${globalConfig.baseUrl}/uploads/products/${item.id}/${item.photo}`} alt="" accept="image/*" capture />}
@@ -228,8 +233,9 @@ class Form extends Component {
               : ''
             }
           </Col>
-          {item.id && <Col xs={12}>
+          {item.entity_id && <Col xs={12}>
             <RaisedButton
+              onMouseUp={this.remove}
               containerElement="label"
               label="Supprimer"
               fullWidth
@@ -252,6 +258,7 @@ Form.propTypes = {
   isLoading: PropTypes.bool,
   onSubmit: PropTypes.func,
   onUpload: PropTypes.func,
+  onRemove: PropTypes.func,
 };
 
 export default Form;

@@ -10,6 +10,9 @@ import CheckCircleIcon from 'material-ui/svg-icons/action/check-circle';
 import CancelIcon from 'material-ui/svg-icons/navigation/cancel';
 import ArrowDownwardIcon from 'material-ui/svg-icons/navigation/arrow-downward';
 
+import InEdit from './InEdit';
+import Publish from './Publish';
+
 import './Table.css';
 
 const ListTable = ({ items, fields, sortByColumn, onSubmit, primaryKey }) => {
@@ -17,16 +20,7 @@ const ListTable = ({ items, fields, sortByColumn, onSubmit, primaryKey }) => {
     const type = field.type;
 
     if (type === 'publish') {
-      const publish = {};
-
-      publish[name] = !value;
-
-      return (<RaisedButton
-        onMouseUp={(e) => onSubmit(id, publish)}
-        style={{ minWidth: 48 }}
-        icon={!value || value === '0' ? <CancelIcon /> : <CheckCircleIcon />}
-        backgroundColor={!value || value === '0' ? '#dc8585' : '#b9d466'}
-      />);
+      return <Publish key={`${id}${name}`} name={name} onSubmit={(model) => onSubmit(id, model)}>{ value }</Publish>;
     } else if (type === 'date') {
       return moment(value).format('LL');
     } else if (type === 'title') {
@@ -37,6 +31,8 @@ const ListTable = ({ items, fields, sortByColumn, onSubmit, primaryKey }) => {
       return value ? value[field.typeName || 'name'] : '';
     } else if (type === 'upload') {
       return <img src={`${field.baseUrl}/${id}/${value}`} alt="" style={{ maxHeight: '48px' }} />;
+    } else if (type === 'inEdit') {
+      return <InEdit key={`${id}${name}`} name={name} onSubmit={(model) => onSubmit(id, model)}>{ value }</InEdit>;
     }
 
     return value;
@@ -80,7 +76,7 @@ const ListTable = ({ items, fields, sortByColumn, onSubmit, primaryKey }) => {
               { fields && Object.keys(fields).map((key) => (
                 <TableRowColumn
                   style={fields[key].style}
-                  key={key}
+                  key={`${item.id}${key}`}
                 >
                   {renderField(fields[key], item[key], item[primaryKey], key)}
                 </TableRowColumn>

@@ -15,7 +15,7 @@ class ListPage extends Component {
     super(props);
 
     this.state = {
-      page: 1,
+      page: props.location.query.offset ? props.location.query.offset / 20 + 1 : 1,
       showFilters: false,
       showOptions: false,
       sort: {
@@ -93,11 +93,35 @@ class ListPage extends Component {
   render() {
     // TODO: Voir à tout mettre dans le reducer?
     const fields = {
-      shipping_description: {
+      increment_id: {
         type: 'title',
         baseRoute: 'orders',
-        alias: 'Description',
+        alias: '# Commande',
         sortable: true,
+      },
+      customer_firstname: {
+        alias: 'Prénom',
+      },
+      customer_lastname: {
+        alias: 'Nom',
+      },
+      created_at: {
+        alias: 'Prise de commande',
+      },
+      ddate: {
+        alias: 'Date de livraison',
+      },
+      dtime: {
+        alias: 'Créneau',
+      },
+      total_qty_ordered: {
+        alias: 'Nombre d\'articles',
+      },
+      total_paid: {
+        alias: 'Total',
+      },
+      shipping_description: {
+        alias: 'Description',
       },
     };
 

@@ -14,9 +14,9 @@ const List = ({ items }) => {
     >
       <TableHeader adjustForCheckbox={false} displaySelectAll={false}>
         <TableRow>
-          <TableHeaderColumn>Magasin</TableHeaderColumn>
+          <TableHeaderColumn>Username</TableHeaderColumn>
           <TableHeaderColumn>Email</TableHeaderColumn>
-          <TableHeaderColumn>Mobile</TableHeaderColumn>
+          {/* <TableHeaderColumn>Mobile</TableHeaderColumn>*/}
           <TableHeaderColumn>Produits</TableHeaderColumn>
         </TableRow>
       </TableHeader>
@@ -25,13 +25,13 @@ const List = ({ items }) => {
           items.map(item => (
             <TableRow key={item.id} rowNumber={item.id}>
               <TableRowColumn>
-                <Link to={`/users/${item.id}/edit`}>{item.shop_name}</Link>
+                <Link to={`/users/${item.id}/edit`}>{item.username}</Link>
               </TableRowColumn>
               <TableRowColumn>{item.email}</TableRowColumn>
-              <TableRowColumn>{item.mobile}</TableRowColumn>
+              {/* <TableRowColumn>{item.mobile}</TableRowColumn>*/}
               <TableRowColumn>
                 <RaisedButton
-                  containerElement={<Link to={{ pathname: '/products', query: { user: item.id } }} />}
+                  containerElement={<Link to={{ pathname: '/products', query: { shop_id: item.shop_id } }} />}
                   icon={<StoreIcon />}
                   secondary
                 />

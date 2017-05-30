@@ -1,5 +1,4 @@
-import React, { Component } from 'react';
-import { bindActionCreators } from 'redux';
+import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 
@@ -12,14 +11,18 @@ import * as AuthActions from '../actions/auth';
 
 class DashboardPage extends Component {
   componentDidMount() {
-    setTimeout(
-      () => {
-        window.Tawk_API.showWidget();
-      }, 2000);
+    if (this.context.role !== 'ROLE_ADMIN') {
+      setTimeout(
+        () => {
+          window.Tawk_API.showWidget();
+        }, 2000);
+    }
   }
 
   componentWillUnmount() {
-    window.Tawk_API.hideWidget();
+    if (this.context.role !== 'ROLE_ADMIN') {
+      window.Tawk_API.hideWidget();
+    }
   }
 
   render() {
@@ -49,6 +52,10 @@ class DashboardPage extends Component {
     );
   }
 }
+
+DashboardPage.contextTypes = {
+  role: PropTypes.string,
+};
 
 function mapStateToProps(state) {
   return {};

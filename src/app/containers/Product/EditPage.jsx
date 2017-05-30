@@ -10,16 +10,20 @@ import Form from '../../components/Product/Form';
 
 class EditPage extends Component {
   componentDidMount() {
-    setTimeout(
-      () => {
-        window.Tawk_API.showWidget();
-      }, 2000);
+    if (this.context.role !== 'ROLE_ADMIN') {
+      setTimeout(
+        () => {
+          window.Tawk_API.showWidget();
+        }, 2000);
+    }
     this.props.fetchUsersIfNeeded(null, true);
     this.props.fetchProduct(this.props.params.id);
   }
 
   componentWillUnmount() {
-    window.Tawk_API.hideWidget();
+    if (this.context.role !== 'ROLE_ADMIN') {
+      window.Tawk_API.hideWidget();
+    }
   }
 
   upload(data) {
@@ -39,6 +43,29 @@ class EditPage extends Component {
             data: {
               type: 'error',
               message: 'Une erreur c\'est produite pendant la sauvegarde',
+            }
+          });
+        }
+      });
+  }
+
+  remove() {
+    this.props.removeProduct(this.props.params.id)
+      .then((action) => {
+        if (!action.error) {
+          this.props.dispatch({
+            type: 'NOTIFICATION_OPEN',
+            data: {
+              type: 'success',
+              message: 'Produit désactivé avec succès, le produit sera manuellement supprimé après vérification de notre équipe',
+            }
+          });
+        } else {
+          this.props.dispatch({
+            type: 'NOTIFICATION_OPEN',
+            data: {
+              type: 'error',
+              message: 'Une erreur c\'est produite pendant la suppression',
             }
           });
         }
@@ -93,11 +120,16 @@ class EditPage extends Component {
           isLoading={this.props.isFetching}
           onSubmit={(model) => this.submit(model)}
           onUpload={(data) => this.upload(data)}
+          onRemove={() => this.remove()}
         />}
       </Grid>
     );
   }
 }
+
+EditPage.contextTypes = {
+  role: PropTypes.string,
+};
 
 EditPage.propTypes = {
   params: PropTypes.object,

@@ -7,7 +7,7 @@ export function fetchOrder(id) {
     type: ORDER_REQUEST,
     payload: {
       request: {
-        url: `/order/${id}`,
+        url: `/orders/${id}`,
         method: 'GET',
       },
     },

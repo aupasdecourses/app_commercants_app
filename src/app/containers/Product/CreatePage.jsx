@@ -14,16 +14,20 @@ class CreatePage extends Component {
   }
 
   componentDidMount() {
-    setTimeout(
-      () => {
-        window.Tawk_API.showWidget();
-      }, 2000);
+    if (this.context.role !== 'ROLE_ADMIN') {
+      setTimeout(
+        () => {
+          window.Tawk_API.showWidget();
+        }, 2000);
+    }
     this.props.fetchUsersIfNeeded(null, true);
     this.props.fetchProduct(this.props.params.id);
   }
 
   componentWillUnmount() {
-    window.Tawk_API.hideWidget();
+    if (this.context.role !== 'ROLE_ADMIN') {
+      window.Tawk_API.hideWidget();
+    }
   }
 
   submit(model) {
@@ -72,6 +76,10 @@ class CreatePage extends Component {
     );
   }
 }
+
+CreatePage.contextTypes = {
+  role: PropTypes.string,
+};
 
 CreatePage.propTypes = {
   params: PropTypes.object,

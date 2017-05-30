@@ -28,7 +28,7 @@ export default function users(state = initialState, action) {
         short: action.payload.data.data.reduce((o, item) => {
           const short = {
             value: item.id,
-            name: item.shopName,
+            name: item.username,
           };
 
           o.push(short);

@@ -48,6 +48,18 @@ export function saveProduct(id, data, methodType = null) {
   };
 }
 
+export function removeProduct(id) {
+  return {
+    type: PRODUCT_SAVE_REQUEST,
+    payload: {
+      request: {
+        url: `/products/${id}`,
+        method: 'DELETE',
+      },
+    },
+  };
+}
+
 export function uploadToProduct(id, data) {
   return {
     type: PRODUCT_SAVE_REQUEST,

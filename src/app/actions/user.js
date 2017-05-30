@@ -20,10 +20,15 @@ export function fetchUsers(filters, short = false) {
   if (short) {
     filters = {
       ...filters,
-      _only: ['id', 'shopName'],
+      _only: ['id', 'username'],
       length: 0,
     };
   }
+
+  filters = {
+    ...filters,
+    type: 1, // Note: Force customer user
+  };
 
   return {
     type: USERS_REQUEST,

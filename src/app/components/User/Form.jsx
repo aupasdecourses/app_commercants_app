@@ -79,7 +79,7 @@ class UserForm extends Component {
               disabled={isLoading}
             >
               <MenuItem value={null} primaryText="&nbsp;" />
-              <MenuItem value="ROLE_ADMIN" primaryText="Admin" />
+              <MenuItem value="ROLE_SUPER_ADMIN" primaryText="Admin" />
             </SelectInput>
             <TextInput
               name="plainPassword[first]"
@@ -95,7 +95,7 @@ class UserForm extends Component {
               fullWidth
               disabled={isLoading}
             />
-            <h4>Utilisateur</h4>
+            {/* <h4>Utilisateur</h4>
             <TextInput
               name="firstName"
               hintText="Prénom du gérant"
@@ -113,7 +113,7 @@ class UserForm extends Component {
               fullWidth
               required
               disabled={isLoading}
-            />
+            />*/}
             <TextInput
               name="email"
               hintText="Email de l'utilisateur"
@@ -125,7 +125,7 @@ class UserForm extends Component {
               validationError="L'email saisi n'est pas valide"
               disabled={isLoading}
             />
-            <TextInput
+            {/* <TextInput
               name="phone"
               hintText="Téléphone fixe"
               floatingLabelText="Téléphone"
@@ -142,11 +142,20 @@ class UserForm extends Component {
               fullWidth
               required
               disabled={isLoading}
-            />
+            />*/}
           </Col>
           <Col xs={12} sm={6}>
             <h4>Magasin</h4>
             <TextInput
+              name="shopId"
+              hintText="Id du magasin"
+              floatingLabelText="Magasin ID"
+              initialValue={item.shop_id}
+              fullWidth
+              required
+              disabled={isLoading}
+            />
+            {/* <TextInput
               name="shopName"
               hintText="Nom du magasin"
               floatingLabelText="Magasin"
@@ -181,7 +190,7 @@ class UserForm extends Component {
               fullWidth
               required
               disabled={isLoading}
-            />
+            />*/}
           </Col>
         </Row>
       </Form>

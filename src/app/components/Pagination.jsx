@@ -17,7 +17,9 @@ class Pagination extends Component {
   }
 
   onPaginate(toPage) {
-    this.props.onClickPaginate(toPage);
+    if (toPage > 0 && toPage <= this.props.totalPages) {
+      this.props.onClickPaginate(toPage);
+    }
   }
 
   render() {
