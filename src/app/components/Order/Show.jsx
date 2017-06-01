@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 
 import { Row, Col } from 'react-flexbox-grid/lib';
 
+// TODO: Transform to pure
 class Show extends Component {
   render() {
     const { item } = this.props;
@@ -14,14 +15,14 @@ class Show extends Component {
             <p>Statut: { item.status }</p>
             <p>Client: { `${item.customer_firstname} ${item.customer_lastname}` }</p>
             <p>Prise de Commande: { item.created_at }</p>
-            <p>Date de Livraison: { item.increment_id } ??</p>
-            <p>Creneau de Livraison: { item.increment_id } ??</p>
-            <p>Remplacement équivalent: { item.increment_id } ??</p>
-            <p>Adresse de Livraison: { item.increment_id } ??</p>
-            <p>Telephone: { item.increment_id } ??</p>
-            <p>Batiment & Etage: Bat: { item.increment_id } ??, Etage: { item.increment_id } ??</p>
-            <p>Codes porte: Code Porte 1: { item.increment_id } -, Code Porte 2: { item.increment_id } ??</p>
-            <p>Infos Complémentaires: { item.increment_id } ??</p>
+            <p>Date de Livraison: { item.ddate }</p>
+            <p>Creneau de Livraison: { item.dtime }</p>
+            <p>Remplacement équivalent: { item.produit_equivalent === 1 ? 'Oui' : 'Non' }</p>
+            <p>Adresse de Livraison: { `${item.street} ${item.postcode} ${item.city}` }</p>
+            <p>Telephone: { item.telephone }</p>
+            <p>Batiment & Etage: Bat: { item.batiment }, Etage: { item.etage }</p>
+            <p>Codes porte: Code Porte 1: { item.codeporte1 }, Code Porte 2: { item.codeporte2 }</p>
+            <p>Infos Complémentaires: { item.infoscomplementaires }</p>
           </Col>
         </Row>
       </div>

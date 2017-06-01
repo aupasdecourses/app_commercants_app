@@ -19,6 +19,12 @@ class Login extends Component {
     this.onReset = this.onReset.bind(this);
   }
 
+  onKeyDown(e) {
+    if (e.keyCode === 13) {
+      this.onLogin();
+    }
+  }
+
   onLogin() {
     const credential = {
       username: this.username.input.value,
@@ -69,13 +75,14 @@ class Login extends Component {
                         floatingLabelText={<FormattedMessage id="Password" />}
                         type="password"
                         fullWidth
+                        onKeyDown={(e) => this.onKeyDown(e)}
                         disabled={isAuthenticating}
                       />
                     </Col>
                   </Row>
                 }
               </CardText>
-              <CardActions style={{ textAlign: "center" }}>
+              <CardActions style={{ textAlign: 'center' }}>
                 <FlatButton
                   label={<FormattedMessage id="Sign In" />} primary
                   onClick={this.onLogin} disabled={isAuthenticating}
@@ -113,7 +120,7 @@ class Login extends Component {
                   </Row>
                 }
               </CardText>
-              <CardActions style={{ textAlign: "center" }}>
+              <CardActions style={{ textAlign: 'center' }}>
                 <FlatButton
                   label={<FormattedMessage id="Reset" />} primary
                   onClick={this.onReset} disabled={isAuthenticating}
