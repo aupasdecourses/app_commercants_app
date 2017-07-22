@@ -13,7 +13,7 @@ const initialState = {
     unite_prix: true,
     price: true,
     nbre_portion: false,
-    description: false,
+    short_description: false,
     origine: false,
     produit_biologique: false,
   },

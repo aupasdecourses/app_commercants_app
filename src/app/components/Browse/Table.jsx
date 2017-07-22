@@ -5,9 +5,6 @@ import moment from 'moment';
 import {
   Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn,
 } from 'material-ui/Table';
-import RaisedButton from 'material-ui/RaisedButton';
-import CheckCircleIcon from 'material-ui/svg-icons/action/check-circle';
-import CancelIcon from 'material-ui/svg-icons/navigation/cancel';
 import ArrowDownwardIcon from 'material-ui/svg-icons/navigation/arrow-downward';
 
 import InEdit from './InEdit';
@@ -90,14 +87,13 @@ const ListTable = ({ items, fields, sortByColumn, onSubmit, primaryKey }) => {
   );
 };
 
-ListTable.defautProps = {
+ListTable.defaultProps = {
   primaryKey: 'id',
 };
 
 ListTable.propTypes = {
   items: PropTypes.array,
   fields: PropTypes.object,
-  columns: PropTypes.object,
   sortByColumn: PropTypes.func,
   onSubmit: PropTypes.func,
   primaryKey: PropTypes.string,

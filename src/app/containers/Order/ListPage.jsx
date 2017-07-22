@@ -111,6 +111,7 @@ class ListPage extends Component {
       },
       ddate: {
         alias: 'Date de livraison',
+        sortable: true,
       },
       dtime: {
         alias: 'Créneau',

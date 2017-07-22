@@ -168,8 +168,8 @@ class ListPage extends Component {
       nbre_portion: {
         alias: 'Portion',
       },
-      description: {
-        alias: 'Description',
+      short_description: {
+        alias: 'Description Portion',
       },
       origine: {
         alias: 'Origine',

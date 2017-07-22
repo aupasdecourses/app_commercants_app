@@ -148,7 +148,10 @@ class App extends Component {
         className={mainClass}
       >
         {isAuthenticated &&
-        <Header title={appConfig.title} toggleMenu={this.toggleMenu} />}
+        <Header
+          title={appConfig.title}
+          toggleMenu={this.toggleMenu} logout={() => this.props.logout()}
+        />}
         {isAuthenticated &&
         <Menu
           items={appConfig.menuItems[this.props.role]}

@@ -20,6 +20,13 @@ class ListToolbar extends Component {
     };
   }
 
+  closeSearch = () => {
+    this.setState({ showSearch: !this.state.showSearch }, () => {
+      console.log(123);
+      this.props.onSearch({ search: '' });
+    });
+  };
+
   render() {
     return (
       <Toolbar>
@@ -37,7 +44,7 @@ class ListToolbar extends Component {
               style={{ cursor: 'pointer', paddingLeft: 24 }}
               color={this.context.muiTheme.toolbar.iconColor}
               hoverColor={this.context.muiTheme.toolbar.hoverColor}
-              onClick={() => this.setState({ showSearch: !this.state.showSearch })}
+              onClick={this.closeSearch}
             /> :
             <ActionSearchIcon
               style={{ cursor: 'pointer', paddingLeft: 24 }}

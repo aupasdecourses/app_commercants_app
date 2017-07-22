@@ -147,10 +147,10 @@ class UserForm extends Component {
           <Col xs={12} sm={6}>
             <h4>Magasin</h4>
             <TextInput
-              name="shopId"
+              name="shop"
               hintText="Id du magasin"
               floatingLabelText="Magasin ID"
-              initialValue={item.shop_id}
+              initialValue={item.shop && item.shop.id}
               fullWidth
               required
               disabled={isLoading}

@@ -64,6 +64,7 @@ class Form extends Component {
         onValidSubmit={this.submit}
         onValid={this.onValid}
         onInvalid={this.onInvalid}
+        lang="en-150"
       >
         <FloatingActionButton
           className="floatButton"
@@ -109,9 +110,9 @@ class Form extends Component {
               disabled={isLoading}
             />
             <TextInput
-              name="comment"
+              name="notes_com"
               floatingLabelText="Commentaire"
-              initialValue={item.comment}
+              initialValue={item.notes_com}
               fullWidth
               disabled={isLoading}
             />
@@ -204,8 +205,8 @@ class Form extends Component {
             </SelectInput>
             {this.context.role === 'ROLE_ADMIN' &&
               <SelectInput
-                name="user"
-                floatingLabelText="Commerçant"
+                name="shop"
+                floatingLabelText="Magasin"
                 value={item.user && item.user.id}
                 fullWidth
                 required

@@ -8,7 +8,9 @@ const initialState = {
   short: [],
   total: 0,
   columns: {
-    name: true,
+    increment_id: true,
+    customer_firstname: true,
+    customer_lastname: true,
   },
   isFetching: false,
   hasFetched: false,
