@@ -1,22 +1,29 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
-import notify from 'redux-notify';
+import { createHashHistory } from 'history';
+import { routerMiddleware } from 'react-router-redux';
 
 import rootReducer from '../reducers';
-import notifyEvents from '../events/notifyEvents';
 import apiMiddleware from '../api/Api';
 
-export default function configureStore(callback, isBg) {
+const history = createHashHistory();
+
+const configureStore = (callback, isBg) => {
   let getState;
-  if (isBg === undefined) getState = require('./getStoredState'); /* If you don't want to persist states, use './getDefaultState' */// eslint-disable-line max-len
-  else getState = (isBg ? require('./getStateToBg') : require('./getStateFromBg'));
+
+  if (isBg === undefined) {
+    getState = require('./getStoredState');
+  } else {
+    getState = (isBg ? require('./getStateToBg') : require('./getStateFromBg'));
+  }
 
   getState(initialState => {
     let enhancer;
+
     const middleware = [
       apiMiddleware,
       thunk,
-      notify(notifyEvents, { noReverse: true })
+      routerMiddleware(history)
     ];
 
     if (process.env.NODE_ENV !== 'production') {
@@ -44,4 +51,6 @@ export default function configureStore(callback, isBg) {
 
     return store;
   }, callback);
-}
+};
+
+export default { configureStore, history };

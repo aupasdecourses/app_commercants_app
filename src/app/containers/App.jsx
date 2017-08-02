@@ -1,8 +1,11 @@
 import React, { Component, PropTypes } from 'react';
+import { Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import { CircularProgress } from 'material-ui';
+import IconButton from 'material-ui/IconButton';
+import HomeIcon from 'material-ui/svg-icons/action/home';
 import MessageIcon from 'material-ui/svg-icons/communication/message';
 import DashboardIcon from 'material-ui/svg-icons/action/dashboard';
 import DescriptionIcon from 'material-ui/svg-icons/action/description';
@@ -13,7 +16,6 @@ import ReactMaterialUiNotifications from 'react-materialui-notifications';
 import * as AuthActions from '../actions/auth';
 import Header from 'app/components/Header';
 import Menu from 'app/components/Menu';
-import Footer from 'app/components/Footer';
 import LoginPage from 'app/containers/LoginPage';
 
 import './App.css';
@@ -101,7 +103,7 @@ class App extends Component {
         additionalText: message,
         iconBadgeColor: nextProps.notification.type === 'success' ? '#4caf50' : '#ff5722',
         icon: <MessageIcon />,
-        autoHide: 2000,
+        autoHide: nextProps.notification.timeout || 2000,
         additionalLines: 2
       });
     }
@@ -128,7 +130,7 @@ class App extends Component {
   }
 
   render() {
-    const { children, isFetching, isAuthenticated } = this.props;
+    const { children, header, isFetching, isAuthenticated, isInited } = this.props;
 
     const loader = isFetching ?
       <div className="fullLoader">
@@ -142,33 +144,44 @@ class App extends Component {
     const mainClass = isAuthenticated ?
       `${this.state.pinned && 'pinned'} ${this.state.openMenu ? 'open' : 'close'}` : '';
 
+    const renderHeader = (
+      <div>
+        <Link to="/" style={{ float: 'left' }}>
+          <IconButton
+            style={{ margin: '8px 0' }} iconStyle={{ color: '#fff' }}
+          >
+            <HomeIcon />
+          </IconButton>
+        </Link>
+        {header}
+      </div>
+    );
+
     return (
       <div
         id="main"
         className={mainClass}
       >
-        {isAuthenticated &&
-        <Header
-          title={appConfig.title}
-          toggleMenu={this.toggleMenu} logout={() => this.props.logout()}
-        />}
-        {isAuthenticated &&
-        <Menu
-          items={appConfig.menuItems[this.props.role]}
-          open={this.state.openMenu}
-          logout={this.props.logout}
-          pinned={this.state.pinned}
-          togglePin={() => this.togglePinned()}
-          requestChange={(open) => this.setState({ openMenu: open })}
-        />}
         {isAuthenticated ?
           <div>
+            {isInited &&
+            <Header
+              title={renderHeader}
+              toggleMenu={this.toggleMenu} logout={() => this.props.logout()}
+            />}
+            {isInited &&
+            <Menu
+              items={appConfig.menuItems[this.props.role]}
+              open={this.state.openMenu}
+              pinned={this.state.pinned}
+              togglePin={() => this.togglePinned()}
+              requestChange={(open) => this.setState({ openMenu: open })}
+            />}
             {loader}
             {children}
           </div> :
-          <LoginPage />}
-        {isAuthenticated &&
-        <Footer />}
+          <LoginPage />
+        }
         <ReactMaterialUiNotifications
           desktop
           maxNotifications={8}
@@ -191,6 +204,7 @@ App.propTypes = {
   children: PropTypes.element.isRequired,
   isFetching: PropTypes.bool,
   isAuthenticated: PropTypes.bool,
+  isInited: PropTypes.bool,
   dispatch: PropTypes.func,
   logout: PropTypes.func,
 };

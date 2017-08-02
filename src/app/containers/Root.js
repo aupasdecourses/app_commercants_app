@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import { Provider } from 'react-redux';
-import { Router } from 'react-router';
+import { ConnectedRouter } from 'react-router-redux';
 
 if (!window.Intl) {
   require('intl');
@@ -18,7 +18,7 @@ const customTheme = {
   }
 };
 
-import routes from '../routes';
+import Routes from '../routes';
 import locales from '../i18n/locales';
 
 let locale = navigator.language.substr(0, 2) || 'fr';
@@ -39,7 +39,9 @@ const Root = ({ history, store }) => (
         locale={locale}
         messages={messages}
       >
-        <Router history={history} routes={routes} />
+        <ConnectedRouter history={history}>
+          <Routes />
+        </ConnectedRouter>
       </IntlProvider>
     </Provider>
   </ThemeProvider>

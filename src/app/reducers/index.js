@@ -9,9 +9,10 @@ import orders from './orders';
 import product from './product';
 import products from './products';
 import profile from './profile';
+import shops from './shops';
 import user from './user';
 import users from './users';
 
 export default (
-  combineReducers({ auth, ui, order, orders, product, products, profile, user, users, routing })
+  combineReducers({ auth, ui, order, orders, product, products, profile, shops, user, users, routing })
 );

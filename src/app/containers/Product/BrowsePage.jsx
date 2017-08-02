@@ -1,7 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { Link, withRouter } from 'react-router';
+import { withRouter } from 'react-router';
+import { Link } from 'react-router-dom';
 
 import { FloatingActionButton } from 'material-ui';
 import AddIcon from 'material-ui/svg-icons/content/add';
@@ -158,7 +159,7 @@ class ListPage extends Component {
         alias: 'Nom',
         sortable: true,
       },
-      price: {
+      prix_public: {
         type: 'inEdit',
         alias: 'Prix',
       },

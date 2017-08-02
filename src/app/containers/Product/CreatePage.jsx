@@ -4,13 +4,13 @@ import { connect } from 'react-redux';
 
 import { Grid } from 'react-flexbox-grid/lib';
 
-import * as ProductActions from '../../actions/product';
-import * as UserActions from '../../actions/user';
+import * as Actions from '../../actions/product';
+import * as ShopActions from '../../actions/shop';
 import Form from '../../components/Product/Form';
 
 class CreatePage extends Component {
   componentWillMount() {
-    this.props.fetchUsersIfNeeded(null, true);
+    this.props.fetchShopsIfNeeded(null, true);
   }
 
   componentDidMount() {
@@ -20,8 +20,6 @@ class CreatePage extends Component {
           window.Tawk_API.showWidget();
         }, 2000);
     }
-    this.props.fetchUsersIfNeeded(null, true);
-    this.props.fetchProduct(this.props.params.id);
   }
 
   componentWillUnmount() {
@@ -85,7 +83,7 @@ CreatePage.propTypes = {
   params: PropTypes.object,
   choicesList: PropTypes.object,
   fetchProduct: PropTypes.func,
-  fetchUsersIfNeeded: PropTypes.func,
+  fetchShopsIfNeeded: PropTypes.func,
   saveProduct: PropTypes.func,
   dispatch: PropTypes.func,
 };
@@ -93,15 +91,15 @@ CreatePage.propTypes = {
 function mapStateToProps(state) {
   return {
     choicesList: {
-      users: state.users.short,
+      shops: state.shops.short,
     },
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return Object.assign({},
-    bindActionCreators(ProductActions, dispatch),
-    bindActionCreators(UserActions, dispatch),
+    bindActionCreators(Actions, dispatch),
+    bindActionCreators(ShopActions, dispatch),
     { dispatch },
   );
 }
