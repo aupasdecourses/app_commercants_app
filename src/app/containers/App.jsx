@@ -216,6 +216,7 @@ function mapStateToProps(state) {
     notification: state.ui.notification,
     pinned: state.ui.pinned,
     isFetching: state.profile.isFetching || state.ui.fetching,
+    isInited: true, // TODO later
     isAuthenticated: state.auth.isAuthenticated && state.profile.hasFetched,
   };
 }

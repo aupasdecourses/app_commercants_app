@@ -9,11 +9,11 @@ import * as UserActions from '../../actions/user';
 
 class EditPage extends Component {
   componentDidMount() {
-    this.props.fetchUser(this.props.params.id);
+    this.props.fetchUser(this.props.match.params.id);
   }
 
   submit(model) {
-    this.props.saveUser(this.props.params.id, model)
+    this.props.saveUser(this.props.match.params.id, model)
       .then((action) => {
         if (!action.error) {
           this.props.dispatch({

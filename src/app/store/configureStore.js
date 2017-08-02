@@ -1,12 +1,18 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import { createHashHistory } from 'history';
+import qhistory from 'qhistory';
+import { stringify, parse } from 'query-string';
 import { routerMiddleware } from 'react-router-redux';
 
 import rootReducer from '../reducers';
 import apiMiddleware from '../api/Api';
 
-const history = createHashHistory();
+const history = qhistory(
+  createHashHistory(),
+  stringify,
+  parse
+);
 
 const configureStore = (callback, isBg) => {
   let getState;

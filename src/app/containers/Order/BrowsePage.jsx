@@ -54,7 +54,7 @@ class ListPage extends Component {
       ...filters
     };
 
-    this.props.router.push({
+    this.context.router.history.push({
       pathname: 'orders',
       query,
     });
@@ -73,7 +73,7 @@ class ListPage extends Component {
       sortDir,
     };
 
-    this.props.router.push({
+    this.context.router.history.push({
       pathname: 'orders',
       query,
     });
@@ -85,7 +85,7 @@ class ListPage extends Component {
       offset: (toPage - 1) * 20,
     };
 
-    this.props.router.push({
+    this.context.router.history.push({
       pathname: 'orders',
       query,
     });
@@ -177,6 +177,10 @@ class ListPage extends Component {
     );
   }
 }
+
+ListPage.contextTypes = {
+  router: PropTypes.object
+};
 
 ListPage.propTypes = {
   router: PropTypes.object,

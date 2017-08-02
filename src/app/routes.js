@@ -7,7 +7,7 @@ import { App as Order, Header as OrderHeader } from './containers/Order';
 import { App as Product, Header as ProductHeader } from './containers/Product';
 import { App as User, Header as UserHeader } from './containers/User';
 
-export default (
+export default () => (
   <App
     header={
       <Switch>

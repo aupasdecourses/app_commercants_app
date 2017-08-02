@@ -11,7 +11,7 @@ import Form from '../../components/Product/Form';
 class EditPage extends Component {
   componentWillMount() {
     this.props.fetchShopsIfNeeded(null, true);
-    this.props.fetchProduct(this.props.params.id);
+    this.props.fetchProduct(this.props.match.params.id);
   }
 
   componentDidMount() {
@@ -30,7 +30,7 @@ class EditPage extends Component {
   }
 
   upload(data) {
-    this.props.uploadToProduct(this.props.params.id, data)
+    this.props.uploadToProduct(this.props.match.params.id, data)
       .then((action) => {
         if (!action.error) {
           this.props.dispatch({
@@ -53,7 +53,7 @@ class EditPage extends Component {
   }
 
   remove() {
-    this.props.removeProduct(this.props.params.id)
+    this.props.removeProduct(this.props.match.params.id)
       .then((action) => {
         if (!action.error) {
           this.props.dispatch({
@@ -76,7 +76,7 @@ class EditPage extends Component {
   }
 
   submit(model) {
-    this.props.saveProduct(this.props.params.id, model)
+    this.props.saveProduct(this.props.match.params.id, model)
       .then((action) => {
         if (!action.error) {
           this.props.dispatch({
