@@ -4,11 +4,16 @@ import { connect } from 'react-redux';
 
 import { Grid } from 'react-flexbox-grid/lib';
 
-import * as ProductActions from '../../actions/product';
-import * as UserActions from '../../actions/user';
+import * as Actions from '../../actions/product';
+import * as ShopActions from '../../actions/shop';
 import Form from '../../components/Product/Form';
 
 class EditPage extends Component {
+  componentWillMount() {
+    this.props.fetchShopsIfNeeded(null, true);
+    this.props.fetchProduct(this.props.match.params.id);
+  }
+
   componentDidMount() {
     if (this.context.role !== 'ROLE_ADMIN') {
       setTimeout(
@@ -16,8 +21,6 @@ class EditPage extends Component {
           window.Tawk_API.showWidget();
         }, 2000);
     }
-    this.props.fetchUsersIfNeeded(null, true);
-    this.props.fetchProduct(this.props.params.id);
   }
 
   componentWillUnmount() {
@@ -27,7 +30,7 @@ class EditPage extends Component {
   }
 
   upload(data) {
-    this.props.uploadToProduct(this.props.params.id, data)
+    this.props.uploadToProduct(this.props.match.params.id, data)
       .then((action) => {
         if (!action.error) {
           this.props.dispatch({
@@ -50,7 +53,7 @@ class EditPage extends Component {
   }
 
   remove() {
-    this.props.removeProduct(this.props.params.id)
+    this.props.removeProduct(this.props.match.params.id)
       .then((action) => {
         if (!action.error) {
           this.props.dispatch({
@@ -73,7 +76,7 @@ class EditPage extends Component {
   }
 
   submit(model) {
-    this.props.saveProduct(this.props.params.id, model)
+    this.props.saveProduct(this.props.match.params.id, model)
       .then((action) => {
         if (!action.error) {
           this.props.dispatch({
@@ -136,7 +139,7 @@ EditPage.propTypes = {
   item: PropTypes.object,
   choicesList: PropTypes.object,
   fetchProduct: PropTypes.func,
-  fetchUsersIfNeeded: PropTypes.func,
+  fetchShopsIfNeeded: PropTypes.func,
   uploadToProduct: PropTypes.func,
   saveProduct: PropTypes.func,
   hasFetched: PropTypes.bool,
@@ -148,7 +151,7 @@ function mapStateToProps(state) {
   return {
     item: state.product.item,
     choicesList: {
-      users: state.users.short,
+      shops: state.shops.short,
     },
     hasFetched: state.product.hasFetched,
     isFetching: state.product.isFetching,
@@ -157,8 +160,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return Object.assign({},
-    bindActionCreators(ProductActions, dispatch),
-    bindActionCreators(UserActions, dispatch),
+    bindActionCreators(Actions, dispatch),
+    bindActionCreators(ShopActions, dispatch),
     { dispatch },
   );
 }

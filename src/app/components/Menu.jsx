@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import { Drawer, MenuItem, AppBar, Divider, IconButton } from 'material-ui';
 import BookmarkBorderIcon from 'material-ui/svg-icons/action/bookmark-border';
 import ExitToAppIcon from 'material-ui/svg-icons/action/exit-to-app';
@@ -33,6 +33,7 @@ const Menu = ({ items, open, pinned, logout, togglePin, requestChange }, context
             {item.separator}
           </MenuItem> :
           <Link
+            activeStyle={{ background: context.muiTheme.toolbar.backgroundColor, display: 'block' }}
             key={item.name} to={item.linkTo}
             onClick={() => { if (!pinned) { requestChange(false); } }}
           >

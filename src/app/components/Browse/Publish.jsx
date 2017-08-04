@@ -8,7 +8,6 @@ class Publish extends Component {
     super(props);
 
     this.state = {
-      showForm: false,
       notValid: true,
       value: props.children,
     };
@@ -20,7 +19,7 @@ class Publish extends Component {
     model[this.props.name] = this.state.value === '1' ? 0 : 1;
 
     this.props.onSubmit(model).then(() => {
-      this.setState({ showForm: false, value: model[this.props.name] });
+      this.setState({ value: model[this.props.name] });
     });
   }
 

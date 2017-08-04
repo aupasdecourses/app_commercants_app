@@ -2,8 +2,12 @@ import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
+import { Link } from 'react-router-dom';
 
-import * as Actions from '../../actions/order';
+import { FloatingActionButton } from 'material-ui';
+import AddIcon from 'material-ui/svg-icons/content/add';
+
+import * as Actions from '../../actions/product';
 import Toolbar from '../../components/Browse/Toolbar';
 import Filters from '../../components/Product/Filters';
 import ProductList from '../../components/Browse/Table';
@@ -27,15 +31,23 @@ class ListPage extends Component {
   }
 
   componentWillMount() {
-    // TODO: Find a way to use "_only"
-    this.props.fetchOrders(this.state.filters);
+    this.props.fetchProducts(this.state.filters);
+  }
+
+  componentDidMount() {
+    if (this.context.role !== 'ROLE_ADMIN') {
+      setTimeout(
+        () => {
+          window.Tawk_API.showWidget();
+        }, 2000);
+    }
   }
 
   componentWillReceiveProps(nextProps) {
     if (JSON.stringify(nextProps.location.query) !== JSON.stringify(this.props.location.query)) {
       const filters = nextProps.location.query;
 
-      this.props.fetchOrders(filters).then(() => {
+      this.props.fetchProducts(filters).then(() => {
         this.setState({
           filters,
           page: nextProps.location.query.offset ? nextProps.location.query.offset / 20 + 1 : 1,
@@ -48,14 +60,20 @@ class ListPage extends Component {
     }
   }
 
+  componentWillUnmount() {
+    if (this.context.role !== 'ROLE_ADMIN') {
+      window.Tawk_API.hideWidget();
+    }
+  }
+
   onFilters(filters) {
     const query = {
       ...this.state.filters,
       ...filters
     };
 
-    this.props.router.push({
-      pathname: 'orders',
+    this.context.router.history.push({
+      pathname: 'products',
       query,
     });
   }
@@ -73,8 +91,8 @@ class ListPage extends Component {
       sortDir,
     };
 
-    this.props.router.push({
-      pathname: 'orders',
+    this.context.router.history.push({
+      pathname: 'products',
       query,
     });
   }
@@ -85,45 +103,83 @@ class ListPage extends Component {
       offset: (toPage - 1) * 20,
     };
 
-    this.props.router.push({
-      pathname: 'orders',
+    this.context.router.history.push({
+      pathname: 'products',
       query,
     });
+  }
+
+  submit(id, model) {
+    return this.props.saveProduct(id, model)
+      .then((action) => {
+        if (!action.error) {
+          this.props.dispatch({
+            type: 'NOTIFICATION_OPEN',
+            data: {
+              type: 'success',
+              message: 'Produit sauvegardé avec succès',
+            }
+          });
+        } else {
+          // Note: Parse error, maybe it should be better in the reducer directly? Or creating a function or both
+          const errorsRaw = action.error.response.data.errors.children;
+          let errors = [];
+
+          Object.keys(errorsRaw).reduce((o, item) => {
+            if (!errorsRaw[item].errors) {
+              return false;
+            }
+
+            errors = errors.concat(errorsRaw[item].errors);
+          }, 0);
+
+          this.props.dispatch({
+            type: 'NOTIFICATION_OPEN',
+            data: {
+              type: 'error',
+              message: errors,
+            }
+          });
+        }
+      });
   }
 
   render() {
     // TODO: Voir à tout mettre dans le reducer?
     const fields = {
-      increment_id: {
+      status: {
+        type: 'publish',
+        alias: 'Dispo.',
+        sortable: true,
+        style: { width: 64 },
+      },
+      name: {
         type: 'title',
-        baseRoute: 'orders',
-        alias: '# Commande',
-        sortable: true,
-      },
-      customer_firstname: {
-        alias: 'Prénom',
-      },
-      customer_lastname: {
+        baseRoute: 'products',
         alias: 'Nom',
-      },
-      created_at: {
-        alias: 'Prise de commande',
-      },
-      ddate: {
-        alias: 'Date de livraison',
         sortable: true,
       },
-      dtime: {
-        alias: 'Créneau',
+      prix_public: {
+        type: 'inEdit',
+        alias: 'Prix',
       },
-      total_qty_ordered: {
-        alias: 'Nombre d\'articles',
+      unite_prix: {
+        alias: 'Unité',
       },
-      total_paid: {
-        alias: 'Total',
+      nbre_portion: {
+        alias: 'Portion',
       },
-      shipping_description: {
-        alias: 'Description',
+      short_description: {
+        alias: 'Description Portion',
+      },
+      origine: {
+        alias: 'Origine',
+        sortable: true,
+      },
+      produit_biologique: {
+        alias: 'Bio',
+        sortable: true,
+        style: { width: 42 },
       },
     };
 
@@ -149,10 +205,16 @@ class ListPage extends Component {
       <div>
         <div id="content" className="paginate">
           <Toolbar
-            title="Liste commandes"
+            title="Liste produits"
             onSearch={(filters) => this.onFilters(filters)}
             toggleOptions={() => this.setState({ showOptions: !this.state.showOptions })}
           />
+          <FloatingActionButton
+            className="floatButton"
+            containerElement={<Link to="/products/new" />}
+          >
+            <AddIcon />
+          </FloatingActionButton>
           <Options
             open={this.state.showOptions}
             fields={fields} columns={this.props.columns}
@@ -166,6 +228,7 @@ class ListPage extends Component {
             fields={displayedFields}
             items={this.props.items}
             sortByColumn={(by) => this.onSort(by)}
+            onSubmit={(id, model) => this.submit(id, model)}
             primaryKey="entity_id"
           />}
         </div>
@@ -178,13 +241,19 @@ class ListPage extends Component {
   }
 }
 
+ListPage.contextTypes = {
+  role: PropTypes.string,
+  router: PropTypes.object
+};
+
 ListPage.propTypes = {
   router: PropTypes.object,
   location: PropTypes.object,
   items: PropTypes.array,
   total: PropTypes.number,
   columns: PropTypes.object,
-  fetchOrders: PropTypes.func,
+  fetchProducts: PropTypes.func,
+  saveProduct: PropTypes.func,
   filterColumn: PropTypes.func,
   hasFetched: PropTypes.bool,
   dispatch: PropTypes.func,
@@ -192,10 +261,10 @@ ListPage.propTypes = {
 
 function mapStateToProps(state) {
   return {
-    items: state.orders.items,
-    total: state.orders.total,
-    columns: state.orders.columns,
-    hasFetched: state.orders.hasFetched,
+    items: state.products.items,
+    total: state.products.total,
+    columns: state.products.columns,
+    hasFetched: state.products.hasFetched,
   };
 }
 

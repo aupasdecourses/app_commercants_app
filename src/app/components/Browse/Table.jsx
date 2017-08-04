@@ -1,10 +1,11 @@
 import React, { PropTypes } from 'react';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import moment from 'moment';
 
 import {
   Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn,
 } from 'material-ui/Table';
+import RaisedButton from 'material-ui/RaisedButton';
 import ArrowDownwardIcon from 'material-ui/svg-icons/navigation/arrow-downward';
 
 import InEdit from './InEdit';
@@ -12,7 +13,7 @@ import Publish from './Publish';
 
 import './Table.css';
 
-const ListTable = ({ items, fields, sortByColumn, onSubmit, primaryKey }) => {
+const ListTable = ({ items, fields, sortByColumn, onSubmit, primaryKey, checkboxes }) => {
   function renderField(field, value, id, name) {
     const type = field.type;
 
@@ -28,6 +29,14 @@ const ListTable = ({ items, fields, sortByColumn, onSubmit, primaryKey }) => {
       return value ? value[field.typeName || 'name'] : '';
     } else if (type === 'upload') {
       return <img src={`${field.baseUrl}/${id}/${value}`} alt="" style={{ maxHeight: '48px' }} />;
+    } else if (type === 'actions') {
+      return field.actions.map(action => {
+        return (<RaisedButton
+          onMouseUp={() => action.action(id)}
+          label={action.title}
+          style={{ minWidth: 48 }}
+        />);
+      });
     } else if (type === 'inEdit') {
       return <InEdit key={`${id}${name}`} name={name} onSubmit={(model) => onSubmit(id, model)}>{ value }</InEdit>;
     }
@@ -37,9 +46,9 @@ const ListTable = ({ items, fields, sortByColumn, onSubmit, primaryKey }) => {
 
   return (
     <Table
-      selectable={false}
+      selectable={checkboxes}
     >
-      <TableHeader adjustForCheckbox={false} displaySelectAll={false}>
+      <TableHeader adjustForCheckbox={checkboxes} displaySelectAll={false}>
         <TableRow>
           { fields && Object.keys(fields).map((key) => (
             <TableHeaderColumn
@@ -66,7 +75,7 @@ const ListTable = ({ items, fields, sortByColumn, onSubmit, primaryKey }) => {
           )) }
         </TableRow>
       </TableHeader>
-      <TableBody stripedRows displayRowCheckbox={false}>
+      <TableBody stripedRows displayRowCheckbox={checkboxes}>
         {items ?
           items.map(item => (
             <TableRow key={item.id} rowNumber={item.id}>
@@ -89,6 +98,7 @@ const ListTable = ({ items, fields, sortByColumn, onSubmit, primaryKey }) => {
 
 ListTable.defaultProps = {
   primaryKey: 'id',
+  checkboxes: false,
 };
 
 ListTable.propTypes = {
@@ -97,6 +107,7 @@ ListTable.propTypes = {
   sortByColumn: PropTypes.func,
   onSubmit: PropTypes.func,
   primaryKey: PropTypes.string,
+  checkboxes: PropTypes.bool,
 };
 
 export default ListTable;

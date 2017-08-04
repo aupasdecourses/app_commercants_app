@@ -27,7 +27,9 @@ const apiMiddleware = axiosMiddleware(apiClient, {
     ]
   },
   onError: (props, options) => {
-    if (props.error.response && props.error.response.status === 401) {
+    if (props.error.response
+      && props.error.response.status === 401
+    ) {
       return props.dispatch(logout());
     }
 

@@ -87,7 +87,7 @@ class Form extends Component {
             <ToggleInput
               name="on_selection"
               label="Dans la sélection du moment"
-              defaultToggled={item.on_selection && item.on_selection !== "0"}
+              defaultToggled={item.on_selection && item.on_selection !== '0'}
               labelPosition="right"
               disabled={isLoading}
               style={{ marginTop: 14 }}
@@ -116,19 +116,6 @@ class Form extends Component {
               fullWidth
               disabled={isLoading}
             />
-            {this.context.role === 'ROLE_ADMIN' ?
-              <TextInput
-                name="sku"
-                floatingLabelText="Référence APDC (SKU)"
-                initialValue={item.sku}
-                fullWidth
-                required
-                disabled={isLoading}
-              /> :
-              <div>
-                {item.sku}
-              </div>
-            }
             <NumberInput
               name="price"
               floatingLabelText="Prix"
@@ -166,13 +153,13 @@ class Form extends Component {
               step="0.01"
               disabled={isLoading}
             />
-            {/* <TextInput
+            <TextInput
               name="nbre_portion"
               floatingLabelText="Nombre portion"
               initialValue={item.nbre_portion}
               fullWidth
               disabled={isLoading}
-            /> */}
+            />
             <SelectInput
               name="tax_class_id"
               floatingLabelText="TVA"
@@ -207,12 +194,12 @@ class Form extends Component {
               <SelectInput
                 name="shop"
                 floatingLabelText="Magasin"
-                value={item.user && item.user.id}
+                value={item.commercant}
                 fullWidth
                 required
                 disabled={isLoading}
               >
-                {choicesList.users.map(u => <MenuItem key={u.value} value={u.value} primaryText={u.name} />)}
+                {choicesList.shops.map(u => <MenuItem key={u.value} value={u.value} primaryText={u.name} />)}
               </SelectInput>
             }
           </Col>

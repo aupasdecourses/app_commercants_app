@@ -22,7 +22,6 @@ class ListToolbar extends Component {
 
   closeSearch = () => {
     this.setState({ showSearch: !this.state.showSearch }, () => {
-      console.log(123);
       this.props.onSearch({ search: '' });
     });
   };
@@ -64,6 +63,7 @@ class ListToolbar extends Component {
           <RaisedButton
             onTouchTap={() => this.props.toggleOptions()}
             icon={<ActionSettingsIcon />}
+            style={{ minWidth: 64 }}
             secondary
           />}
         </ToolbarGroup>

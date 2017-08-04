@@ -91,7 +91,7 @@ class NumberInput extends Component {
         onFocus={this.onFocus}
         onBlur={this.onBlur}
         value={this.state.value}
-        type="number"
+        type="text"
       />
     );
   }

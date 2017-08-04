@@ -48,7 +48,7 @@ h4 {
     overflow: auto;
 }
 
-#content.paginate {
+.paginate {
     margin-bottom: 46px;
 }
 

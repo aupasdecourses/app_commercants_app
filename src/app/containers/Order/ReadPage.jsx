@@ -15,7 +15,7 @@ class ShowPage extends Component {
           window.Tawk_API.showWidget();
         }, 2000);
     }
-    this.props.fetchOrder(this.props.params.id);
+    this.props.fetchOrder(this.props.match.params.id);
   }
 
   componentWillUnmount() {
