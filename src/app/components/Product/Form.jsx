@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { Form as BaseForm } from 'formsy-react';
+import { Prompt } from 'react-router';
 
 import { FloatingActionButton, RaisedButton, MenuItem } from 'material-ui';
 import Save from 'material-ui/svg-icons/content/save';
@@ -19,24 +20,25 @@ class Form extends Component {
 
     this.state = {
       notValid: true,
+      notSaved: false,
     };
-
-    this.onValid = this.onValid.bind(this);
-    this.onInvalid = this.onInvalid.bind(this);
-    this.submit = this.submit.bind(this);
-    this.upload = this.upload.bind(this);
-    this.remove = this.remove.bind(this);
   }
 
-  onValid() {
+  onValid = () => {
     this.setState({ notValid: false });
-  }
+  };
 
-  onInvalid() {
+  onInvalid = () => {
     this.setState({ notValid: true });
-  }
+  };
 
-  upload(file) {
+  onChange = (currentValues, isChanged) => {
+    if (isChanged && !this.state.notSaved) {
+      this.setState({ notSaved: true });
+    }
+  };
+
+  upload = (file) => {
     const formData = new FormData();
 
     if (!file.type.match('image.*')) {
@@ -46,15 +48,17 @@ class Form extends Component {
     formData.append('photoFile', file, file.name);
 
     this.props.onUpload(formData);
-  }
+  };
 
-  submit(model) {
-    this.props.onSubmit(model);
-  }
+  submit= (model) => {
+    this.setState({ notSaved: false }, () => {
+      this.props.onSubmit(model);
+    });
+  };
 
-  remove() {
+  remove = () => {
     this.props.onRemove();
-  }
+  };
 
   render() {
     const { item, choicesList, isLoading } = this.props;
@@ -64,8 +68,13 @@ class Form extends Component {
         onValidSubmit={this.submit}
         onValid={this.onValid}
         onInvalid={this.onInvalid}
+        onChange={this.onChange}
         lang="en-150"
       >
+        <Prompt
+          when={this.state.notSaved}
+          message="Modification non sauvegardé, continuer sans sauvegarder ?"
+        />
         <FloatingActionButton
           className="floatButton"
           disabled={this.state.notValid || isLoading}
@@ -117,10 +126,10 @@ class Form extends Component {
               disabled={isLoading}
             />
             <NumberInput
-              name="price"
+              name="prix_public"
               floatingLabelText="Prix"
               hintText="Prix en Euro"
-              initialValue={item.price}
+              initialValue={item.prix_public}
               fullWidth
               step="0.05"
               required
@@ -199,7 +208,9 @@ class Form extends Component {
                 required
                 disabled={isLoading}
               >
-                {choicesList.shops.map(u => <MenuItem key={u.value} value={u.value} primaryText={u.name} />)}
+                {choicesList.shops.map(
+                  u => <MenuItem key={u.value} value={u.value} primaryText={u.name} />
+                )}
               </SelectInput>
             }
           </Col>
@@ -207,13 +218,19 @@ class Form extends Component {
             {item.entity_id ?
               <div style={{ position: 'relative' }}>
                 {item.photo &&
-                  <img src={`${globalConfig.baseUrl}/uploads/products/${item.id}/${item.photo}`} alt="" accept="image/*" capture />}
+                  <img
+                    src={`${globalConfig.baseUrl}/uploads/products/${item.id}/${item.photo}`}
+                    alt="" accept="image/*" capture
+                  />}
                 <RaisedButton
                   containerElement="label"
                   label="Photo"
                 >
                   <FileInput
-                    name="photo" style={{ opacity: 0, position: 'absolute', top: 0, bottom: 0, right: 0, width: '100%' }}
+                    name="photo"
+                    style={{
+                      opacity: 0, position: 'absolute', top: 0, bottom: 0, right: 0, width: '100%'
+                    }}
                     setValue={this.upload}
                   />
                 </RaisedButton>
