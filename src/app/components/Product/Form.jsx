@@ -181,13 +181,18 @@ class Form extends Component {
               <MenuItem value="9" primaryText="10%" />
               <MenuItem value="10" primaryText="20%" />
             </SelectInput>
-            <TextInput
+            <SelectInput
               name="origine"
               floatingLabelText="Origine"
-              initialValue={item.origine}
+              value={item.origine}
               fullWidth
+              required
               disabled={isLoading}
-            />
+            >
+              {Object.keys(choicesList.origines).map(
+                k => <MenuItem key={k} value={k} primaryText={choicesList.origines[k]} />
+              )}
+            </SelectInput>
             <SelectInput
               name="produit_biologique"
               floatingLabelText="Bio"
@@ -196,8 +201,9 @@ class Form extends Component {
               fullWidth
               disabled={isLoading}
             >
-              <MenuItem value={false} primaryText="Non" />
-              <MenuItem value={true} primaryText="Oui" />
+              <MenuItem value="76" primaryText="Non" />
+              <MenuItem value="276" primaryText="Oui" />
+              <MenuItem value="34" primaryText="AB" />
             </SelectInput>
             {this.context.role === 'ROLE_ADMIN' &&
               <SelectInput

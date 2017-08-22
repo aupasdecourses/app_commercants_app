@@ -7,6 +7,7 @@ const initialState = {
   items: [],
   short: [],
   total: 0,
+  filters: {},
   columns: {
     status: true,
     name: true,
@@ -44,6 +45,7 @@ export default function products(state = initialState, action) {
 
           return o;
         }, []),
+        filters: action.payload.data.filters.values,
         total: action.payload.data.recordsFiltered,
         isFetching: false,
         hasFetched: true,

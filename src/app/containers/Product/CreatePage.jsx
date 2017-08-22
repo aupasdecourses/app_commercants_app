@@ -92,6 +92,7 @@ function mapStateToProps(state) {
   return {
     choicesList: {
       shops: state.shops.short,
+      origines: state.products.filters.origine,
     },
   };
 }

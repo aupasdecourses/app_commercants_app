@@ -145,6 +145,8 @@ class ListPage extends Component {
   }
 
   render() {
+    const { filters } = this.props;
+
     // TODO: Voir à tout mettre dans le reducer?
     const fields = {
       status: {
@@ -174,10 +176,12 @@ class ListPage extends Component {
       },
       origine: {
         alias: 'Origine',
+        values: filters.origine,
         sortable: true,
       },
       produit_biologique: {
         alias: 'Bio',
+        values: filters.produit_biologique,
         sortable: true,
         style: { width: 42 },
       },
@@ -250,6 +254,7 @@ ListPage.propTypes = {
   router: PropTypes.object,
   location: PropTypes.object,
   items: PropTypes.array,
+  filters: PropTypes.object,
   total: PropTypes.number,
   columns: PropTypes.object,
   fetchProducts: PropTypes.func,
@@ -262,6 +267,7 @@ ListPage.propTypes = {
 function mapStateToProps(state) {
   return {
     items: state.products.items,
+    filters: state.products.filters,
     total: state.products.total,
     columns: state.products.columns,
     hasFetched: state.products.hasFetched,

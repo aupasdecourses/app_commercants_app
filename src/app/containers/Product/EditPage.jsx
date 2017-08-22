@@ -152,6 +152,7 @@ function mapStateToProps(state) {
     item: state.product.item,
     choicesList: {
       shops: state.shops.short,
+      origines: state.products.filters.origine,
     },
     hasFetched: state.product.hasFetched,
     isFetching: state.product.isFetching,
