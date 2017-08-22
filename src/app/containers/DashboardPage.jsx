@@ -26,7 +26,6 @@ class DashboardPage extends Component {
   }
 
   render() {
-    console.log(this);
     return (
       <Grid id="content" fluid style={{ textAlign: 'center', marginTop: 24 }}>
         <RaisedButton

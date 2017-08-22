@@ -17,6 +17,12 @@ const ListTable = ({ items, fields, sortByColumn, onSubmit, primaryKey, checkbox
   function renderField(field, value, id, name) {
     const type = field.type;
 
+    let displayValue = value;
+
+    if (field.values) {
+      displayValue = field.values[value] || value;
+    }
+
     if (type === 'publish') {
       return <Publish key={`${id}${name}`} name={name} onSubmit={(model) => onSubmit(id, model)}>{ value }</Publish>;
     } else if (type === 'date') {
@@ -41,7 +47,7 @@ const ListTable = ({ items, fields, sortByColumn, onSubmit, primaryKey, checkbox
       return <InEdit key={`${id}${name}`} name={name} onSubmit={(model) => onSubmit(id, model)}>{ value }</InEdit>;
     }
 
-    return value;
+    return displayValue;
   }
 
   return (
