@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Form as BaseForm } from 'formsy-react';
 import { Prompt } from 'react-router';
 

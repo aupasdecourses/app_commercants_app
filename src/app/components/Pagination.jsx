@@ -1,4 +1,5 @@
-import React, { PropTypes, Component } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import { FlatButton, RaisedButton, TextField } from 'material-ui';
 import Left from 'material-ui/svg-icons/navigation/chevron-left';

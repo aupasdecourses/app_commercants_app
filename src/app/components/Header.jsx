@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 
 import AppBar from 'material-ui/AppBar';
 import MenuItem from 'material-ui/MenuItem';
@@ -36,7 +37,7 @@ Header.defaultProps = {
 };
 
 Header.propTypes = {
-  title: PropTypes.string,
+  title: PropTypes.any,
   toggleMenu: PropTypes.func,
   logout: PropTypes.func,
 };

@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Form } from 'formsy-react';
 import SaveIcon from 'material-ui/svg-icons/content/save';
 import RaisedButton from 'material-ui/RaisedButton';

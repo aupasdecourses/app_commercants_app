@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { Drawer, MenuItem, AppBar, Divider, IconButton } from 'material-ui';
 import BookmarkBorderIcon from 'material-ui/svg-icons/action/bookmark-border';

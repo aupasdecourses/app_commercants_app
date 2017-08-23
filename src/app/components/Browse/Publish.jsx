@@ -1,4 +1,6 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+
 import CheckCircleIcon from 'material-ui/svg-icons/action/check-circle';
 import CancelIcon from 'material-ui/svg-icons/navigation/cancel';
 import RaisedButton from 'material-ui/RaisedButton';
