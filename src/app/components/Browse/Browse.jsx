@@ -94,7 +94,7 @@ class Browse extends Component {
 
   render() {
     const {
-      title, definition, headers, items, totalItems, addRoute, filterHeader, onSubmit, boxed
+      title, definition, headers, items, primaryKey, totalItems, addRoute, filterHeader, onSubmit, boxed
     } = this.props;
     const sortBy = this.state.sort.by;
     const displayedFields = {};
@@ -151,6 +151,7 @@ class Browse extends Component {
             items={items} columns={headers}
             sortByColumn={(by) => this.onSort(by)}
             onSubmit={(id, model) => onSubmit(id, model)}
+            primaryKey={primaryKey}
           />
         </div>
         {totalItems && <Pagination
@@ -166,11 +167,16 @@ Browse.contextTypes = {
   router: PropTypes.object
 };
 
+Browse.defaultProps = {
+  primaryKey: 'id',
+};
+
 Browse.propTypes = {
   title: PropTypes.string,
   definition: PropTypes.object,
   headers: PropTypes.object,
   items: PropTypes.array,
+  primaryKey: PropTypes.string,
   totalItems: PropTypes.number,
   addRoute: PropTypes.string,
   filters: PropTypes.object,

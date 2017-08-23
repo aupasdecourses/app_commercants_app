@@ -51,11 +51,10 @@ class ListPage extends Component {
           headers={this.props.columns}
           items={this.props.items}
           totalItems={this.props.total}
-          addRoute="/articles/new"
-          fetchItems={(filters) => this.props.fetchOrders(filters)}
-          filterHeader={(column) => this.props.filterColumn(column)}
-          onSubmit={(id, model) => this.submit(id, model)}
+          fetchItems={this.props.fetchOrders}
+          filterHeader={this.props.filterColumn}
           filters={this.props.location.query || {}}
+          primaryKey="entity_id"
         />
       </div>
     );
