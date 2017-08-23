@@ -32,11 +32,11 @@ const appConfig = {
         name: 'Mes produits',
         linkTo: '/products',
         icon: <DescriptionIcon />
-      }, {
+      }, /*{
         name: 'Mon profil',
         linkTo: '/profile',
         icon: <FaceIcon />
-      },
+      },*/
     ],
     ROLE_ADMIN: [
       {
