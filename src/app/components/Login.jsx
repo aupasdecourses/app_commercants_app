@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 
 import { CircularProgress, FlatButton, TextField, Snackbar } from 'material-ui';
@@ -45,42 +46,36 @@ class Login extends Component {
       <Row center="xs" middle="xs" className="login-box">
         <Col xs={12} sm={8} md={6}>
           {!this.state.showReset ?
-            <Card>
+            <Card style={{ position: 'relative' }}>
+              {isAuthenticating && <CircularProgress size={50} style={{ position: 'absolute', left: 16, top: 16 }} />}
               <CardTitle
                 title={<FormattedMessage id="Login" />}
                 subtitle={<FormattedMessage id="Please enter your login to sign in" />}
                 className="login-title"
               />
               <CardText>
-                {isAuthenticating ?
-                  <Row center="xs">
-                    <Col xs>
-                      <CircularProgress size={20} />
-                    </Col>
-                  </Row> :
-                  <Row>
-                    <Col xs={12} sm={6}>
-                      <TextField
-                        ref={(c) => { this.username = c; }}
-                        hintText={<FormattedMessage id="Enter your username" />}
-                        floatingLabelText={<FormattedMessage id="Username" />}
-                        fullWidth
-                        disabled={isAuthenticating}
-                      />
-                    </Col>
-                    <Col xs={12} sm={6}>
-                      <TextField
-                        ref={(c) => { this.password = c; }}
-                        hintText={<FormattedMessage id="Enter your password" />}
-                        floatingLabelText={<FormattedMessage id="Password" />}
-                        type="password"
-                        fullWidth
-                        onKeyDown={(e) => this.onKeyDown(e)}
-                        disabled={isAuthenticating}
-                      />
-                    </Col>
-                  </Row>
-                }
+                <Row>
+                  <Col xs={12} sm={6}>
+                    <TextField
+                      ref={(c) => { this.username = c; }}
+                      hintText={<FormattedMessage id="Enter your username" />}
+                      floatingLabelText={<FormattedMessage id="Username" />}
+                      fullWidth
+                      disabled={isAuthenticating}
+                    />
+                  </Col>
+                  <Col xs={12} sm={6}>
+                    <TextField
+                      ref={(c) => { this.password = c; }}
+                      hintText={<FormattedMessage id="Enter your password" />}
+                      floatingLabelText={<FormattedMessage id="Password" />}
+                      type="password"
+                      fullWidth
+                      onKeyDown={(e) => this.onKeyDown(e)}
+                      disabled={isAuthenticating}
+                    />
+                  </Col>
+                </Row>
               </CardText>
               <CardActions style={{ textAlign: 'center' }}>
                 <FlatButton
@@ -133,7 +128,6 @@ class Login extends Component {
               </CardActions>
             </Card>
           }
-
         </Col>
         <Snackbar
           open={hasError}

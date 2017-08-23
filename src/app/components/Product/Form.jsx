@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Form as BaseForm } from 'formsy-react';
 import { Prompt } from 'react-router';
 
@@ -140,6 +141,7 @@ class Form extends Component {
               floatingLabelText="Unité de prix"
               value={item.unite_prix}
               fullWidth
+              required
               disabled={isLoading}
             >
               <MenuItem value="kg" primaryText="Kg" />
@@ -160,6 +162,7 @@ class Form extends Component {
               fullWidth
               type="number"
               step="0.01"
+              required
               disabled={isLoading}
             />
             <TextInput
@@ -167,6 +170,7 @@ class Form extends Component {
               floatingLabelText="Nombre portion"
               initialValue={item.nbre_portion}
               fullWidth
+              required
               disabled={isLoading}
             />
             <SelectInput
@@ -175,6 +179,7 @@ class Form extends Component {
               hintText="TVA applicable"
               value={item.tax_class_id}
               fullWidth
+              required
               disabled={isLoading}
             >
               <MenuItem value="5" primaryText="5.5%" />
@@ -186,7 +191,6 @@ class Form extends Component {
               floatingLabelText="Origine"
               value={item.origine}
               fullWidth
-              required
               disabled={isLoading}
             >
               {Object.keys(choicesList.origines).map(
@@ -207,7 +211,7 @@ class Form extends Component {
             </SelectInput>
             {this.context.role === 'ROLE_ADMIN' &&
               <SelectInput
-                name="shop"
+                name="shop_id"
                 floatingLabelText="Magasin"
                 value={item.commercant}
                 fullWidth

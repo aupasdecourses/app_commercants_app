@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 import FloatingActionButton from 'material-ui/FloatingActionButton';
@@ -15,7 +16,7 @@ class Browse extends Component {
     super(props);
 
     this.state = {
-      page: 1,
+      page: props.filters.offset ? props.filters.offset / 20 + 1 : 1,
       showOptions: false,
       showFilters: false,
       sort: {
@@ -27,52 +28,73 @@ class Browse extends Component {
   }
 
   componentWillMount() {
+    // TODO: Find a way to use "_only"
     this.props.fetchItems(this.state.filters);
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (JSON.stringify(nextProps.filters) !== JSON.stringify(this.props.filters)) {
+      const filters = nextProps.filters;
+
+      this.props.fetchItems(filters).then(() => {
+        this.setState({
+          filters,
+          page: nextProps.filters.offset ? nextProps.filters.offset / 20 + 1 : 1,
+          sort: {
+            by: nextProps.filters.sortBy || this.state.sort.by,
+            dir: nextProps.filters.sortDir || this.state.sort.dir,
+          },
+        });
+      });
+    }
+  }
+
   onFilters(filters) {
-    this.props.fetchItems(filters).then(() => {
-      this.setState({ filters });
+    const query = {
+      ...this.state.filters,
+      ...filters
+    };
+
+    this.context.router.history.push({
+      pathname: this.context.router.history.location.pathname,
+      query,
     });
   }
 
   onSort(sortBy) {
     let sortDir = 'asc';
+
     if (sortBy === this.state.sort.by && this.state.sort.dir === 'asc') {
       sortDir = 'desc';
     }
 
-    const filters = {
+    const query = {
       ...this.state.filters,
       sortBy,
       sortDir,
     };
 
-    this.props.fetchItems(filters).then(() => {
-      this.setState({
-        filters,
-        sort: {
-          by: sortBy,
-          dir: sortDir,
-        },
-      });
+    this.context.router.history.push({
+      pathname: this.context.router.history.location.pathname,
+      query,
     });
   }
 
   onPaginate(toPage) {
-    const filters = {
+    const query = {
       ...this.state.filters,
       offset: (toPage - 1) * 20,
     };
 
-    this.props.fetchItems(filters).then(() => {
-      this.setState({ page: toPage });
+    this.context.router.history.push({
+      pathname: this.context.router.history.location.pathname,
+      query,
     });
   }
 
   render() {
     const {
-      title, definition, headers, items, totalItems, addRoute, filterHeader, onSubmit, boxed
+      title, definition, headers, items, primaryKey, totalItems, addRoute, filterHeader, onSubmit, boxed
     } = this.props;
     const sortBy = this.state.sort.by;
     const displayedFields = {};
@@ -129,6 +151,7 @@ class Browse extends Component {
             items={items} columns={headers}
             sortByColumn={(by) => this.onSort(by)}
             onSubmit={(id, model) => onSubmit(id, model)}
+            primaryKey={primaryKey}
           />
         </div>
         {totalItems && <Pagination
@@ -140,11 +163,20 @@ class Browse extends Component {
   }
 }
 
+Browse.contextTypes = {
+  router: PropTypes.object
+};
+
+Browse.defaultProps = {
+  primaryKey: 'id',
+};
+
 Browse.propTypes = {
   title: PropTypes.string,
   definition: PropTypes.object,
   headers: PropTypes.object,
   items: PropTypes.array,
+  primaryKey: PropTypes.string,
   totalItems: PropTypes.number,
   addRoute: PropTypes.string,
   filters: PropTypes.object,

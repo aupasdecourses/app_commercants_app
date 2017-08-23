@@ -1,14 +1,17 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import { Grid } from 'react-flexbox-grid/lib';
 
 import Form from '../../components/User/Form';
-import * as UserActions from '../../actions/user';
+import * as Actions from '../../actions/user';
+import * as ShopActions from '../../actions/shop';
 
 class EditPage extends Component {
   componentDidMount() {
+    this.props.fetchShopsIfNeeded(null, true);
     this.props.fetchUser(this.props.match.params.id);
   }
 
@@ -51,7 +54,7 @@ class EditPage extends Component {
     return (
       <Grid id="content" fluid>
         {this.props.hasFetched && <Form
-          item={this.props.item}
+          item={this.props.item} choicesList={this.props.choicesList}
           isLoading={this.props.isFetching}
           onSubmit={(model) => this.submit(model)}
         />}
@@ -63,6 +66,7 @@ class EditPage extends Component {
 EditPage.propTypes = {
   item: PropTypes.object,
   fetchUser: PropTypes.func,
+  fetchShopsIfNeeded: PropTypes.func,
   saveUser: PropTypes.func,
   hasFetched: PropTypes.bool,
   isFetching: PropTypes.bool,
@@ -71,6 +75,9 @@ EditPage.propTypes = {
 function mapStateToProps(state) {
   return {
     item: state.user.item,
+    choicesList: {
+      shops: state.shops.short
+    },
     hasFetched: state.user.hasFetched,
     isFetching: state.user.isFetching,
   };
@@ -78,7 +85,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return Object.assign({},
-    bindActionCreators(UserActions, dispatch),
+    bindActionCreators(Actions, dispatch),
+    bindActionCreators(ShopActions, dispatch),
     { dispatch },
   );
 }

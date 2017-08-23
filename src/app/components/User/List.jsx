@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 import {
@@ -31,7 +32,7 @@ const List = ({ items }) => {
               {/* <TableRowColumn>{item.mobile}</TableRowColumn>*/}
               <TableRowColumn>
                 <RaisedButton
-                  containerElement={<Link to={{ pathname: '/products', query: { shop_id: item.shop_id } }} />}
+                  containerElement={<Link to={{ pathname: `/products?shop_id=${item.shop && item.shop.id}` }} />}
                   icon={<StoreIcon />}
                   secondary
                 />

@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -32,11 +33,11 @@ const appConfig = {
         name: 'Mes produits',
         linkTo: '/products',
         icon: <DescriptionIcon />
-      }, {
+      }, /*{
         name: 'Mon profil',
         linkTo: '/profile',
         icon: <FaceIcon />
-      },
+      },*/
     ],
     ROLE_ADMIN: [
       {

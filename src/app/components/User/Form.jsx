@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Form } from 'formsy-react';
 
 import { FloatingActionButton, MenuItem } from 'material-ui';
@@ -41,7 +42,7 @@ class UserForm extends Component {
   }
 
   render() {
-    const { item, isLoading } = this.props;
+    const { item, choicesList, isLoading } = this.props;
 
     return (
       <Form
@@ -95,25 +96,6 @@ class UserForm extends Component {
               fullWidth
               disabled={isLoading}
             />
-            {/* <h4>Utilisateur</h4>
-            <TextInput
-              name="firstName"
-              hintText="Prénom du gérant"
-              floatingLabelText="Prénom"
-              initialValue={item.first_name}
-              fullWidth
-              required
-              disabled={isLoading}
-            />
-            <TextInput
-              name="lastName"
-              hintText="Nom du gérant"
-              floatingLabelText="Nom"
-              initialValue={item.last_name}
-              fullWidth
-              required
-              disabled={isLoading}
-            />*/}
             <TextInput
               name="email"
               hintText="Email de l'utilisateur"
@@ -125,72 +107,21 @@ class UserForm extends Component {
               validationError="L'email saisi n'est pas valide"
               disabled={isLoading}
             />
-            {/* <TextInput
-              name="phone"
-              hintText="Téléphone fixe"
-              floatingLabelText="Téléphone"
-              initialValue={item.phone}
-              fullWidth
-              required
-              disabled={isLoading}
-            />
-            <TextInput
-              name="mobile"
-              hintText="Téléphone portable"
-              floatingLabelText="Mobile"
-              initialValue={item.mobile}
-              fullWidth
-              required
-              disabled={isLoading}
-            />*/}
           </Col>
           <Col xs={12} sm={6}>
             <h4>Magasin</h4>
-            <TextInput
+            <SelectInput
               name="shop"
-              hintText="Id du magasin"
-              floatingLabelText="Magasin ID"
-              initialValue={item.shop && item.shop.id}
-              fullWidth
-              required
-              disabled={isLoading}
-            />
-            {/* <TextInput
-              name="shopName"
-              hintText="Nom du magasin"
               floatingLabelText="Magasin"
-              initialValue={item.shop_name}
+              value={item.shop && item.shop.id.toString()}
               fullWidth
               required
               disabled={isLoading}
-            />
-            <TextInput
-              name="address"
-              hintText="Adresse du magasin"
-              floatingLabelText="Adresse"
-              initialValue={item.address}
-              fullWidth
-              required
-              disabled={isLoading}
-            />
-            <TextInput
-              name="zip"
-              hintText="Code postal"
-              floatingLabelText="Code postal"
-              initialValue={item.zip}
-              fullWidth
-              required
-              disabled={isLoading}
-            />
-            <TextInput
-              name="city"
-              hintText="Ville"
-              floatingLabelText="Ville"
-              initialValue={item.city}
-              fullWidth
-              required
-              disabled={isLoading}
-            />*/}
+            >
+              {choicesList.shops.map(
+                u => <MenuItem key={u.value} value={u.value} primaryText={u.name} />
+              )}
+            </SelectInput>
           </Col>
         </Row>
       </Form>
@@ -200,6 +131,7 @@ class UserForm extends Component {
 
 UserForm.propTypes = {
   item: PropTypes.object,
+  choicesList: PropTypes.object,
   isLoading: PropTypes.bool,
   onSubmit: PropTypes.func,
 };
