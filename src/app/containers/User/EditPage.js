@@ -65,6 +65,7 @@ class EditPage extends Component {
 
 EditPage.propTypes = {
   item: PropTypes.object,
+  choicesList: PropTypes.object,
   fetchUser: PropTypes.func,
   fetchShopsIfNeeded: PropTypes.func,
   saveUser: PropTypes.func,
