@@ -32,7 +32,7 @@ const List = ({ items }) => {
               {/* <TableRowColumn>{item.mobile}</TableRowColumn>*/}
               <TableRowColumn>
                 <RaisedButton
-                  containerElement={<Link to={{ pathname: `/products?shop_id=${item.shop && item.shop.id}` }} />}
+                  containerElement={<Link to={{ pathname: '/products', search: `?commercant=${item.shop && item.shop.id}` }} />}
                   icon={<StoreIcon />}
                   secondary
                 />
