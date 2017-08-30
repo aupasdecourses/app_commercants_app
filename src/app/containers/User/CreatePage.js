@@ -47,16 +47,25 @@ class CreatePage extends Component {
   render() {
     return (
       <Grid id="content" fluid>
-        <Form item={{}} onSubmit={(model) => this.submit(model)} />
+        <Form
+          item={{}} choicesList={this.props.choicesList}
+          onSubmit={(model) => this.submit(model)}
+        />
       </Grid>
     );
   }
 }
 
+CreatePage.propTypes = {
+  choicesList: PropTypes.func,
+  fetchShopsIfNeeded: PropTypes.func,
+};
+
 function mapStateToProps(state) {
   return {
-    isAuthenticating: state.auth.isAuthenticating,
-    hasError: state.auth.hasError
+    choicesList: {
+      shops: state.shops.short
+    },
   };
 }
 

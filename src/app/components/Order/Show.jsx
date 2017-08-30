@@ -29,12 +29,28 @@ class Show extends Component {
         <Row>
           {item.items.map(product => (
               <Col xs={12}>
-                <p>SKU { product.name }</p>
-                <p>SKU { product.qty_ordered }</p>
-                <p>SKU { product.short_description }</p>
-                <p>SKU { product.price_incl_tax }</p>
-                <p>SKU { product.row_total_incl_tax }</p>
-                <p>SKU { product.item_comment }</p>
+                <table style={{ width: '100%' }}>
+                  <thead>
+                    <tr>
+                      <td>Nom</td>
+                      <td>Qtt</td>
+                      <td>Desc</td>
+                      <td>Prix</td>
+                      <td>Total</td>
+                      <td>Comment</td>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>{ product.name }</td>
+                      <td>{ product.qty_ordered }</td>
+                      <td>{ product.short_description }</td>
+                      <td>{ product.price_incl_tax }</td>
+                      <td>{ product.row_total_incl_tax }</td>
+                      <td>{ product.item_comment }</td>
+                    </tr>
+                  </tbody>
+                </table>
               </Col>
           ))}
         </Row>

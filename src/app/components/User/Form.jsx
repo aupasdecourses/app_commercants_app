@@ -76,7 +76,6 @@ class UserForm extends Component {
               floatingLabelText="Role"
               value={item.roles && item.roles[0]}
               fullWidth
-              multiple
               disabled={isLoading}
             >
               <MenuItem value={null} primaryText="&nbsp;" />

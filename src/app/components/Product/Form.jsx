@@ -132,8 +132,13 @@ class Form extends Component {
               hintText="Prix en Euro"
               initialValue={item.prix_public}
               fullWidth
-              step="0.05"
               required
+              validations={{
+                matchRegexp: /^-?\d+(?:[.,]\d*?)?$/
+              }}
+              validationErrors={{
+                matchRegexp: 'Nombre non valide'
+              }}
               disabled={isLoading}
             />
             <SelectInput

@@ -12,12 +12,6 @@ class NumberInput extends Component {
       value: props.initialValue || '',
       focused: false,
     };
-
-    this.changeValue = this.changeValue.bind(this);
-    this.onKeyDown = this.onKeyDown.bind(this);
-    this.onFocus = this.onFocus.bind(this);
-    this.onBlur = this.onBlur.bind(this);
-    this.showErrors = this.showErrors.bind(this);
   }
 
   componentDidMount() {
@@ -26,7 +20,29 @@ class NumberInput extends Component {
     }
   }
 
-  changeValue(event) {
+  onKeyDown = (e) => {
+    if (e.keyCode === 13) {
+      this.setState({ focused: false });
+      this.props.setValue(this.state.value);
+    }
+  };
+
+  onFocus= () => {
+    this.setState({ focused: true });
+  };
+
+  onBlur = () => {
+    this.setState({ focused: false });
+    this.props.setValue(this.state.value);
+  };
+
+  showErrors = () => {
+    return !this.props.isPristine() && this.props.showRequired() ?
+      'Required' :
+      this.props.getErrorMessage();
+  };
+
+  changeValue = (event) => {
     const newValue = event.currentTarget.value;
 
     if (this.state.value !== newValue && this.isFloat(newValue)) {
@@ -36,40 +52,12 @@ class NumberInput extends Component {
         }
       });
     }
-  }
-
-  onKeyDown(e) {
-    if (e.keyCode === 13) {
-      this.setState({ focused: false });
-      this.props.setValue(this.state.value);
-    }
-  }
-
-  onFocus() {
-    this.setState({ focused: true });
-  }
-
-  onBlur() {
-    this.setState({ focused: false });
-    this.props.setValue(this.state.value);
-  }
-
-  showErrors() {
-    return !this.props.isPristine() && this.props.showRequired() ?
-      'Required' :
-      this.props.getErrorMessage();
-  }
+  };
 
   isFloat(val) {
-    const floatRegex = /^-?\d+(?:[.,]\d*?)?$/;
+    const floatRegex = /^-?\d*[.,]?\d*$/;
 
-    if (!floatRegex.test(val)) {
-      return false;
-    }
-
-    const parsedVal = parseFloat(val);
-
-    return !isNaN(parsedVal);
+    return floatRegex.test(val);
   }
 
   render() {
@@ -92,11 +80,20 @@ class NumberInput extends Component {
         onFocus={this.onFocus}
         onBlur={this.onBlur}
         value={this.state.value}
-        type="text"
       />
     );
   }
 }
+
+// Note: Add this to the field
+NumberInput.defaultProps = {
+  validations: {
+    matchRegexp: /^-?\d+(?:[.,]\d*?)?$/
+  },
+  validationErrors: {
+    matchRegexp: 'Non valid number'
+  }
+};
 
 NumberInput.propTypes = {
   initialValue: PropTypes.string,
