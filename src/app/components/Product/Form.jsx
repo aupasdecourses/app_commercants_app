@@ -216,7 +216,7 @@ class Form extends Component {
             </SelectInput>
             {this.context.role === 'ROLE_ADMIN' &&
               <SelectInput
-                name="shop_id"
+                name="commercant"
                 floatingLabelText="Magasin"
                 value={item.commercant}
                 fullWidth
