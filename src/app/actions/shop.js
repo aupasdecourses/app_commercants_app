@@ -8,7 +8,7 @@ export function fetchShops(filters, short = false) {
   if (short) {
     filters = {
       ...filters,
-      _only: ['merchant', 'name'],
+      _only: ['id', 'name', 'productMerchant'],
       limit: 0,
     };
   }
