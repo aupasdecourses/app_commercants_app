@@ -112,7 +112,7 @@ class UserForm extends Component {
             <SelectInput
               name="shop"
               floatingLabelText="Magasin"
-              value={item.shop && item.shop.id.toString()}
+              value={item.shop && item.shop.id}
               fullWidth
               required
               disabled={isLoading}

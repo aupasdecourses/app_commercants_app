@@ -218,13 +218,13 @@ class Form extends Component {
               <SelectInput
                 name="commercant"
                 floatingLabelText="Magasin"
-                value={item.commercant}
+                value={item.commercant && parseInt(item.commercant, 10)}
                 fullWidth
                 required
                 disabled={isLoading}
               >
                 {choicesList.shops.map(
-                  u => <MenuItem key={u.value} value={u.value} primaryText={u.name} />
+                  u => <MenuItem key={u.value} value={u.merchant} primaryText={u.name} />
                 )}
               </SelectInput>
             }

@@ -25,7 +25,8 @@ export default function shops(state = initialState, action) {
         items: action.payload.data.data,
         short: action.payload.data.data.reduce((o, item) => {
           const short = {
-            value: item.merchant,
+            value: item.id,
+            merchant: item.product_merchant || item.productMerchant,
             name: item.name,
           };
 
