@@ -111,17 +111,17 @@ class Form extends Component {
               disabled={isLoading}
             />
             <TextInput
-              name="ref"
-              floatingLabelText="Code article commercant"
+              name="reference_interne_magasin"
+              floatingLabelText="Cide article interne"
               hintText="Exemple : REF0054"
-              initialValue={item.ref}
+              initialValue={item.reference_interne_magasin}
               fullWidth
               disabled={isLoading}
             />
             <TextInput
-              name="reference_interne_magasin"
-              floatingLabelText="Commentaire"
-              initialValue={item.reference_interne_magasin}
+              name="notes_com"
+              floatingLabelText="Commentaires sur le produit"
+              initialValue={item.notes_com}
               fullWidth
               disabled={isLoading}
             />
