@@ -11,23 +11,8 @@ import Form from '../../components/Product/Form';
 
 class CreatePage extends Component {
   componentWillMount() {
-    if (this.context.role !== 'ROLE_ADMIN') {
+    if (this.context.role === 'ROLE_ADMIN') {
       this.props.fetchShopsIfNeeded(null, true);
-    }
-  }
-
-  componentDidMount() {
-    if (this.context.role !== 'ROLE_ADMIN') {
-      setTimeout(
-        () => {
-          window.Tawk_API.showWidget();
-        }, 2000);
-    }
-  }
-
-  componentWillUnmount() {
-    if (this.context.role !== 'ROLE_ADMIN') {
-      window.Tawk_API.hideWidget();
     }
   }
 

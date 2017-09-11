@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import {
+  Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn,
+} from 'material-ui/Table';
 import { Row, Col } from 'react-flexbox-grid/lib';
 
 // TODO: Transform to pure
@@ -27,32 +30,33 @@ class Show extends Component {
           </Col>
         </Row>
         <Row>
-          {item.items.map(product => (
-              <Col xs={12}>
-                <table style={{ width: '100%' }}>
-                  <thead>
-                    <tr>
-                      <td>Nom</td>
-                      <td>Qtt</td>
-                      <td>Desc</td>
-                      <td>Prix</td>
-                      <td>Total</td>
-                      <td>Comment</td>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>{ product.name }</td>
-                      <td>{ product.qty_ordered }</td>
-                      <td>{ product.short_description }</td>
-                      <td>{ product.price_incl_tax }</td>
-                      <td>{ product.row_total_incl_tax }</td>
-                      <td>{ product.item_comment }</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </Col>
-          ))}
+          <Col xs={12}>
+            <Table style={{ width: '100%' }}>
+              <TableHeader adjustForCheckbox={false} displaySelectAll={false}>
+                <TableRow>
+                  <TableHeaderColumn>Nom</TableHeaderColumn>
+                  <TableHeaderColumn>Qtt</TableHeaderColumn>
+                  <TableHeaderColumn>Desc</TableHeaderColumn>
+                  <TableHeaderColumn>Prix</TableHeaderColumn>
+                  <TableHeaderColumn>Total</TableHeaderColumn>
+                  <TableHeaderColumn>Comment</TableHeaderColumn>
+                </TableRow>
+              </TableHeader>
+              <TableBody displayRowCheckbox={false}>
+              {item.items.map(product => (
+                <TableRow key={product.item_id}>
+                  {this.context.role === 'ROLE_ADMIN' || product.commercant === 1 && <div></div>}
+                  <TableRowColumn>{ product.name }</TableRowColumn>
+                  <TableRowColumn>{ product.qty_ordered }</TableRowColumn>
+                  <TableRowColumn>{ product.short_description }</TableRowColumn>
+                  <TableRowColumn>{ product.price_incl_tax }</TableRowColumn>
+                  <TableRowColumn>{ product.row_total_incl_tax }</TableRowColumn>
+                  <TableRowColumn>{ product.item_comment }</TableRowColumn>
+                </TableRow>
+              ))}
+              </TableBody>
+            </Table>
+          </Col>
         </Row>
       </div>
     );

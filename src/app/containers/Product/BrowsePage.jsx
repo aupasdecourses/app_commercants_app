@@ -8,21 +8,6 @@ import * as Actions from '../../actions/product';
 import Browse from '../../components/Browse/Browse';
 
 class ListPage extends Component {
-  componentDidMount() {
-    if (this.context.role !== 'ROLE_ADMIN') {
-      setTimeout(
-        () => {
-          window.Tawk_API.showWidget();
-        }, 2000);
-    }
-  }
-
-  componentWillUnmount() {
-    if (this.context.role !== 'ROLE_ADMIN') {
-      window.Tawk_API.hideWidget();
-    }
-  }
-
   submit = (id, model) => {
     return this.props.saveProduct(id, model)
       .then((action) => {
