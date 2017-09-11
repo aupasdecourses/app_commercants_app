@@ -32,8 +32,8 @@ class Publish extends Component {
       <RaisedButton
         onMouseUp={(e) => this.submit()}
         style={{ minWidth: 48 }}
-        icon={!value || value === '0' ? <CancelIcon /> : <CheckCircleIcon />}
-        backgroundColor={!value || value === '0' ? '#dc8585' : '#b9d466'}
+        icon={!value || value === '1' ? <CheckCircleIcon /> : <CancelIcon />}
+        backgroundColor={!value || value === '1' ? '#b9d466' : '#dc8585'}
       />
     );
   }

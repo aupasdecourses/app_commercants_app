@@ -11,7 +11,9 @@ import Form from '../../components/Product/Form';
 
 class EditPage extends Component {
   componentWillMount() {
-    this.props.fetchShopsIfNeeded(null, true);
+    if (this.context.role !== 'ROLE_ADMIN') {
+      this.props.fetchShopsIfNeeded(null, true);
+    }
     this.props.fetchProduct(this.props.match.params.id);
   }
 
