@@ -11,7 +11,9 @@ import Form from '../../components/Product/Form';
 
 class CreatePage extends Component {
   componentWillMount() {
-    this.props.fetchShopsIfNeeded(null, true);
+    if (this.context.role !== 'ROLE_ADMIN') {
+      this.props.fetchShopsIfNeeded(null, true);
+    }
   }
 
   componentDidMount() {

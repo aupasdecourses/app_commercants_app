@@ -89,7 +89,7 @@ class Form extends Component {
             <ToggleInput
               name="status"
               label="Actif sur le site"
-              defaultToggled={item.status}
+              defaultToggled={item.status && item.status === '1'}
               labelPosition="right"
               disabled={isLoading}
               style={{ marginTop: 14 }}
