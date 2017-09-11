@@ -234,7 +234,7 @@ class Form extends Component {
               <div style={{ position: 'relative' }}>
                 {item.small_image &&
                   <img
-                    src={`${globalConfig.baseUrl}/../../media/catalog/product/${item.small_image}`}
+                    src={`${globalConfig.baseUrl}/../../../media/catalog/product/${item.small_image}`}
                     alt=""
                   />}
                 {item.image_tmp &&
