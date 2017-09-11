@@ -63,7 +63,6 @@ class Form extends Component {
 
   render() {
     const { item, choicesList, isLoading } = this.props;
-
     return (
       <BaseForm
         onValidSubmit={this.submit}
@@ -89,7 +88,7 @@ class Form extends Component {
             <ToggleInput
               name="status"
               label="Actif sur le site"
-              defaultToggled={item.available}
+              defaultToggled={item.status}
               labelPosition="right"
               disabled={isLoading}
               style={{ marginTop: 14 }}
@@ -104,7 +103,7 @@ class Form extends Component {
             />
             <TextInput
               name="name"
-              floatingLabelText="Nom de l’article"
+              floatingLabelText="Nom de l’article (obligatoire)"
               hintText="Nom affiché sur le site, exemple : Pizza 4 fromages"
               initialValue={item.name}
               fullWidth
@@ -120,15 +119,15 @@ class Form extends Component {
               disabled={isLoading}
             />
             <TextInput
-              name="notes_com"
+              name="reference_interne_magasin"
               floatingLabelText="Commentaire"
-              initialValue={item.notes_com}
+              initialValue={item.reference_interne_magasin}
               fullWidth
               disabled={isLoading}
             />
             <NumberInput
               name="prix_public"
-              floatingLabelText="Prix"
+              floatingLabelText="Prix (obligatoire)"
               hintText="Prix en Euro"
               initialValue={item.prix_public}
               fullWidth
@@ -143,7 +142,7 @@ class Form extends Component {
             />
             <SelectInput
               name="unite_prix"
-              floatingLabelText="Unité de prix"
+              floatingLabelText="Unité de prix (obligatoire)"
               value={item.unite_prix}
               fullWidth
               required
@@ -161,7 +160,7 @@ class Form extends Component {
             />
             <TextInput
               name="poids_portion"
-              floatingLabelText="Poids portion (g)"
+              floatingLabelText="Poids portion en g (obligatoire)"
               hintText="Poids en gramme"
               initialValue={item.poids_portion}
               fullWidth
@@ -172,7 +171,7 @@ class Form extends Component {
             />
             <TextInput
               name="nbre_portion"
-              floatingLabelText="Nombre portion"
+              floatingLabelText="Nombre portion (obligatoire)"
               initialValue={item.nbre_portion}
               fullWidth
               required
@@ -180,7 +179,7 @@ class Form extends Component {
             />
             <SelectInput
               name="tax_class_id"
-              floatingLabelText="TVA"
+              floatingLabelText="TVA (obligatoire)"
               hintText="TVA applicable"
               value={item.tax_class_id}
               fullWidth
@@ -217,7 +216,7 @@ class Form extends Component {
             {this.context.role === 'ROLE_ADMIN' &&
               <SelectInput
                 name="commercant"
-                floatingLabelText="Magasin"
+                floatingLabelText="Magasin (obligatoire)"
                 value={item.commercant && parseInt(item.commercant, 10)}
                 fullWidth
                 required

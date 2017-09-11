@@ -18,7 +18,7 @@ class Publish extends Component {
   submit() {
     const model = {};
 
-    model[this.props.name] = this.state.value === '1' ? 0 : 1;
+    model[this.props.name] = this.state.value === '1' ? '0' : '1';
 
     this.props.onSubmit(model).then(() => {
       this.setState({ value: model[this.props.name] });
