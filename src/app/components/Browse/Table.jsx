@@ -85,7 +85,7 @@ const ListTable = ({ items, fields, sortByColumn, onSubmit, primaryKey, checkbox
       <TableBody stripedRows displayRowCheckbox={checkboxes}>
         {items ?
           items.map(item => (
-            <TableRow key={item.id} rowNumber={item.id}>
+            <TableRow key={`${item.id}${item.price}`} rowNumber={item.id}>
               { fields && Object.keys(fields).map((key) => (
                 <TableRowColumn
                   style={fields[key].style}

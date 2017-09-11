@@ -51,7 +51,7 @@ class Form extends Component {
     this.props.onUpload(formData);
   };
 
-  submit= (model) => {
+  submit = (model) => {
     this.setState({ notSaved: false }, () => {
       this.props.onSubmit(model);
     });
@@ -63,6 +63,7 @@ class Form extends Component {
 
   render() {
     const { item, choicesList, isLoading } = this.props;
+
     return (
       <BaseForm
         onValidSubmit={this.submit}
@@ -231,9 +232,14 @@ class Form extends Component {
           <Col xs={12}>
             {item.entity_id ?
               <div style={{ position: 'relative' }}>
-                {item.photo &&
+                {item.small_image &&
                   <img
-                    src={`${globalConfig.baseUrl}/uploads/products/${item.id}/${item.photo}`}
+                    src={`${globalConfig.baseUrl}/../../media/catalog/product/${item.small_image}`}
+                    alt=""
+                  />}
+                {item.image_tmp &&
+                  <img
+                    src={`${globalConfig.baseUrl}/../${item.image_tmp}`}
                     alt="" accept="image/*" capture
                   />}
                 <RaisedButton

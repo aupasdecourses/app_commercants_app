@@ -8,7 +8,6 @@ import * as Actions from '../../actions/product';
 import Browse from '../../components/Browse/Browse';
 
 class ListPage extends Component {
-
   componentDidMount() {
     if (this.context.role !== 'ROLE_ADMIN') {
       setTimeout(
@@ -57,7 +56,7 @@ class ListPage extends Component {
           });
         }
       });
-  }
+  };
 
   render() {
     const { filters } = this.props;
