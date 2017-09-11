@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { FormattedMessage } from 'react-intl';
 
 import AppBar from 'material-ui/AppBar';
 import MenuItem from 'material-ui/MenuItem';
@@ -22,7 +23,7 @@ const Header = ({ title, toggleMenu, logout }) => (
         anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
       >
         <MenuItem
-          primaryText="Sign Out" leftIcon={<PowerSettingsNewIcon />}
+          primaryText={<FormattedMessage id="Sign Out" />} leftIcon={<PowerSettingsNewIcon />}
           onTouchTap={logout}
         />
       </IconMenu>

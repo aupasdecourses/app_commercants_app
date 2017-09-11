@@ -6,6 +6,7 @@ const messages = {
   Password: 'Password',
   'Enter your password': 'Enter your password',
   'Sign In': 'Sign In',
+  'Sign Out': 'Sign Out',
   'Username or password incorrect': 'Username or password incorrect',
   'Forgot password': 'Forgot password',
   'Reset password': 'Reset password',
