@@ -91,6 +91,15 @@ class App extends Component {
     }
   }
 
+  componentDidMount() {
+    if (this.context.role !== 'ROLE_ADMIN') {
+      setTimeout(
+        () => {
+          window.Tawk_API.showWidget();
+        }, 2000);
+    }
+  }
+
   componentWillUpdate(nextProps) {
     if (nextProps.notification && this.props.notification !== nextProps.notification) {
       let message = nextProps.notification.message;
@@ -107,6 +116,12 @@ class App extends Component {
         autoHide: nextProps.notification.timeout || 2000,
         additionalLines: 2
       });
+    }
+  }
+
+  componentWillUnmount() {
+    if (this.context.role !== 'ROLE_ADMIN') {
+      window.Tawk_API.hideWidget();
     }
   }
 

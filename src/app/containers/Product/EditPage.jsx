@@ -11,25 +11,10 @@ import Form from '../../components/Product/Form';
 
 class EditPage extends Component {
   componentWillMount() {
-    if (this.context.role !== 'ROLE_ADMIN') {
+    if (this.context.role === 'ROLE_ADMIN') {
       this.props.fetchShopsIfNeeded(null, true);
     }
     this.props.fetchProduct(this.props.match.params.id);
-  }
-
-  componentDidMount() {
-    if (this.context.role !== 'ROLE_ADMIN') {
-      setTimeout(
-        () => {
-          window.Tawk_API.showWidget();
-        }, 2000);
-    }
-  }
-
-  componentWillUnmount() {
-    if (this.context.role !== 'ROLE_ADMIN') {
-      window.Tawk_API.hideWidget();
-    }
   }
 
   upload(data) {

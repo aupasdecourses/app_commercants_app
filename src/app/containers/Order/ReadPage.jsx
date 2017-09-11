@@ -10,19 +10,7 @@ import Show from '../../components/Order/Show';
 
 class ShowPage extends Component {
   componentDidMount() {
-    if (this.context.role !== 'ROLE_ADMIN') {
-      setTimeout(
-        () => {
-          window.Tawk_API.showWidget();
-        }, 2000);
-    }
     this.props.fetchOrder(this.props.match.params.id);
-  }
-
-  componentWillUnmount() {
-    if (this.context.role !== 'ROLE_ADMIN') {
-      window.Tawk_API.hideWidget();
-    }
   }
 
   render() {

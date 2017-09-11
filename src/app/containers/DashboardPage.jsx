@@ -11,21 +11,6 @@ import { Grid } from 'react-flexbox-grid/lib';
 import * as AuthActions from '../actions/auth';
 
 class DashboardPage extends Component {
-  componentDidMount() {
-    if (this.context.role !== 'ROLE_ADMIN') {
-      setTimeout(
-        () => {
-          window.Tawk_API.showWidget();
-        }, 2000);
-    }
-  }
-
-  componentWillUnmount() {
-    if (this.context.role !== 'ROLE_ADMIN') {
-      window.Tawk_API.hideWidget();
-    }
-  }
-
   render() {
     return (
       <Grid id="content" fluid style={{ textAlign: 'center', marginTop: 24 }}>
@@ -39,7 +24,7 @@ class DashboardPage extends Component {
           containerElement={<Link to="/products/new" />}
           fullWidth
         />
-        {this.context.role !== 'ROLE_ADMIN' && <RaisedButton
+        {this.context.role === 'ROLE_ADMIN' && <RaisedButton
           label="Liste commandes" secondary style={{ marginBottom: 12, height: 50 }}
           containerElement={<Link to="/orders" />}
           fullWidth
