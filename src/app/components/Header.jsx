@@ -22,7 +22,7 @@ const Header = ({ title, toggleMenu, logout }) => (
         anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
       >
         <MenuItem
-          primaryText="Se Déconnecter" leftIcon={<PowerSettingsNewIcon />}
+          primaryText="Sign Out" leftIcon={<PowerSettingsNewIcon />}
           onTouchTap={logout}
         />
       </IconMenu>

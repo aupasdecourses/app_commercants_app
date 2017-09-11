@@ -14,6 +14,7 @@ const messages = {
   'Username or Email': 'Utilisateur ou email',
   Reset: 'Réinitialiser',
   Cancel: 'Annuler',
+  'Sign Out': 'Se Déconnecter',
 
   locale: 'fr',
 };
