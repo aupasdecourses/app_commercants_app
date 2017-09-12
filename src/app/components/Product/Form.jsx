@@ -230,41 +230,57 @@ class Form extends Component {
             }
           </Col>
           <Col xs={12}>
+            <h2>Images</h2>
             {item.entity_id ?
-              <div style={{ position: 'relative' }}>
-                {item.small_image &&
-                  <img
-                    src={`${globalConfig.baseUrl}/../../../media/catalog/product/${item.small_image}`}
-                    alt=""
-                  />}
-                {item.image_tmp &&
-                  <img
-                    src={`${globalConfig.baseUrl}/../${item.image_tmp}`}
-                    alt="" accept="image/*" capture
-                  />}
-                <RaisedButton
-                  containerElement="label"
-                  label="Photo"
-                >
-                  <FileInput
-                    name="photo"
-                    style={{
-                      opacity: 0, position: 'absolute', top: 0, bottom: 0, right: 0, width: '100%'
-                    }}
-                    setValue={this.upload}
-                  />
-                </RaisedButton>
-              </div>
-              : ''
-            }
+                <div style={{ position: 'relative' }}>
+                    <Row>
+                      <Col sm={6} >
+                        <h3>Image actuellement sur le site</h3>
+                        <div style={{ position: 'relative' }}>
+                        {item.small_image &&
+                          <img
+                            src={`${globalConfig.baseUrl}/../../../media/catalog/product/${item.small_image}`}
+                            alt=""
+                            style={{width: '100%'}}
+                          />}
+                        </div>
+                      </Col>
+                      <Col sm={6} >
+                        <div style={{ position: 'relative' }}>
+                          <h3>Image uploadée par vos soins</h3>
+                          {item.image_tmp &&
+                          <img
+                            src={`${globalConfig.baseUrl}/../${item.image_tmp}`}
+                            alt="" accept="image/*" capture
+                            style={{width: '100%'}}
+                          />}
+                        </div>
+                        <RaisedButton
+                          containerElement="label"
+                          label="Proposer une nouvelle photo"
+                          primary={true}
+                        >
+                          <FileInput
+                            name="photo"
+                            style={{
+                              opacity: 0, position: 'absolute', top: 0, bottom: 0, right: 0, width: '100%'
+                            }}
+                            setValue={this.upload}
+                          />
+                        </RaisedButton>
+                      </Col>
+                    </Row>
+                </div>
+              : '' }
           </Col>
           {item.entity_id && <Col xs={12}>
+            <h2>Suppression du produit</h2>
             <RaisedButton
               onMouseUp={this.remove}
               containerElement="label"
-              label="Supprimer"
-              fullWidth
-              backgroundColor="#dc8585"
+              label="Demander la suppression du produit"
+              backgroundColor="#ff0000"
+              labelColor="#fff"
             />
           </Col>}
         </Row>

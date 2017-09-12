@@ -45,6 +45,7 @@ class Login extends Component {
     return (
       <Row center="xs" middle="xs" className="login-box">
         <Col xs={12} sm={8} md={6}>
+          <img id="logo" src="https://www.aupasdecourses.com/skin/frontend/boilerplate/default/dist/images/logo@2x.png"/>
           {!this.state.showReset ?
             <Card style={{ position: 'relative' }}>
               {isAuthenticating && <CircularProgress size={50} style={{ position: 'absolute', left: 16, top: 16 }} />}
