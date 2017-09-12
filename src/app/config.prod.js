@@ -1,5 +1,5 @@
 const config = {
-  baseUrl: 'http://magento.newapp.local/indi/web/api',
+  baseUrl: 'http://dev.aupasdecourses.local/indi/web/api',
   auth: {
     type: 'oauth',
     clientId: '1_3bcbxd9e24g0gk4swg0kwgcwg4o8k8g4g888kwc44gcc0gwwk4',
