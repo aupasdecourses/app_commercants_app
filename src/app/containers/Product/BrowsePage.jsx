@@ -83,6 +83,13 @@ class ListPage extends Component {
         sortable: true,
         style: { width: 42 },
       },
+      on_selection: {
+        alias: 'Sélectionné',
+        values: {
+          0: 'Non',
+          1: 'Oui'
+        },
+      },
     };
 
     return (
