@@ -17,6 +17,7 @@ const initialState = {
     short_description: false,
     origine: false,
     produit_biologique: false,
+    on_selection: false,
   },
   isFetching: false,
   hasFetched: false,
