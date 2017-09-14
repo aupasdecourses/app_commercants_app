@@ -53,6 +53,15 @@ class ListPage extends Component {
         sortable: true,
         style: { width: 64 },
       },
+      on_selection: {
+        alias: 'Sélectionné',
+        values: {
+          0: 'Non',
+          1: 'Oui'
+        },
+        sortable: true,
+        style: { width: 64 },
+      },
       name: {
         type: 'title',
         baseRoute: 'products',
@@ -82,13 +91,6 @@ class ListPage extends Component {
         values: filters.produit_biologique,
         sortable: true,
         style: { width: 42 },
-      },
-      on_selection: {
-        alias: 'Sélectionné',
-        values: {
-          0: 'Non',
-          1: 'Oui'
-        },
       },
     };
 

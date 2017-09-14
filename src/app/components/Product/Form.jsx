@@ -15,6 +15,8 @@ import NumberInput from '../Form/NumberInput';
 import TextInput from '../Form/TextInput';
 import FileInput from '../Form/FileInput';
 
+import './Form.css';
+
 class Form extends Component {
   constructor(props) {
     super(props);
@@ -102,6 +104,14 @@ class Form extends Component {
               disabled={isLoading}
               style={{ marginTop: 14 }}
             />
+            {this.context.role === 'ROLE_ADMIN' &&
+              <TextInput
+                name="sku"
+                floatingLabelText="SKU"
+                hintText="Poids en gramme"
+                disabled={isLoading}
+              />
+            }
             <TextInput
               name="name"
               floatingLabelText="Nom de l’article (obligatoire)"
@@ -113,23 +123,27 @@ class Form extends Component {
             />
             <TextInput
               name="reference_interne_magasin"
-              floatingLabelText="Cide article interne"
-              hintText="Exemple : REF0054"
+              floatingLabelText="Code article / Code balance (PLU)"
+              hintText="Exemple : 184, 85"
               initialValue={item.reference_interne_magasin}
               fullWidth
               disabled={isLoading}
             />
-            <TextInput
-              name="notes_com"
-              floatingLabelText="Commentaires sur le produit"
-              initialValue={item.notes_com}
+            <SelectInput
+              name="unite_prix"
+              floatingLabelText="Unité prix (obligatoire)"
+              value={item.unite_prix}
               fullWidth
+              required
               disabled={isLoading}
-            />
+            >
+              <MenuItem value="kg" primaryText="Kg" />
+              <MenuItem value="pièce" primaryText="Pièce" />
+            </SelectInput>
             <NumberInput
               name="prix_public"
-              floatingLabelText="Prix (obligatoire)"
-              hintText="Prix en Euro"
+              floatingLabelText="Prix au kg ou à la pièce(obligatoire)"
+              hintText="1.20 ,2.00, ..."
               initialValue={item.prix_public}
               fullWidth
               required
@@ -141,28 +155,18 @@ class Form extends Component {
               }}
               disabled={isLoading}
             />
-            <SelectInput
-              name="unite_prix"
-              floatingLabelText="Unité de prix (obligatoire)"
-              value={item.unite_prix}
-              fullWidth
-              required
-              disabled={isLoading}
-            >
-              <MenuItem value="kg" primaryText="Kg" />
-              <MenuItem value="pièce" primaryText="Pièce" />
-            </SelectInput>
             <TextInput
               name="short_description"
-              floatingLabelText="Description"
+              floatingLabelText="Description produit (obligatoire)"
+              hintText="La pièce de 300g, La barquette de 250g, Les 3 kiwis de 100g chacun"
               initialValue={item.short_description}
               fullWidth
               disabled={isLoading}
             />
             <TextInput
               name="poids_portion"
-              floatingLabelText="Poids portion en g (obligatoire)"
-              hintText="Poids en gramme"
+              floatingLabelText="Poids portion en kg (obligatoire)"
+              hintText="0.120, 1.250, ..."
               initialValue={item.poids_portion}
               fullWidth
               type="number"
@@ -174,6 +178,7 @@ class Form extends Component {
               name="nbre_portion"
               floatingLabelText="Nombre portion (obligatoire)"
               initialValue={item.nbre_portion}
+              hintText="1, 2, 10, ..."
               fullWidth
               required
               disabled={isLoading}
@@ -204,7 +209,7 @@ class Form extends Component {
             </SelectInput>
             <SelectInput
               name="produit_biologique"
-              floatingLabelText="Bio"
+              floatingLabelText="Produit Bio ?"
               hintText="Produit biologique ?"
               value={item.produit_biologique}
               fullWidth
@@ -214,6 +219,14 @@ class Form extends Component {
               <MenuItem value="276" primaryText="Oui" />
               <MenuItem value="34" primaryText="AB" />
             </SelectInput>
+            <TextInput
+              floatingLabelText="Commentaires sur le produit"
+              name="notes_com"
+              hintText="Produit uniquement disponible en hiver, A recommander avec du vin rouge,  ..."
+              initialValue={item.notes_com}
+              fullWidth
+              disabled={isLoading}
+            />
             {this.context.role === 'ROLE_ADMIN' &&
               <SelectInput
                 name="commercant"
@@ -241,7 +254,7 @@ class Form extends Component {
                           <img
                             src={`${globalConfig.baseUrl}/../../../media/catalog/product/${item.small_image}`}
                             alt=""
-                            style={{width: '100%'}}
+                            className={'image-site'}
                           />}
                         </div>
                       </Col>
@@ -252,6 +265,7 @@ class Form extends Component {
                           <img
                             src={`${globalConfig.baseUrl}/../${item.image_tmp}`}
                             alt="" accept="image/*" capture
+                            className={'image-site'}
                             style={{width: '100%'}}
                           />}
                         </div>
