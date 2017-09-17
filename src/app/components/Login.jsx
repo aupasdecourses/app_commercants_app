@@ -46,89 +46,93 @@ class Login extends Component {
       <Row center="xs" middle="xs" className="login-box">
         <Col xs={12} sm={8} md={6}>
           <img id="logo" src="https://www.aupasdecourses.com/skin/frontend/boilerplate/default/dist/images/logo@2x.png"/>
+                      <Row center="xs">
+            <Col xs={10}>
           {!this.state.showReset ?
-            <Card style={{ position: 'relative' }}>
-              {isAuthenticating && <CircularProgress size={50} style={{ position: 'absolute', left: 16, top: 16 }} />}
-              <CardTitle
-                title={<FormattedMessage id="Login" />}
-                subtitle={<FormattedMessage id="Please enter your login to sign in" />}
-                className="login-title"
-              />
-              <CardText>
-                <Row>
-                  <Col xs={12} sm={6}>
-                    <TextField
-                      ref={(c) => { this.username = c; }}
-                      hintText={<FormattedMessage id="Enter your username" />}
-                      floatingLabelText={<FormattedMessage id="Username" />}
-                      fullWidth
-                      disabled={isAuthenticating}
-                    />
-                  </Col>
-                  <Col xs={12} sm={6}>
-                    <TextField
-                      ref={(c) => { this.password = c; }}
-                      hintText={<FormattedMessage id="Enter your password" />}
-                      floatingLabelText={<FormattedMessage id="Password" />}
-                      type="password"
-                      fullWidth
-                      onKeyDown={(e) => this.onKeyDown(e)}
-                      disabled={isAuthenticating}
-                    />
-                  </Col>
-                </Row>
-              </CardText>
-              <CardActions style={{ textAlign: 'center' }}>
-                <FlatButton
-                  label={<FormattedMessage id="Sign In" />} primary
-                  onClick={this.onLogin} disabled={isAuthenticating}
+              <Card style={{ position: 'relative' }}>
+                {isAuthenticating && <CircularProgress size={50} style={{ position: 'absolute', left: 16, top: 16 }} />}
+                <CardTitle
+                  title={<FormattedMessage id="Login" />}
+                  subtitle={<FormattedMessage id="Please enter your login to sign in" />}
+                  className="login-title"
                 />
-                <FlatButton
-                  label={<FormattedMessage id="Forgot password" />} secondary
-                  onTouchTap={() => this.setState({ showReset: true })}
-                  disabled={isAuthenticating}
-                />
-              </CardActions>
-            </Card> :
-            <Card>
-              <CardTitle
-                title={<FormattedMessage id="Reset password" />}
-                subtitle={<FormattedMessage id="Please enter your username or email" />}
-                className="login-title"
-              />
-              <CardText>
-                {isAuthenticating ?
-                  <Row center="xs">
-                    <Col xs>
-                      <CircularProgress size={20} />
-                    </Col>
-                  </Row> :
+                <CardText>
                   <Row>
-                    <Col xs={12}>
+                    <Col xs={12} sm={6}>
                       <TextField
-                        ref={(c) => { this.reset = c; }}
-                        hintText={<FormattedMessage id="Enter your username or Email" />}
-                        floatingLabelText={<FormattedMessage id="Username or Email" />}
+                        ref={(c) => { this.username = c; }}
+                        hintText={<FormattedMessage id="Enter your username" />}
+                        floatingLabelText={<FormattedMessage id="Username" />}
                         fullWidth
                         disabled={isAuthenticating}
                       />
                     </Col>
+                    <Col xs={12} sm={6}>
+                      <TextField
+                        ref={(c) => { this.password = c; }}
+                        hintText={<FormattedMessage id="Enter your password" />}
+                        floatingLabelText={<FormattedMessage id="Password" />}
+                        type="password"
+                        fullWidth
+                        onKeyDown={(e) => this.onKeyDown(e)}
+                        disabled={isAuthenticating}
+                      />
+                    </Col>
                   </Row>
-                }
-              </CardText>
-              <CardActions style={{ textAlign: 'center' }}>
-                <FlatButton
-                  label={<FormattedMessage id="Reset" />} primary
-                  onClick={this.onReset} disabled={isAuthenticating}
+                </CardText>
+                <CardActions style={{ textAlign: 'center' }}>
+                  <FlatButton
+                    label={<FormattedMessage id="Sign In" />} primary
+                    onClick={this.onLogin} disabled={isAuthenticating}
+                  />
+                  <FlatButton
+                    label={<FormattedMessage id="Forgot password" />} secondary
+                    onTouchTap={() => this.setState({ showReset: true })}
+                    disabled={isAuthenticating}
+                  />
+                </CardActions>
+              </Card> :
+              <Card>
+                <CardTitle
+                  title={<FormattedMessage id="Reset password" />}
+                  subtitle={<FormattedMessage id="Please enter your username or email" />}
+                  className="login-title"
                 />
-                <FlatButton
-                  label={<FormattedMessage id="Cancel" />} secondary
-                  onTouchTap={() => this.setState({ showReset: false })}
-                  disabled={isAuthenticating}
-                />
-              </CardActions>
-            </Card>
-          }
+                <CardText>
+                  {isAuthenticating ?
+                    <Row center="xs">
+                      <Col xs>
+                        <CircularProgress size={20} />
+                      </Col>
+                    </Row> :
+                    <Row>
+                      <Col xs={12}>
+                        <TextField
+                          ref={(c) => { this.reset = c; }}
+                          hintText={<FormattedMessage id="Enter your username or Email" />}
+                          floatingLabelText={<FormattedMessage id="Username or Email" />}
+                          fullWidth
+                          disabled={isAuthenticating}
+                        />
+                      </Col>
+                    </Row>
+                  }
+                </CardText>
+                <CardActions style={{ textAlign: 'center' }}>
+                  <FlatButton
+                    label={<FormattedMessage id="Reset" />} primary
+                    onClick={this.onReset} disabled={isAuthenticating}
+                  />
+                  <FlatButton
+                    label={<FormattedMessage id="Cancel" />} secondary
+                    onTouchTap={() => this.setState({ showReset: false })}
+                    disabled={isAuthenticating}
+                  />
+                </CardActions>
+              </Card>
+              }
+            </Col>
+          </Row>
         </Col>
         <Snackbar
           open={hasError}

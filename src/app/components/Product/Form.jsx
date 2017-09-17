@@ -17,7 +17,13 @@ import FileInput from '../Form/FileInput';
 
 import './Form.css';
 
+function roundNumber(number) {
+  var input = parseFloat(number);
+  return Math.round(input*100)/100;
+}
+
 class Form extends Component {
+
   constructor(props) {
     super(props);
 
@@ -87,7 +93,7 @@ class Form extends Component {
           <Save />
         </FloatingActionButton>
         <Row>
-          <Col xs={12}>
+          <Col xs={12} md={4}>
             <ToggleInput
               name="status"
               label="Actif sur le site"
@@ -108,8 +114,8 @@ class Form extends Component {
               <TextInput
                 name="sku"
                 floatingLabelText="SKU"
-                hintText="Poids en gramme"
-                disabled={isLoading}
+                initialValue={item.sku}
+                disabled
               />
             }
             <TextInput
@@ -242,52 +248,78 @@ class Form extends Component {
               </SelectInput>
             }
           </Col>
-          <Col xs={12}>
-            <h2>Images</h2>
-            {item.entity_id ?
-                <div style={{ position: 'relative' }}>
-                    <Row>
-                      <Col sm={6} >
-                        <h3>Image actuellement sur le site</h3>
-                        <div style={{ position: 'relative' }}>
-                        {item.small_image &&
-                          <img
-                            src={`${globalConfig.baseUrl}/../../../media/catalog/product/${item.small_image}`}
-                            alt=""
-                            className={'image-site'}
-                          />}
+          {item.entity_id ?
+          <Col md={4}>
+          <Row center="xs">
+            <div>
+              <Col xs={12}>
+                <h3>Vue actuelle du produit sur le site</h3>
+                  <div className={'product-info-item'}>
+                   {item.small_image ?
+                      <img
+                        src={`${globalConfig.baseUrl}/../../../media/catalog/product/${item.small_image}`}
+                        alt=""
+                        className={'image-site'}
+                      />
+                      :
+                      <img
+                        src="https://www.aupasdecourses.com/media/catalog/product/placeholder/default/product_dummy_3.png"
+                        alt=""
+                        className={'image-site'}
+                      />
+                    }
+                    <div className={'product-info'}>                        
+                      <h3 className={'product-name'}>{item.name}</h3>
+                      <p className={'product-commercant'}>{item.nom_catcommercant}</p>
+                      <p className={'product-portion'}>{item.short_description}</p>
+                      <div className={'bottom'}>
+                        <div className={'price-box'}>
+                          <span className={'regular-price'}>
+                          <span className={'price'}>{roundNumber(item.price)}&nbsp;€</span></span>
                         </div>
-                      </Col>
-                      <Col sm={6} >
-                        <div style={{ position: 'relative' }}>
-                          <h3>Image uploadée par vos soins</h3>
-                          {item.image_tmp &&
-                          <img
-                            src={`${globalConfig.baseUrl}/../${item.image_tmp}`}
-                            alt="" accept="image/*" capture
-                            className={'image-site'}
-                            style={{width: '100%'}}
-                          />}
+                      </div>
+                      <div className={'product-short_desc'}>{item.prix_public} €/kg</div>
+                      <div className={'actions add-to-cart'}>
+                        <div className={'action-group'}>
+                          <div className={'pull-right'}>
+                            <button disabled title="Ajouter" className={'button-green'}><span><span><img src="https://www.aupasdecourses.com/skin/frontend/boilerplate/default/dist/images/icon-shopping.png" /> Ajouter</span></span></button>
+                          </div>
                         </div>
-                        <RaisedButton
-                          containerElement="label"
-                          label="Proposer une nouvelle photo"
-                          primary={true}
-                        >
-                          <FileInput
-                            name="photo"
-                            style={{
-                              opacity: 0, position: 'absolute', top: 0, bottom: 0, right: 0, width: '100%'
-                            }}
-                            setValue={this.upload}
-                          />
-                        </RaisedButton>
-                      </Col>
-                    </Row>
-                </div>
-              : '' }
+                      </div>
+                    </div>
+                  </div>
+              </Col>
+              <Col xs={12} >
+                {item.image_tmp &&
+                  <div style={{ position: 'relative' }}>
+                    <h3>Image uploadée par vos soins</h3>
+                    <img
+                      src={`${globalConfig.baseUrl}/../${item.image_tmp}`}
+                      alt="" accept="image/*" capture
+                      className={'image-site'}
+                      style={{width: '100%',marginBottom:'10px'}}
+                    />
+                  </div>
+                }
+                <RaisedButton
+                  containerElement="label"
+                  label="Proposer une nouvelle photo"
+                  primary={true}
+                >
+                  <FileInput
+                    name="photo"
+                    style={{
+                      opacity: 0, position: 'absolute', top: 0, bottom: 0, right: 0, width: '100%'
+                    }}
+                    setValue={this.upload}
+                  />
+                </RaisedButton>
+              </Col>
+            </div>
+          </Row>
           </Col>
-          {item.entity_id && <Col xs={12}>
+          : '' }
+          {this.context.role === 'ROLE_ADMIN' && item.entity_id && <Row><Col xs={12}>
             <h2>Suppression du produit</h2>
             <RaisedButton
               onMouseUp={this.remove}
@@ -296,7 +328,7 @@ class Form extends Component {
               backgroundColor="#ff0000"
               labelColor="#fff"
             />
-          </Col>}
+          </Col></Row>}
         </Row>
       </BaseForm>
     );

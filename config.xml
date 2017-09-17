@@ -1,64 +1,35 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget
-		xmlns="http://www.w3.org/ns/widgets"
-		xmlns:cdv="http://cordova.apache.org/ns/1.0"
-		id="io.cordova.hellocordova"
-		version="0.0.1"
-		android-versionCode="1"
-		ios-CFBundleVersion="1"
->
-	<name>CrossBuilder</name>
-	<description>
-		Redux counter example (put your description here, used for cordova apps).
+<widget android-versionCode="1" id="io.cordova.hellocordova" ios-CFBundleVersion="1" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>Au Pas De Courses</name>
+    <description>
+		Applications de mise à jour des produits Au Pas De Courses
 	</description>
-	<author email="dev@cordova.apache.org" href="http://cordova.io">
-		Apache Cordova Team
+    <author email="contact@aupasdecourses.com" href="https://www.aupasdecourses.com">
+		Au Pas De Courses Team - Pierre Mainguet
 	</author>
-
-	<hook type="before_prepare" src="hooks/build.sh" />
-
-	<!--<plugin name="cordova-plugin-statusbar" spec="~2.1.3" />-->
-	<!--<plugin name="cordova-plugin-splashscreen" spec="~3.2.2" />-->
-	<plugin name="cordova-plugin-whitelist" spec="~1.2.2" />
-
-	<access origin="*" />
-	<allow-intent href="http://*/*" />
-	<allow-intent href="https://*/*" />
-	<allow-intent href="tel:*" />
-	<allow-intent href="sms:*" />
-	<allow-intent href="mailto:*" />
-	<allow-intent href="geo:*" />
-	<platform name="android">
-		<allow-intent href="market:*" />
-	</platform>
-	<platform name="ios">
-		<allow-intent href="itms:*" />
-		<allow-intent href="itms-apps:*" />
-	</platform>
-
-	<!--
-	####
-	# Icon and Splash
-	# http://docs.phonegap.com/phonegap-build/configuring/icons-and-splash/
-	#### -->
-	<platform name="android">
-		<icon src="res/icon/android/icon-36-ldpi.png" width="36" height="36" density="ldpi" />
-		<icon src="res/icon/android/icon-48-mdpi.png" width="48" height="48" density="mdpi" />
-		<icon src="res/icon/android/icon-72-hdpi.png" width="72" height="72" density="hdpi" />
-		<icon src="res/icon/android/icon-96-xhdpi.png" width="96" height="96" density="xhdpi" />
-		<icon src="res/icon/android/icon-144-xxhdpi.png" width="144" height="144" density="xxhdpi" />
-		<icon src="res/icon/android/icon-192-xxxhdpi.png" width="192" height="192" density="xxxhdpi" />
-		<splash src="res/screen/android/screen-ldpi-landscape.png" width="320" height="240" qualifier="land-ldpi" />
-		<splash src="res/screen/android/screen-mdpi-landscape.png" width="480" height="320" qualifier="land-mdpi" />
-		<splash src="res/screen/android/screen-hdpi-landscape.png" width="800" height="480" qualifier="land-hdpi" />
-		<splash src="res/screen/android/screen-xhdpi-landscape.png" width="1280" height="720" qualifier="land-xhdpi" />
-		<splash src="res/screen/android/screen-xxhdpi-landscape.png" width="1600" height="960" qualifier="land-xxhdpi" />
-		<splash src="res/screen/android/screen-xxxhdpi-landscape.png" width="1920" height="1280" qualifier="land-xxxhdpi" />
-		<splash src="res/screen/android/screen-ldpi-portrait.png" width="240" height="320" qualifier="port-ldpi" />
-		<splash src="res/screen/android/screen-mdpi-portrait.png" width="320" height="480" qualifier="port-mdpi" />
-		<splash src="res/screen/android/screen-hdpi-portrait.png" width="480" height="800" qualifier="port-hdpi" />
-		<splash src="res/screen/android/screen-xhdpi-portrait.png" width="720" height="1280" qualifier="port-xhdpi" />
-		<splash src="res/screen/android/screen-xxhdpi-portrait.png" width="960" height="1600" qualifier="port-xxhdpi" />
-		<splash src="res/screen/android/screen-xxxhdpi-portrait.png" width="1280" height="1920" qualifier="port-xxxhdpi" />
-	</platform>
+    <hook src="hooks/build.sh" type="before_prepare" />
+    <access origin="*" />
+    <allow-intent href="http://*/*" />
+    <allow-intent href="https://*/*" />
+    <allow-intent href="tel:*" />
+    <allow-intent href="sms:*" />
+    <allow-intent href="mailto:*" />
+    <allow-intent href="geo:*" />
+    <platform name="android">
+        <allow-intent href="market:*" />
+    </platform>
+    <platform name="ios">
+        <allow-intent href="itms:*" />
+        <allow-intent href="itms-apps:*" />
+    </platform>
+    <platform name="android">
+        <icon density="ldpi" height="36" src="res/android/mipmap-ldpi/icon.png" width="36" />
+        <icon density="mdpi" height="48" src="res/android/mipmap-mdpi/icon.png" width="48" />
+        <icon density="hdpi" height="72" src="res/android/mipmap-hdpi/icon.png" width="72" />
+        <icon density="xhdpi" height="96" src="res/android/mipmap-xhdpi/icon.png" width="96" />
+        <icon density="xxhdpi" height="144" src="res/android/mipmap-xxhdpi/icon.png" width="144" />
+        <icon density="xxxhdpi" height="192" src="res/android/mipmap-xxxhdpi/icon.png" width="192" />
+    </platform>
+    <engine name="android" spec="^6.2.3" />
+    <plugin name="cordova-plugin-whitelist" spec="~1.2.2" />
 </widget>

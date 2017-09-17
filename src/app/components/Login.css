@@ -11,6 +11,7 @@
 #logo{
 	vertical-align: middle;
 	margin:auto;
+	max-width:70%;
 }
 
 input:-webkit-autofill,
