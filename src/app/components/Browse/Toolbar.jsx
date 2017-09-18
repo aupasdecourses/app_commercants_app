@@ -35,7 +35,6 @@ class ListToolbar extends Component {
         </ToolbarGroup>
         <ToolbarGroup
           style={{ textAlign: 'right', justifyContent: 'flex-end', width: '100%' }}
-          lastChild
         >
           {this.state.showSearch &&
           <Search onSubmit={(model) => this.props.onSearch(model)} />}
@@ -64,7 +63,7 @@ class ListToolbar extends Component {
           <RaisedButton
             onTouchTap={() => this.props.toggleOptions()}
             icon={<ActionSettingsIcon />}
-            style={{ minWidth: 64 }}
+            style={{ minWidth: 64, marginRight: 0 }}
             secondary
           />}
         </ToolbarGroup>
