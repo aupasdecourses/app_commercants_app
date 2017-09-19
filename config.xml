@@ -23,12 +23,12 @@
         <allow-intent href="itms-apps:*" />
     </platform>
     <platform name="android">
-        <icon density="ldpi" height="36" src="res/android/mipmap-ldpi/icon.png" width="36" />
-        <icon density="mdpi" height="48" src="res/android/mipmap-mdpi/icon.png" width="48" />
-        <icon density="hdpi" height="72" src="res/android/mipmap-hdpi/icon.png" width="72" />
-        <icon density="xhdpi" height="96" src="res/android/mipmap-xhdpi/icon.png" width="96" />
-        <icon density="xxhdpi" height="144" src="res/android/mipmap-xxhdpi/icon.png" width="144" />
-        <icon density="xxxhdpi" height="192" src="res/android/mipmap-xxxhdpi/icon.png" width="192" />
+        <icon density="ldpi" height="36" src="platforms/android/res/mipmap-ldpi/icon.png" width="36" />
+        <icon density="mdpi" height="48" src="platforms/android/res/mipmap-mdpi/icon.png" width="48" />
+        <icon density="hdpi" height="72" src="platforms/android/res/mipmap-hdpi/icon.png" width="72" />
+        <icon density="xhdpi" height="96" src="platforms/android/res/mipmap-xhdpi/icon.png" width="96" />
+        <icon density="xxhdpi" height="144" src="platforms/android/res/mipmap-xxhdpi/icon.png" width="144" />
+        <icon density="xxxhdpi" height="192" src="platforms/android/res/mipmap-xxxhdpi/icon.png" width="192" />
     </platform>
     <engine name="android" spec="^6.2.3" />
     <plugin name="cordova-plugin-whitelist" spec="~1.2.2" />
