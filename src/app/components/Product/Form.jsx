@@ -186,6 +186,8 @@ class Form extends Component {
               initialValue={item.nbre_portion}
               hintText="1, 2, 10, ..."
               fullWidth
+              type="number"
+              step="1"
               required
               disabled={isLoading}
             />
