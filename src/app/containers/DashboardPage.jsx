@@ -15,12 +15,12 @@ class DashboardPage extends Component {
     return (
       <Grid id="content" fluid style={{ textAlign: 'center', marginTop: 24 }}>
         <RaisedButton
-          label="Liste products" secondary style={{ marginBottom: 12, height: 50 }}
+          label="Liste Produits" secondary style={{ marginBottom: 12, height: 50 }}
           containerElement={<Link to="/products" />}
           fullWidth
         />
         <RaisedButton
-          label="Nouveau product" primary style={{ marginBottom: 12, height: 50 }}
+          label="Nouveau Produit" primary style={{ marginBottom: 12, height: 50 }}
           containerElement={<Link to="/products/new" />}
           fullWidth
         />
