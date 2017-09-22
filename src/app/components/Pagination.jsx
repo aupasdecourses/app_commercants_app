@@ -35,12 +35,12 @@ class Pagination extends Component {
             <RaisedButton
               className="pager leftBtn"
               disabled={page === 1}
-              onMouseDown={() => this.onPaginate(page - 1)}
+              onTouchTap={() => this.onPaginate(page - 1)}
             >
               <Left />
             </RaisedButton>
             <div
-              onMouseDown={() => this.setState({ goTo: true })}
+              onTouchTap={() => this.setState({ goTo: true })}
               className="current"
             >
               {page} / {totalPages}
@@ -48,7 +48,7 @@ class Pagination extends Component {
             <RaisedButton
               className="pager rightBtn"
               disabled={page === totalPages}
-              onMouseDown={() => this.onPaginate(page + 1)}
+              onTouchTap={() => this.onPaginate(page + 1)}
             >
               <Right />
             </RaisedButton>
@@ -62,7 +62,7 @@ class Pagination extends Component {
               hintText="Page ?"
             />
             <FlatButton
-              onMouseDown={() => { this.onPaginate(this.toPage.input.value); this.setState({ goTo: false }); }}
+              onTouchTap={() => { this.onPaginate(this.toPage.input.value); this.setState({ goTo: false }); }}
               label="Go" labelPosition="before" secondary
             >
               <ArrowForward />

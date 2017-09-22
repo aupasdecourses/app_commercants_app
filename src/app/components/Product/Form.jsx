@@ -276,7 +276,7 @@ class Form extends Component {
           {item.entity_id && <Col xs={12}>
             <h2>Suppression du produit</h2>
             <RaisedButton
-              onMouseUp={this.remove}
+              onTouchTap={this.remove}
               containerElement="label"
               label="Demander la suppression du produit"
               backgroundColor="#ff0000"
