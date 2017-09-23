@@ -30,7 +30,7 @@ class Publish extends Component {
 
     return (
       <RaisedButton
-        onMouseUp={(e) => this.submit()}
+        onTouchTap={(e) => this.submit()}
         style={{ minWidth: 48 }}
         icon={!value || value === '1' ? <CheckCircleIcon /> : <CancelIcon />}
         backgroundColor={!value || value === '1' ? '#b9d466' : '#dc8585'}
