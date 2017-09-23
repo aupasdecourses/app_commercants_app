@@ -143,7 +143,7 @@ class Form extends Component {
               required
               disabled={isLoading}
             >
-              <MenuItem value="kg" primaryText="Kg" />
+              <MenuItem value="kg" primaryText="Kg"/>
               <MenuItem value="pièce" primaryText="Pièce" />
             </SelectInput>
             <NumberInput
@@ -200,7 +200,7 @@ class Form extends Component {
               required
               disabled={isLoading}
             >
-              <MenuItem value="5" primaryText="5.5%" />
+              <MenuItem value="5" primaryText="5.5%"/>
               <MenuItem value="9" primaryText="10%" />
               <MenuItem value="10" primaryText="20%" />
             </SelectInput>
@@ -212,7 +212,7 @@ class Form extends Component {
               disabled={isLoading}
             >
               {Object.keys(choicesList.origines).map(
-                k => <MenuItem key={k} value={k} primaryText={choicesList.origines[k]} />
+                k => <MenuItem key={choicesList.origines[k][0]} value={choicesList.origines[k][0]} primaryText={choicesList.origines[k][1]} />
               )}
             </SelectInput>
             <SelectInput

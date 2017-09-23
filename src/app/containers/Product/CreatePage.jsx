@@ -76,11 +76,28 @@ CreatePage.propTypes = {
   dispatch: PropTypes.func,
 };
 
+function compare(a,b) {
+  if (a[1] < b[1])
+    return -1;
+  if (a[1] > b[1])
+    return 1;
+  return 0;
+}
+
+function sortValue(array){
+  var sortable = [];
+  for (var elt in array) {
+      sortable.push([elt, array[elt]]);
+  }
+  sortable.sort(compare);
+  return sortable;
+}
+
 function mapStateToProps(state) {
   return {
     choicesList: {
       shops: state.shops.short,
-      origines: state.products.filters.origine,
+      origines: sortValue(state.products.filters.origine),
     },
   };
 }
