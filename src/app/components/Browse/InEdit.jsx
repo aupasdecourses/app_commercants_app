@@ -25,7 +25,7 @@ class InEdit extends Component {
 
   render() {
     return (
-      <div onMouseUp={() => this.setState({ showForm: true })}>
+      <div onTouchTap={() => this.setState({ showForm: true })}>
         {this.state.showForm ?
           <Form
             onValidSubmit={(model) => this.submit(model)}

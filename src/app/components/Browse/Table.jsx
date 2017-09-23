@@ -39,7 +39,7 @@ const ListTable = ({ items, fields, sortByColumn, onSubmit, primaryKey, checkbox
     } else if (type === 'actions') {
       return field.actions.map(action => {
         return (<RaisedButton
-          onMouseUp={() => action.action(id)}
+          onTouchTap={() => action.action(id)}
           label={action.title}
           style={{ minWidth: 48 }}
         />);
@@ -64,7 +64,7 @@ const ListTable = ({ items, fields, sortByColumn, onSubmit, primaryKey, checkbox
             >
               {fields[key].sortable ?
                 <div
-                  onMouseUp={(e) => sortByColumn(key)}
+                  onTouchTap={(e) => sortByColumn(key)}
                   className="rowAlign sort"
                 >
                   <ArrowDownwardIcon
