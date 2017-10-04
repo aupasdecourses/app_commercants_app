@@ -9,6 +9,8 @@ import * as Actions from '../../actions/product';
 import * as ShopActions from '../../actions/shop';
 import Form from '../../components/Product/Form';
 
+import './ProductPage.css';
+
 class EditPage extends Component {
   componentWillMount() {
     if (this.context.role === 'ROLE_ADMIN') {

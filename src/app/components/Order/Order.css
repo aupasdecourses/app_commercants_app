@@ -1,0 +1,54 @@
+.ot_cell{
+	white-space: normal !important;
+	word-break: break-word;
+	word-wrap: normal;
+	font-size: 0.85rem !important;
+}
+
+.ot_qty{
+	width:55px;
+	text-align:center !important;
+}
+
+.ot_price, .ot_total{
+	width:50px;
+	text-align:center !important;
+}
+
+.notice{
+	font-size: 13px;
+}
+
+.notice a{
+	font-weight:bold;
+}
+
+@media (max-width:991px){
+
+	.order_table{
+		overflow-x:auto;
+	}
+
+	.order_table > div > div {
+		overflow-x:unset !important;
+		overflow-y:unset !important;
+	}
+
+	.ot_body{
+		width:auto;
+	}
+
+	.ot_name{
+		width:180px;
+		white-space: normal;
+	}
+
+	.ot_desc{
+		width:150px;
+		
+	}
+
+	.ot_com{
+		width:100px;
+	}
+}

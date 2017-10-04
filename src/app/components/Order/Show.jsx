@@ -4,7 +4,12 @@ import PropTypes from 'prop-types';
 import {
   Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn,
 } from 'material-ui/Table';
+import {List, ListItem} from 'material-ui/List';
+import RaisedButton from 'material-ui/RaisedButton';
+import Subheader from 'material-ui/Subheader';
 import { Row, Col } from 'react-flexbox-grid/lib';
+
+import './Order.css';
 
 // TODO: Transform to pure
 class Show extends Component {
@@ -15,47 +20,64 @@ class Show extends Component {
       <div>
         <Row>
           <Col xs={12}>
-            <p>Commande N°: { item.increment_id }</p>
-            <p>Statut: { item.status }</p>
-            <p>Client: { `${item.customer_firstname} ${item.customer_lastname}` }</p>
-            <p>Prise de Commande: { item.created_at }</p>
-            <p>Date de Livraison: { item.ddate }</p>
-            <p>Creneau de Livraison: { item.dtime }</p>
-            <p>Remplacement équivalent: { item.produit_equivalent === 1 ? 'Oui' : 'Non' }</p>
-            <p>Adresse de Livraison: { `${item.street} ${item.postcode} ${item.city}` }</p>
-            <p>Telephone: { item.telephone }</p>
-            <p>Batiment & Etage: Bat: { item.batiment }, Etage: { item.etage }</p>
-            <p>Codes porte: Code Porte 1: { item.codeporte1 }, Code Porte 2: { item.codeporte2 }</p>
-            <p>Infos Complémentaires: { item.infoscomplementaires }</p>
+              <List>
+                <Subheader>Informations Livraison</Subheader>
+                <p className={"notice"}>En cas de doute pour un remplacement, de nombreux produits manquants ou pour toute autre question, merci de bien vouloir nous contacter</p>
+                <RaisedButton label="09.72.50.90.69" secondary={true} href={"tel:09.72.50.90.69"} buttonStyle={{margin:"auto"}}/>
+                <ListItem primaryText={ "Commande N° "+item.increment_id } />
+                <ListItem primaryText={ `Client: ${item.customer_firstname} ${item.customer_lastname}` } />
+                <ListItem primaryText={ "Remplacement équivalent: "+(item.produit_equivalent === 1 ? 'Oui' : 'Non') } />
+                <ListItem
+                  primaryText="Plus d'info"
+                  primaryTogglesNestedList={true}
+                  nestedItems={[
+                    <ListItem
+                      key={1}
+                      primaryText={"Status: "+item.status}
+                    />,
+                    <ListItem
+                      key={2}
+                      primaryText={ "Date de livraison: "+item.ddate }
+                    />,
+                    <ListItem
+                      key={3}
+                      primaryText={ "Prise de commande le "+item.created_at }
+                    />,
+                  ]}
+                />
+              </List>
           </Col>
         </Row>
+        <h2>Liste des produits commandées</h2>
         <Row>
           <Col xs={12}>
-            <Table style={{ width: '100%' }}>
-              <TableHeader adjustForCheckbox={false} displaySelectAll={false}>
+            <div className={"order_table"}>
+            <Table className={"ot_header"} >
+              <TableHeader adjustForCheckbox={false} displaySelectAll={false} className={"order_table_header"}>
                 <TableRow>
-                  <TableHeaderColumn>Nom</TableHeaderColumn>
-                  <TableHeaderColumn>Qtt</TableHeaderColumn>
-                  <TableHeaderColumn>Desc</TableHeaderColumn>
-                  <TableHeaderColumn>Prix</TableHeaderColumn>
-                  <TableHeaderColumn>Total</TableHeaderColumn>
-                  <TableHeaderColumn>Comment</TableHeaderColumn>
+                  <TableHeaderColumn className={"ot_name ot_cell"}>Nom du produit</TableHeaderColumn>
+                  <TableHeaderColumn className={"ot_qty ot_cell"}>Quantité</TableHeaderColumn>
+                  <TableHeaderColumn className={"ot_desc ot_cell"}>Description</TableHeaderColumn>
+                  <TableHeaderColumn className={"ot_price ot_cell"}>Prix unitaire</TableHeaderColumn>
+                  <TableHeaderColumn className={"ot_total ot_cell"}>Total Ligne</TableHeaderColumn>
+                  <TableHeaderColumn className={"ot_com ot_cell"}>Commentaires Clients</TableHeaderColumn>
                 </TableRow>
               </TableHeader>
-              <TableBody displayRowCheckbox={false}>
+              <TableBody overflowX={"auto"} overflowY={"unset"} displayRowCheckbox={false} className={"ot_body"} stripedRows={true} showRowHover={true}>
               {item.items.map(product => (
                 <TableRow key={product.item_id}>
                   {this.context.role === 'ROLE_ADMIN' || product.commercant === 1 && <div></div>}
-                  <TableRowColumn>{ product.name }</TableRowColumn>
-                  <TableRowColumn>{ product.qty_ordered }</TableRowColumn>
-                  <TableRowColumn>{ product.short_description }</TableRowColumn>
-                  <TableRowColumn>{ product.price_incl_tax }</TableRowColumn>
-                  <TableRowColumn>{ product.row_total_incl_tax }</TableRowColumn>
-                  <TableRowColumn>{ product.item_comment }</TableRowColumn>
+                  <TableRowColumn className={"ot_name ot_cell"}>{ product.name }</TableRowColumn>
+                  <TableRowColumn className={"ot_qty ot_cell"}>{ Math.round(product.qty_ordered)+" x" }</TableRowColumn>
+                  <TableRowColumn className={"ot_desc ot_cell"}>{ product.short_description }</TableRowColumn>
+                  <TableRowColumn className={"ot_price ot_cell"}>{ Math.round(product.price_incl_tax*100)/100+"€" }</TableRowColumn>
+                  <TableRowColumn className={"ot_total ot_cell"}>{ Math.round(product.row_total_incl_tax*100)/100+"€" }</TableRowColumn>
+                  <TableRowColumn className={"ot_com ot_cell"}>{ product.item_comment }</TableRowColumn>
                 </TableRow>
               ))}
               </TableBody>
             </Table>
+            </div>
           </Col>
         </Row>
       </div>
