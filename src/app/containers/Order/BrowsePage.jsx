@@ -28,6 +28,7 @@ class ListPage extends Component {
       ddate: {
         alias: 'Date de livraison',
         sortable: true,
+        type: "date",
       },
       dtime: {
         alias: 'Créneau',
@@ -35,8 +36,9 @@ class ListPage extends Component {
       total_qty_ordered: {
         alias: 'Nombre d\'articles',
       },
-      total_paid: {
+      subtotal_incl_tax: {
         alias: 'Total',
+        type: "currency",
       },
       shipping_description: {
         alias: 'Description',
@@ -46,7 +48,7 @@ class ListPage extends Component {
     return (
       <div>
         <Browse
-          title="Liste commandes"
+          title="Commandes en cours"
           definition={definition}
           headers={this.props.columns}
           items={this.props.items}

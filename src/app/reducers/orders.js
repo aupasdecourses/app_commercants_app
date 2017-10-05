@@ -9,8 +9,8 @@ const initialState = {
   total: 0,
   columns: {
     increment_id: true,
-    customer_firstname: true,
-    customer_lastname: true,
+    ddate: true,
+    subtotal_incl_tax: true,
   },
   isFetching: false,
   hasFetched: false,

@@ -1,3 +1,10 @@
+.phonebutton{
+	margin-left: auto;
+    margin-right: auto;
+    display: block;
+    width: 150px;
+}
+
 .ot_cell{
 	white-space: normal !important;
 	word-break: break-word;
@@ -50,5 +57,9 @@
 
 	.ot_com{
 		width:100px;
+	}
+
+	.ot_commercant{
+		width:120px;
 	}
 }

@@ -27,7 +27,7 @@ const ListTable = ({ items, fields, sortByColumn, onSubmit, primaryKey, checkbox
     if (type === 'publish') {
       return <Publish key={`${id}${name}`} name={name} onSubmit={(model) => onSubmit(id, model)}>{ value }</Publish>;
     } else if (type === 'date') {
-      return moment(value).format('LL');
+      return moment(value).format('DD/MM/YYYY');
     } else if (type === 'title') {
       return <Link to={`/${field.baseRoute}/${id}/edit`}>{value}</Link>;
     } else if (type === 'link') {
@@ -46,6 +46,8 @@ const ListTable = ({ items, fields, sortByColumn, onSubmit, primaryKey, checkbox
       });
     } else if (type === 'inEdit') {
       return <InEdit key={`${id}${name}`} name={name} onSubmit={(model) => onSubmit(id, model)}>{ value }</InEdit>;
+    } else if (type === 'currency'){
+      return Math.round(value*100)/100+"€";
     }
 
     return displayValue;

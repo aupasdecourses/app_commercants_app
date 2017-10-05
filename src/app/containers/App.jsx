@@ -33,7 +33,12 @@ const appConfig = {
         name: 'Mes produits',
         linkTo: '/products',
         icon: <DescriptionIcon />
-      }, /*{
+      }, {
+        name: 'Mes commandes',
+        linkTo: '/orders',
+        icon: <ShoppingBasketIcon />
+      },
+       /*{
         name: 'Mon profil',
         linkTo: '/profile',
         icon: <FaceIcon />
