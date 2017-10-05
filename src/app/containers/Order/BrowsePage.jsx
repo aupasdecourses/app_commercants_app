@@ -48,7 +48,7 @@ class ListPage extends Component {
     return (
       <div>
         <Browse
-          title="Commandes en cours"
+          title="Commandes"
           definition={definition}
           headers={this.props.columns}
           items={this.props.items}
