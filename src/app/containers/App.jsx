@@ -10,6 +10,7 @@ import HomeIcon from 'material-ui/svg-icons/action/home';
 import MessageIcon from 'material-ui/svg-icons/communication/message';
 import DashboardIcon from 'material-ui/svg-icons/action/dashboard';
 import DescriptionIcon from 'material-ui/svg-icons/action/description';
+import AddIcon from 'material-ui/svg-icons/content/add-circle';
 import ShoppingBasketIcon from 'material-ui/svg-icons/action/shopping-basket';
 import FaceIcon from 'material-ui/svg-icons/action/face';
 import ReactMaterialUiNotifications from 'react-materialui-notifications';
@@ -33,6 +34,10 @@ const appConfig = {
         name: 'Mes produits',
         linkTo: '/products',
         icon: <DescriptionIcon />
+      }, {
+        name: 'Nouveau produit',
+        linkTo: '/products/new',
+        icon: <AddIcon />
       }, {
         name: 'Mes commandes',
         linkTo: '/orders',

@@ -24,11 +24,11 @@ class DashboardPage extends Component {
           containerElement={<Link to="/products/new" />}
           fullWidth
         />
-        {this.context.role === 'ROLE_ADMIN' && <RaisedButton
+        <RaisedButton
           label="Liste commandes" secondary style={{ marginBottom: 12, height: 50 }}
           containerElement={<Link to="/orders" />}
           fullWidth
-        />}
+        />
         <RaisedButton
           label="Déconnexion" style={{ height: 50 }}
           onTouchTap={() => this.props.logout()}
