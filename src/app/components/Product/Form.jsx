@@ -118,6 +118,7 @@ class Form extends Component {
                 disabled
               />
             }
+            <div>
             <TextInput
               name="name"
               floatingLabelText="Nom de l’article (obligatoire)"
@@ -128,6 +129,8 @@ class Form extends Component {
               disabled={isLoading}
               style={{touchAction: "pan-y"}}
             />
+            </div>
+            <div style={{touchAction: "pan-y"}}>
             <TextInput
               name="reference_interne_magasin"
               floatingLabelText="Code article / Code balance (PLU)"
@@ -137,6 +140,7 @@ class Form extends Component {
               disabled={isLoading}
               style={{touchAction: "pan-y"}}
             />
+            </div>
             <SelectInput
               name="unite_prix"
               floatingLabelText="Unité prix (obligatoire)"
