@@ -126,6 +126,7 @@ class Form extends Component {
               fullWidth
               required
               disabled={isLoading}
+              style={{touchAction: "none"}}
             />
             <TextInput
               name="reference_interne_magasin"
@@ -134,6 +135,7 @@ class Form extends Component {
               initialValue={item.reference_interne_magasin}
               fullWidth
               disabled={isLoading}
+              style={{touchAction: "none"}}
             />
             <SelectInput
               name="unite_prix"
@@ -142,6 +144,7 @@ class Form extends Component {
               fullWidth
               required
               disabled={isLoading}
+              style={{touchAction: "none"}}
             >
               <MenuItem value="kg" primaryText="Kg"/>
               <MenuItem value="pièce" primaryText="Pièce" />
@@ -160,6 +163,7 @@ class Form extends Component {
                 matchRegexp: 'Nombre non valide'
               }}
               disabled={isLoading}
+              style={{touchAction: "none"}}
             />
             <TextInput
               name="short_description"
@@ -168,6 +172,7 @@ class Form extends Component {
               initialValue={item.short_description}
               fullWidth
               disabled={isLoading}
+              style={{touchAction: "none"}}
             />
             <TextInput
               name="poids_portion"
@@ -179,6 +184,7 @@ class Form extends Component {
               step="0.01"
               required
               disabled={isLoading}
+              style={{touchAction: "none"}}
             />
             <TextInput
               name="nbre_portion"
@@ -190,6 +196,7 @@ class Form extends Component {
               step="1"
               required
               disabled={isLoading}
+              style={{touchAction: "none"}}
             />
             <SelectInput
               name="tax_class_id"
@@ -199,6 +206,7 @@ class Form extends Component {
               fullWidth
               required
               disabled={isLoading}
+              style={{touchAction: "none"}}
             >
               <MenuItem value="5" primaryText="5.5%"/>
               <MenuItem value="9" primaryText="10%" />
@@ -210,6 +218,7 @@ class Form extends Component {
               value={item.origine}
               fullWidth
               disabled={isLoading}
+              style={{touchAction: "none"}}
             >
               {Object.keys(choicesList.origines).map(
                 k => <MenuItem key={choicesList.origines[k][0]} value={choicesList.origines[k][0]} primaryText={choicesList.origines[k][1]} />
@@ -280,7 +289,7 @@ class Form extends Component {
                           <span className={'price'}>{roundNumber(item.price)}&nbsp;€</span></span>
                         </div>
                       </div>
-                      <div className={'product-short_desc'}>{item.prix_public} €/kg</div>
+                      <div className={'product-short_desc'}>{item.prix_public} €/{item.unite_prix}</div>
                       <div className={'actions add-to-cart'}>
                         <div className={'action-group'}>
                           <div className={'pull-right'}>
