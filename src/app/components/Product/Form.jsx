@@ -126,7 +126,7 @@ class Form extends Component {
               fullWidth
               required
               disabled={isLoading}
-              style={{touchAction: "none"}}
+              style={{touchAction: "pan-y"}}
             />
             <TextInput
               name="reference_interne_magasin"
@@ -135,7 +135,7 @@ class Form extends Component {
               initialValue={item.reference_interne_magasin}
               fullWidth
               disabled={isLoading}
-              style={{touchAction: "none"}}
+              style={{touchAction: "pan-y"}}
             />
             <SelectInput
               name="unite_prix"
@@ -163,7 +163,7 @@ class Form extends Component {
                 matchRegexp: 'Nombre non valide'
               }}
               disabled={isLoading}
-              style={{touchAction: "none"}}
+              style={{touchAction: "pan-y"}}
             />
             <TextInput
               name="short_description"
