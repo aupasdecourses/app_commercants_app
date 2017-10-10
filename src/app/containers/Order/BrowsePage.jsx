@@ -33,16 +33,6 @@ class ListPage extends Component {
       dtime: {
         alias: 'Créneau',
       },
-      total_qty_ordered: {
-        alias: 'Nombre d\'articles',
-      },
-      subtotal_incl_tax: {
-        alias: 'Total',
-        type: "currency",
-      },
-      shipping_description: {
-        alias: 'Description',
-      },
     };
 
     return (
