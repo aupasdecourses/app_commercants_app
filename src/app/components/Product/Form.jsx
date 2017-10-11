@@ -144,7 +144,7 @@ class Form extends Component {
               fullWidth
               required
               disabled={isLoading}
-              style={{touchAction: "none"}}
+              style={{touchAction: "pan-y"}}
             >
               <MenuItem value="kg" primaryText="Kg"/>
               <MenuItem value="pièce" primaryText="Pièce" />
@@ -172,7 +172,7 @@ class Form extends Component {
               initialValue={item.short_description}
               fullWidth
               disabled={isLoading}
-              style={{touchAction: "none"}}
+              style={{touchAction: "pan-y"}}
             />
             <TextInput
               name="poids_portion"
@@ -184,7 +184,7 @@ class Form extends Component {
               step="0.01"
               required
               disabled={isLoading}
-              style={{touchAction: "none"}}
+              style={{touchAction: "pan-y"}}
             />
             <TextInput
               name="nbre_portion"
@@ -196,7 +196,7 @@ class Form extends Component {
               step="1"
               required
               disabled={isLoading}
-              style={{touchAction: "none"}}
+              style={{touchAction: "pan-y"}}
             />
             <SelectInput
               name="tax_class_id"
@@ -206,7 +206,7 @@ class Form extends Component {
               fullWidth
               required
               disabled={isLoading}
-              style={{touchAction: "none"}}
+              style={{touchAction: "pan-y"}}
             >
               <MenuItem value="5" primaryText="5.5%"/>
               <MenuItem value="9" primaryText="10%" />
@@ -218,7 +218,7 @@ class Form extends Component {
               value={item.origine}
               fullWidth
               disabled={isLoading}
-              style={{touchAction: "none"}}
+              style={{touchAction: "pan-y"}}
             >
               {Object.keys(choicesList.origines).map(
                 k => <MenuItem key={choicesList.origines[k][0]} value={choicesList.origines[k][0]} primaryText={choicesList.origines[k][1]} />
