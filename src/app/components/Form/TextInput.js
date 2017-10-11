@@ -56,7 +56,7 @@ class TextInput extends Component {
 
   showErrors() {
     return !this.props.isPristine() && this.props.showRequired() ?
-      'Required' :
+      'Champs requis' :
       this.props.getErrorMessage();
   }
 
